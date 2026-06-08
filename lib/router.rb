@@ -9,7 +9,7 @@ class Router < Roda
 
     r.root do
       response["Content-Type"] = "text/plain"
-      <<-STEVE
+      <<~QUOTE
       Here's to the crazy ones.
       The misfits. The rebels. The troublemakers.
       The round pegs in the square holes - the ones who see things differently.
@@ -17,7 +17,7 @@ class Router < Roda
       You can praise them, disagree with them, quote them, disbelieve them,
       glorify or vilify them. About the only thing that you can't do is ignore them.
       Because they change things.
-      STEVE
+      QUOTE
     end
   end
 
