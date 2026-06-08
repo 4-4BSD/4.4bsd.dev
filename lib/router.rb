@@ -9,9 +9,27 @@ class Router < Roda
       r.redirect "/index.html"
     end
 
-    r.get "search" do
-      response["Content-Type"] = "application/json"
-      search(r.params["q"]).to_json
+    r.on "handbook" do
+      q = r.params["q"]
+      response["content-type"] = "application/json"
+
+      r.on "u" do
+        r.get "search" do
+          search(q:, book_id: 1).to_json
+        end
+      end
+
+      r.on "d" do
+        r.get "search" do
+          search(q:, book_id: 2).to_json
+        end
+      end
+
+      r.on "p" do
+        r.get "search" do
+          search(q:, book_id: 3).to_json
+        end
+      end
     end
 
     r.public
@@ -19,9 +37,9 @@ class Router < Roda
 
   private
 
-  def search(input)
-    query = input.to_s.scan(/[[:alnum:]_:-]+/).join(" ")
-    DB.fetch(sql, query).all
+  def search(q:, book_id:)
+    q = q.to_s.scan(/[[:alnum:]_:-]+/).join(" ")
+    DB.fetch(sql, q, book_id).all
   end
 
   def sql
@@ -37,7 +55,7 @@ class Router < Roda
       JOIN sections ON sections.id = sections_fts.section_id
       JOIN chapters ON chapters.id = sections.chapter_id
       JOIN books ON books.id = chapters.book_id
-      WHERE sections_fts MATCH ?
+      WHERE sections_fts MATCH ? AND books.id = ?
       ORDER BY rank
       LIMIT 10
     SQL
