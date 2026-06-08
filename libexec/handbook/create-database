@@ -45,7 +45,7 @@ def main(argv)
 
   book.chapters.each do |chapter|
     puts "handbook: insert chapter #{chapter.name}"
-    chapter_id = insert_book(chapter, book_id)
+    chapter_id = insert_chapter(chapter, book_id)
     puts "handbook: ok"
     chapter.sections.each_with_index do |section, index|
       puts "handbook: insert section"
