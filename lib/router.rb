@@ -12,6 +12,10 @@ class Router < Roda
 
     r.public
 
+    r.get "robert" do
+      r.redirect "/robert/"
+    end
+
     r.on "robert" do
       r.root do
         response["content-type"] = "text/html"
