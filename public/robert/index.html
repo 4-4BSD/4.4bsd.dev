@@ -155,7 +155,6 @@
 
       .terminal {
         margin: 14px 0 0;
-        border-radius: 8px;
         overflow: hidden;
         background: #000;
         border: 1px solid var(--line);
@@ -164,25 +163,21 @@
       .terminal-bar {
         display: flex;
         align-items: center;
-        gap: 7px;
-        padding: 10px 14px;
-        background: var(--surface);
-        border-bottom: 1px solid var(--line);
+        padding: 6px 10px;
+        background: #0b0f14;
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 12px;
+        border-bottom: 1px solid #20262d;
       }
 
-      .terminal-bar .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
+      .terminal-bar::before {
+        content: "ssh";
       }
-
-      .terminal-bar .dot:nth-child(1) { background: #ff5f56; }
-      .terminal-bar .dot:nth-child(2) { background: #ffbd2e; }
-      .terminal-bar .dot:nth-child(3) { background: #27c93f; }
 
       .terminal pre {
         margin: 0;
-        padding: 14px;
+        padding: 14px 16px 16px;
         overflow-x: auto;
         font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
         font-size: clamp(16px, 3vw, 22px);
@@ -338,11 +333,7 @@
             <span class="try-method-label">SSH</span>
             <p>The quick way is SSH. No install required. It is free to use within reason and I cover the costs. If you're not sure what Robert is, this is a great way to find out without installing anything. The sshd build has been customized for security considerations. The localized Robert is more feature rich.</p>
             <div class="terminal">
-              <div class="terminal-bar">
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
+              <div class="terminal-bar"></div>
               <pre><code>ssh robert@4.4bsd.dev</code></pre>
             </div>
           </div>
