@@ -60,12 +60,25 @@
 
     <style>
       :root {
+        color-scheme: dark;
         --bg: #0f1419;
         --fg: #e1e4e8;
         --muted: #8b949e;
         --accent: #3fb950;
         --line: #30363d;
         --surface: #161b22;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          color-scheme: light;
+          --bg: #ffffff;
+          --fg: #24292f;
+          --muted: #57606a;
+          --accent: #2ea043;
+          --line: #d0d7de;
+          --surface: #f6f8fa;
+        }
       }
 
       * {
@@ -80,19 +93,27 @@
         line-height: 1.6;
       }
 
+      input,
+      textarea,
+      select,
+      button {
+        color: inherit;
+        font: inherit;
+      }
+
       main {
         width: min(760px, calc(100% - 32px));
         margin: 0 auto;
-        padding: 56px 0 80px;
+        padding: 0 0 80px;
       }
 
       .hero {
         text-align: center;
-        padding: 32px 0 40px;
+        padding: 40px 0 40px;
       }
 
       .hero-logo {
-        width: min(520px, 100%);
+        width: min(420px, 92%);
         height: auto;
         margin-bottom: 8px;
       }
@@ -259,7 +280,15 @@
 
       @media (max-width: 600px) {
         main {
-          padding: 32px 0 56px;
+          padding: 0 0 56px;
+        }
+
+        .hero {
+          padding-top: 24px;
+        }
+
+        .hero-logo {
+          width: min(300px, 92%);
         }
 
         .hero h1 {
@@ -338,7 +367,7 @@
           <a href="https://github.com/0x1eef/4.4bsd.dev#readme">self-hosted</a>
           and includes a <code>make install</code> target alongside an
           <code>rc.d</code> script. Robert is also
-          <a href="https://github.com/llmrb/robert#readme">open source</a>
+          <a href="https://github.com/4-4BSD/robert#readme">open source</a>
           and can be built from source.
         </p>
       </div>

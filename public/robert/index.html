@@ -36,22 +36,35 @@
         "description": "Robert is designed to help you learn and troubleshoot FreeBSD using official documentation, manual pages, source code, ports, and packages.",
         "operatingSystem": "FreeBSD",
         "applicationCategory": "DeveloperApplication",
-        "downloadUrl": "https://github.com/llmrb/robert/releases/latest",
+        "downloadUrl": "https://github.com/4-4BSD/robert/releases/latest",
         "softwareVersion": "0.11.0 beta",
-        "license": "https://github.com/llmrb/robert/blob/main/LICENSE",
+        "license": "https://github.com/4-4BSD/robert/blob/main/LICENSE",
         "isAccessibleForFree": true,
-        "isBasedOn": "https://github.com/llmrb/llm.rb"
+        "isBasedOn": "https://github.com/4-4BSD/llm.rb"
       }
     </script>
 
     <style>
       :root {
+        color-scheme: dark;
         --bg: #0f1419;
         --fg: #e1e4e8;
         --muted: #8b949e;
         --accent: #3fb950;
         --line: #30363d;
         --surface: #161b22;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          color-scheme: light;
+          --bg: #ffffff;
+          --fg: #24292f;
+          --muted: #57606a;
+          --accent: #2ea043;
+          --line: #d0d7de;
+          --surface: #f6f8fa;
+        }
       }
 
       * {
@@ -66,21 +79,29 @@
         line-height: 1.6;
       }
 
+      input,
+      textarea,
+      select,
+      button {
+        color: inherit;
+        font: inherit;
+      }
+
       main {
         width: min(760px, calc(100% - 32px));
         margin: 0 auto;
-        padding: 104px 0 72px;
+        padding: 0 0 72px;
       }
 
       .site-logo {
-        position: absolute;
-        top: 24px;
-        left: 24px;
-        display: block;
+        display: flex;
+        justify-content: center;
+        width: min(760px, calc(100% - 32px));
+        margin: 40px auto 24px;
       }
 
       .site-logo img {
-        width: 220px;
+        width: min(420px, 92%);
         height: auto;
         display: block;
       }
@@ -191,10 +212,6 @@
         letter-spacing: 0.04em;
       }
 
-      .try-method p {
-        max-width: 600px;
-      }
-
       table {
         width: 100%;
         border-collapse: collapse;
@@ -273,16 +290,16 @@
 
       @media (max-width: 720px) {
         main {
-          padding: 96px 0 56px;
+          padding: 0 0 56px;
         }
 
         .site-logo {
-          top: 18px;
-          left: 16px;
+          width: min(100% - 32px, 760px);
+          margin: 24px auto 18px;
         }
 
         .site-logo img {
-          width: 180px;
+          width: min(300px, 92%);
         }
 
         h1 {
@@ -312,20 +329,26 @@
       </header>
 
       <section>
-        <h2>How can I try Robert?</h2>
+        <h2>Quick start</h2>
         <div class="try-options">
           <div class="try-method">
             <span class="try-method-label">SSH</span>
-            <p>The quick way is SSH. No install required. It is free to use within reason. If you're not sure what Robert is, this is a great way to find out without installing anything.</p>
+            <p>
+              The easiest way to try Robert is via SSH. No signup. No account. Nothing to install.<br>
+              If you're not sure what Robert is, this is a good way to find out. 🙂
+            </p>
             <pre class="ssh-console"><code>$ ssh robert@4.4bsd.dev</code></pre>
           </div>
 
           <div class="try-method">
             <span class="try-method-label">Local</span>
-            <p>The recommended path is a local install. <br> It requires a DeepSeek API key.</p>
+            <p>
+              Robert also ships as a small terminal binary. Set a DeepSeek API
+              key and run it locally.
+            </p>
             <pre><code class="sh">##
 # Download the latest release
-$ fetch https://github.com/llmrb/robert/releases/download/v0.12.0/robert
+$ fetch https://github.com/4-4BSD/robert/releases/download/v0.12.0/robert
 $ chmod +x robert
 
 ##
@@ -340,15 +363,36 @@ $ ./robert</code></pre>
       </section>
 
       <section>
-        <h2>What makes Robert different?</h2>
+        <h2>Features</h2>
         <ul>
-          <li><strong>Publically accessible via SSH</strong><br> Robert is available for anyone to use, for free, over SSH</li>
-          <li><strong>Designed for education, not automation.</strong> <br>Robert explains what to do and why, but leaves system changes in your hands.</li>
-          <li><strong>Read-only by design.</strong> <br> It can inspect documentation, ports, packages, source code, and approved files, but it cannot write data.</li>
-          <li><strong>Native to FreeBSD.</strong> <br> Robert uses manual pages, the Handbook, the ports tree, the package database, and FreeBSD source code as primary sources.</li>
-          <li><strong>Grounded answers.</strong> <br> The Handbook, manual pages, and source code are treated as the source of truth.</li>
-          <li><strong>Terminal-native.</strong> <br> There is no browser, Electron shell, Node.js runtime, Ruby installation, or gem bundle required to run the release binary.</li>
-          <li><strong>Small deployment model.</strong> <br> Release builds are distributed as a statically linked binary around 3MB.</li>
+          <li>
+            <strong>Publically accessible via SSH</strong><br>
+            Robert is available for anyone to use, for free, over SSH.
+          </li>
+          <li>
+            <strong>Designed for education, not automation</strong><br>
+            Robert explains what to do and why, but leaves system changes in your hands.
+          </li>
+          <li>
+            <strong>Read-only by design</strong><br>
+            It can inspect documentation, ports, packages, source code, and approved files, but it cannot write data.
+          </li>
+          <li>
+            <strong>Native to FreeBSD</strong><br>
+            Robert uses manual pages, the Handbook, the ports tree, the package database, and FreeBSD source code as primary sources.
+          </li>
+          <li>
+            <strong>Grounded answers</strong><br>
+            The Handbook, manual pages, and source code are treated as the source of truth.
+          </li>
+          <li>
+            <strong>Terminal-native</strong><br>
+            There is no browser, Electron shell, Node.js runtime, Ruby installation, or gem bundle required to run the release binary.
+          </li>
+          <li>
+            <strong>Small deployment model</strong><br>
+            Release builds are distributed as a statically linked binary around 3MB.
+          </li>
         </ul>
       </section>
 
@@ -416,6 +460,40 @@ $ ./robert</code></pre>
             </tr>
           </tbody>
         </table>
+      </section>
+
+      <section>
+        <h2>Under the hood</h2>
+        <ul>
+          <li>
+            <strong>mruby-llm runtime</strong><br>
+            Robert is built on mruby-llm, the mruby port of llm.rb.
+          </li>
+          <li>
+            <strong>FreeBSD documentation integration</strong><br>
+            Robert can search the user, developer, and porter handbooks.
+          </li>
+          <li>
+            <strong>Manual page integration</strong><br>
+            Robert can search and read local manual pages through FreeBSD tooling.
+          </li>
+          <li>
+            <strong>Ports and packages integration</strong><br>
+            Robert can inspect the ports tree and local package database when software details matter.
+          </li>
+          <li>
+            <strong>Source and file inspection</strong><br>
+            Robert can inspect approved files and source paths when you confirm the request.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Build from source</h2>
+        <p>Robert is an mruby gem built with the mruby-llm runtime.</p>
+        <pre><code class="sh">$ git clone https://github.com/4-4BSD/robert.git
+$ cd robert
+$ make</code></pre>
       </section>
       <footer>
         <a href="/">4.4BSD</a>
