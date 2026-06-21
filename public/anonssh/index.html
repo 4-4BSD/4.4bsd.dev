@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>4.4BSD: Anonymous SSH</title>
+    <link rel="canonical" href="https://4.4bsd.dev/anonssh/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+
+    <!-- SEO -->
+    <meta name="description" content="anonssh builds a minimal FreeBSD jail for running a single terminal application over public SSH.">
+    <meta name="robots" content="index,follow">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="4.4BSD">
+    <meta property="og:title" content="anonssh">
+    <meta property="og:description" content="Build a minimal FreeBSD jail for running a single terminal application over public SSH.">
+    <meta property="og:url" content="https://4.4bsd.dev/anonssh/">
+    <meta property="og:image" content="https://4.4bsd.dev/images/4.4bsd.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="anonssh">
+    <meta name="twitter:description" content="Build a minimal FreeBSD jail for running a single terminal application over public SSH.">
+    <meta name="twitter:image" content="https://4.4bsd.dev/images/4.4bsd.svg">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "anonssh",
+        "url": "https://4.4bsd.dev/anonssh/",
+        "description": "anonssh builds a minimal FreeBSD jail for running a single terminal application over public SSH.",
+        "operatingSystem": "FreeBSD",
+        "applicationCategory": "DeveloperApplication",
+        "license": "0BSD",
+        "isAccessibleForFree": true
+      }
+    </script>
+
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #0f1419;
+        --fg: #e1e4e8;
+        --muted: #8b949e;
+        --accent: #3fb950;
+        --line: #30363d;
+        --surface: #161b22;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          color-scheme: light;
+          --bg: #ffffff;
+          --fg: #24292f;
+          --muted: #57606a;
+          --accent: #2ea043;
+          --line: #d0d7de;
+          --surface: #f6f8fa;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      main {
+        width: min(760px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 0 0 72px;
+      }
+
+      .site-logo {
+        display: flex;
+        justify-content: center;
+        width: min(760px, calc(100% - 32px));
+        margin: 40px auto 24px;
+      }
+
+      .site-logo img {
+        width: min(420px, 92%);
+        height: auto;
+        display: block;
+      }
+
+      header {
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 24px;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 32px;
+        font-weight: 600;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      h3 {
+        margin: 22px 0 8px;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      p {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      code,
+      pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      code {
+        color: var(--fg);
+      }
+
+      pre {
+        margin: 14px 0 0;
+        overflow-x: auto;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      pre code {
+        display: block;
+        padding: 12px 0 12px 14px;
+        border-left: 3px solid var(--accent);
+        background: var(--surface);
+        border-radius: 0 6px 6px 0;
+        color: var(--fg);
+      }
+
+      section {
+        border-bottom: 1px solid var(--line);
+        padding: 28px 0;
+      }
+
+      table {
+        width: 100%;
+        margin: 14px 0 0;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+
+      th,
+      td {
+        padding: 10px 12px;
+        border-top: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--fg);
+        font-weight: 600;
+      }
+
+      td {
+        color: var(--muted);
+      }
+
+      td code {
+        color: var(--fg);
+      }
+
+      .summary {
+        max-width: 640px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .footer {
+        margin-top: 32px;
+        padding-top: 24px;
+        color: var(--muted);
+        font-size: 13px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 600px) {
+        main {
+          padding-bottom: 56px;
+        }
+
+        .site-logo {
+          margin-top: 24px;
+        }
+
+        .site-logo img {
+          width: min(300px, 92%);
+        }
+
+        h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="site-logo" href="/" aria-label="4.4BSD home">
+      <img src="/images/4.4bsd.svg" alt="4.4BSD">
+    </a>
+
+    <main>
+      <header>
+        <h1>Anonymous SSH</h1>
+        <p style="margin-bottom: 1rem;" class="summary">
+          anonssh builds a mini jail on FreeBSD.
+        </p>
+        <p>
+          It can be used to launch terminal-based applications in a constrained
+          environment that has nothing other than your application, and its
+          runtime dependencies. The application can be accessed over a
+          publically accessible sshd instance.
+        </p>
+        <p>
+          The jail includes only the files needed to run a single program
+          behind sshd. The sshd instance locks the user into the given program
+          via <code>ForceCommand</code>.
+        </p>
+      </header>
+
+      <section>
+        <h2>Quick start</h2>
+
+        <h3>bootstrap</h3>
+        <p>
+          Bootstrap a mini jail with only what your program needs. This command
+          discovers shared libraries, sets up device nodes, generates SSH host
+          keys, and installs only the dependencies your program needs.
+        </p>
+        <pre><code class="sh">$ anonssh bootstrap -p /path/to/jail -b /path/to/binary</code></pre>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>-p PATH</code></td>
+              <td>Jail root directory.</td>
+            </tr>
+            <tr>
+              <td><code>-b BINARY</code></td>
+              <td>The program to run over SSH.</td>
+            </tr>
+            <tr>
+              <td><code>-u USER</code></td>
+              <td>SSH username. Defaults to <code>anonssh</code>.</td>
+            </tr>
+            <tr>
+              <td><code>-f FILE</code></td>
+              <td>File listing extra files to copy into the jail, one per line.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>serve</h3>
+        <p>
+          Start the jail with sshd running. The jail inherits the host network
+          and binds sshd to port 22.
+        </p>
+        <pre><code class="sh">$ anonssh serve -n jailname -p /path/to/jail</code></pre>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Option</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>-n NAME</code></td>
+              <td>Jail name.</td>
+            </tr>
+            <tr>
+              <td><code>-p PATH</code></td>
+              <td>Jail root directory.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>Network</h2>
+        <p>
+          The jail shares the host network stack with <code>ip4: inherit</code>
+          and its sshd binds to port 22. The host should run its own sshd on a
+          different port, such as 2222, to avoid conflicts.
+        </p>
+      </section>
+
+      <section>
+        <h2>Build</h2>
+        <p>
+          Prerequisite: an mruby checkout in a sibling <code>../mruby</code>
+          directory.
+        </p>
+        <pre><code class="sh">$ make
+$ make install</code></pre>
+      </section>
+
+      <div class="footer">
+        <span>0BSD licensed</span>
+        <span>&middot;</span>
+        <a href="mailto:robert@4.4bsd.dev">Contact</a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -16,10 +16,21 @@ class Router < Roda
       r.redirect "/robert/"
     end
 
+    r.get "anonssh" do
+      r.redirect "/anonssh/"
+    end
+
     r.on "robert" do
       r.root do
         response["content-type"] = "text/html"
         File.read(File.join(self.class.root, "public", "robert", "index.html"))
+      end
+    end
+
+    r.on "anonssh" do
+      r.root do
+        response["content-type"] = "text/html"
+        File.read(File.join(self.class.root, "public", "anonssh", "index.html"))
       end
     end
 
