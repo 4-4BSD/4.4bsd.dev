@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://r.uby.dev">
     <img
-      src="public/images/rubydev-wordmark.svg"
+      src="public/images/rubydev-workmark.svg"
       width="400"
       height="200"
       border="0"
