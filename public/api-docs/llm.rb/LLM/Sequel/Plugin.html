@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: LLM::Sequel::Plugin
+  
+    &mdash; Documentation by YARD 0.9.44
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/rouge.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "LLM::Sequel::Plugin";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (P)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../LLM.html" title="LLM (module)">LLM</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Sequel.html" title="LLM::Sequel (module)">Sequel</a></span></span>
+     &raquo; 
+    <span class="title">Plugin</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: LLM::Sequel::Plugin
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/llm/sequel/plugin.rb
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>Sequel plugin for persisting <span class='object_link'><a href="../Context.html" title="LLM::Context (class)">LLM::Context</a></span> state.</p>
+
+<p>This plugin maps model columns onto provider selection, model
+selection, usage accounting, and serialized context data while
+leaving application-specific concerns such as credentials,
+associations, and UI shaping to the host app.</p>
+
+<p>Context state can be stored as a JSON string (<code>format: :string</code>, the
+default) or as a structured object (<code>format: :json</code> / <code>:jsonb</code>) for
+databases such as PostgreSQL that can persist JSON natively.
+<code>:json</code> and <code>:jsonb</code> expect a real JSON column type with Sequel handling
+JSON typecasting for the model. <code>provider:</code>, <code>context:</code>, and <code>tracer:</code>
+can also be configured as symbols that are called on the model.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Plugin/ClassMethods.html" title="LLM::Sequel::Plugin::ClassMethods (module)">ClassMethods</a></span>, <span class='object_link'><a href="Plugin/InstanceMethods.html" title="LLM::Sequel::Plugin::InstanceMethods (module)">InstanceMethods</a></span>, <span class='object_link'><a href="Plugin/Utils.html" title="LLM::Sequel::Plugin::Utils (module)">Utils</a></span>
+    
+  
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="DEFAULTS-constant" class="">DEFAULTS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
+  <span class='label'>data_column:</span> <span class='symbol'>:data</span><span class='comma'>,</span>
+  <span class='label'>format:</span> <span class='symbol'>:string</span><span class='comma'>,</span>
+  <span class='label'>provider:</span> <span class='symbol'>:set_provider</span><span class='comma'>,</span>
+  <span class='label'>context:</span> <span class='symbol'>:set_context</span><span class='comma'>,</span>
+  <span class='label'>tracer:</span> <span class='symbol'>:set_tracer</span>
+<span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="EMPTY_HASH-constant" class="">EMPTY_HASH =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#apply-class_method" title="apply (class method)">.<strong>apply</strong>(model)  </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Called by Sequel when the plugin is first applied to a model class.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#configure-class_method" title="configure (class method)">.<strong>configure</strong>(model, options = EMPTY_HASH)  </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Called by Sequel after <span class='object_link'><a href="#apply-class_method" title="LLM::Sequel::Plugin.apply (method)">Plugin.apply</a></span> with the options passed to <code>plugin :llm, ...</code>.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="apply-class_method">
+  
+    .<strong>apply</strong>(model)  
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Called by Sequel when the plugin is first applied to a model class.</p>
+
+<p>This hook installs the plugin&#39;s class- and instance-level behavior on
+the target model. It runs before <span class='object_link'><a href="#configure-class_method" title="LLM::Sequel::Plugin.configure (method)">configure</a></span>, so it should only attach
+methods and not depend on per-model plugin options.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>model</span>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+114
+115
+116
+117</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/sequel/plugin.rb', line 114</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_apply'>apply</span><span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='comma'>,</span> <span class='op'>**</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span> <span class='const'><span class='object_link'><a href="Plugin/ClassMethods.html" title="LLM::Sequel::Plugin::ClassMethods (module)">ClassMethods</a></span></span>
+  <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="Plugin/InstanceMethods.html" title="LLM::Sequel::Plugin::InstanceMethods (module)">InstanceMethods</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="configure-class_method">
+  
+    .<strong>configure</strong>(model, options = EMPTY_HASH)  
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Called by Sequel after <span class='object_link'><a href="#apply-class_method" title="LLM::Sequel::Plugin.apply (method)">apply</a></span> with the options passed to
+<code>plugin :llm, ...</code>.</p>
+
+<p>This hook merges plugin defaults with the model&#39;s explicit settings and
+stores the resolved configuration on the model class for later use by
+instance methods such as <span class='object_link'><a href="Plugin/InstanceMethods.html#llm-instance_method" title="LLM::Sequel::Plugin::InstanceMethods#llm (method)">LLM::Sequel::Plugin::InstanceMethods#llm</a></span> and <span class='object_link'>LLM::Sequel::Plugin::InstanceMethods#ctx</span>.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>model</span>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>EMPTY_HASH</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+  
+    
+    
+    
+    
+    <p class="tag_title">Options Hash (<tt>options</tt>):</p>
+    <ul class="option">
+      
+        <li>
+          <span class="name">:format</span>
+          <span class="type">(<tt>Symbol</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Storage format for the serialized context. Use <code>:string</code> for text
+columns, or <code>:json</code> / <code>:jsonb</code> for structured JSON columns with Sequel
+JSON typecasting enabled.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:tracer</span>
+          <span class="type">(<tt>Proc</tt>, <tt>Symbol</tt>, <tt><span class='object_link'><a href="../Tracer.html" title="LLM::Tracer (class)">LLM::Tracer</a></span></tt>, <tt>nil</tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Optional tracer, method name, or proc that resolves to one and is
+assigned through <code>llm.tracer = ...</code> on the resolved provider.</p>
+</div>
+          
+        </li>
+      
+        <li>
+          <span class="name">:provider</span>
+          <span class="type">(<tt>Proc</tt>, <tt>Symbol</tt>, <tt><span class='object_link'><a href="../Provider.html" title="LLM::Provider (class)">LLM::Provider</a></span></tt>)</span>
+          <span class="default">
+            
+          </span>
+          
+            &mdash; <div class='inline'><p>Must resolve to an <code>LLM::Provider</code> instance for the current record.</p>
+</div>
+          
+        </li>
+      
+    </ul>
+  
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+139
+140
+141
+142
+143</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/sequel/plugin.rb', line 139</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span><span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#EMPTY_HASH-constant" title="LLM::Sequel::Plugin::EMPTY_HASH (constant)">EMPTY_HASH</a></span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="#DEFAULTS-constant" title="LLM::Sequel::Plugin::DEFAULTS (constant)">DEFAULTS</a></span></span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_db'>db</span><span class='period'>.</span><span class='id identifier rubyid_extension'>extension</span> <span class='symbol'>:pg_json</span> <span class='kw'>if</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>json</span><span class='words_sep'> </span><span class='tstring_content'>jsonb</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_instance_variable_set'>instance_variable_set</span><span class='lparen'>(</span><span class='symbol'>:@llm_plugin_options</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Aug  9 18:50:15 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.44 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

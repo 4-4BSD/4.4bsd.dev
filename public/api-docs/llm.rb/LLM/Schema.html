@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: LLM::Schema
+  
+    &mdash; Documentation by YARD 0.9.44
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/main.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/rouge.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "LLM::Schema";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span>
+     &raquo; 
+    <span class="title">Schema</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: LLM::Schema
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">LLM::Schema</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd><span class='object_link'><a href="Schema/Parser.html" title="LLM::Schema::Parser (module)">Parser</a></span></dd>
+  </dl>
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/llm/schema.rb<span class="defines">,<br>
+  lib/llm/schema/enum.rb,<br> lib/llm/schema/leaf.rb,<br> lib/llm/schema/null.rb,<br> lib/llm/schema/array.rb,<br> lib/llm/schema/all_of.rb,<br> lib/llm/schema/any_of.rb,<br> lib/llm/schema/number.rb,<br> lib/llm/schema/object.rb,<br> lib/llm/schema/one_of.rb,<br> lib/llm/schema/parser.rb,<br> lib/llm/schema/string.rb,<br> lib/llm/schema/boolean.rb,<br> lib/llm/schema/integer.rb,<br> lib/llm/schema/version.rb,<br> lib/llm/schema/renderer.rb</span>
+
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="" title="LLM::Schema (class)">LLM::Schema</a></span> class represents a JSON schema,
+and provides methods that let you describe and produce a schema
+that can be used in various contexts that include the validation
+and generation of JSON data.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>JavaScript-style</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_schema'>schema</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'>Schema</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_object'>object</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+  <span class='label'>name:</span> <span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span><span class='period'>.</span><span class='id identifier rubyid_enum'>enum</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>John</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Jane</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_required'>required</span><span class='comma'>,</span>
+  <span class='label'>age:</span> <span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_integer'>integer</span><span class='period'>.</span><span class='id identifier rubyid_required'>required</span><span class='comma'>,</span>
+  <span class='label'>hobbies:</span> <span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_array'>array</span><span class='lparen'>(</span><span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_required'>required</span><span class='comma'>,</span>
+  <span class='label'>address:</span> <span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_object'>object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='label'>street:</span> <span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_string'>string</span><span class='rbrace'>}</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_required'>required</span><span class='comma'>,</span>
+<span class='rbrace'>}</span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>Ruby-style</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='kw'>class</span> <span class='const'>Address</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'>Schema</span>
+  <span class='id identifier rubyid_property'>property</span> <span class='symbol'>:street</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Street address</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_required'>required</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>street</span><span class='tstring_end'>]</span></span>
+<span class='kw'>end</span>
+
+<span class='kw'>class</span> <span class='const'>Person</span> <span class='op'>&lt;</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'>Schema</span>
+  <span class='id identifier rubyid_property'>property</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Person&#39;s name</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_property'>property</span> <span class='symbol'>:age</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Schema/Integer.html" title="LLM::Schema::Integer (class)">Integer</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Person&#39;s age</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_property'>property</span> <span class='symbol'>:hobbies</span><span class='comma'>,</span> <span class='const'><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span></span><span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Person&#39;s hobbies</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_property'>property</span> <span class='symbol'>:address</span><span class='comma'>,</span> <span class='const'>Address</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Person&#39;s address</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_required'>required</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>name</span><span class='words_sep'> </span><span class='tstring_content'>age</span><span class='words_sep'> </span><span class='tstring_content'>hobbies</span><span class='words_sep'> </span><span class='tstring_content'>address</span><span class='tstring_end'>]</span></span>
+<span class='kw'>end</span></code></pre>
+    
+  </div>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://json-schema.org/" target="_parent" title="JSON Schema Specification">JSON Schema Specification</a></li>
+    
+      <li><a href="https://tour.json-schema.org/" target="_parent" title="JSON Schema Tour">JSON Schema Tour</a></li>
+    
+  </ul>
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Schema/Parser.html" title="LLM::Schema::Parser (module)">Parser</a></span>, <span class='object_link'><a href="Schema/Renderer.html" title="LLM::Schema::Renderer (module)">Renderer</a></span>, <span class='object_link'><a href="Schema/Utils.html" title="LLM::Schema::Utils (module)">Utils</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Schema/AllOf.html" title="LLM::Schema::AllOf (class)">AllOf</a></span>, <span class='object_link'><a href="Schema/AnyOf.html" title="LLM::Schema::AnyOf (class)">AnyOf</a></span>, <span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span>, <span class='object_link'><a href="Schema/Boolean.html" title="LLM::Schema::Boolean (class)">Boolean</a></span>, <span class='object_link'><a href="Schema/Enum.html" title="LLM::Schema::Enum (class)">Enum</a></span>, <span class='object_link'><a href="Schema/Integer.html" title="LLM::Schema::Integer (class)">Integer</a></span>, <span class='object_link'><a href="Schema/Leaf.html" title="LLM::Schema::Leaf (class)">Leaf</a></span>, <span class='object_link'><a href="Schema/Null.html" title="LLM::Schema::Null (class)">Null</a></span>, <span class='object_link'><a href="Schema/Number.html" title="LLM::Schema::Number (class)">Number</a></span>, <span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">Object</a></span>, <span class='object_link'><a href="Schema/OneOf.html" title="LLM::Schema::OneOf (class)">OneOf</a></span>, <span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+  
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="Schema/Parser.html" title="LLM::Schema::Parser (module)">Parser</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Schema/Parser.html#METADATA_KEYS-constant" title="LLM::Schema::Parser::METADATA_KEYS (constant)">Parser::METADATA_KEYS</a></span></p>
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#property-class_method" title="property (class method)">.<strong>property</strong>(name, type, description, options = {})  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#required-class_method" title="required (class method)">.<strong>required</strong>(names)  &#x21d2; LLM::Schema::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Mark existing properties as required.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#defaults-class_method" title="defaults (class method)">.<strong>defaults</strong>(defaults)  &#x21d2; LLM::Schema::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#schema-class_method" title="schema (class method)">.<strong>schema</strong>  &#x21d2; LLM::Schema </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  <span class="private note title">private</span>
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#object-class_method" title="object (class method)">.<strong>object</strong>  &#x21d2; LLM::Schema::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  <span class="private note title">private</span>
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_s-class_method" title="to_s (class method)">.<strong>to_s</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Render the schema as a prompt-friendly string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inherited-class_method" title="inherited (class method)">.<strong>inherited</strong>(klass)  </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Configures a monitor for a subclass.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>  &#x21d2; String </a>
+    
+
+    
+      (also: #inspect)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Render a schema leaf as a prompt-friendly string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#object-instance_method" title="#object (instance method)">#<strong>object</strong>(properties)  &#x21d2; LLM::Schema::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns an object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#array-instance_method" title="#array (instance method)">#<strong>array</strong>(*items)  &#x21d2; LLM::Schema::Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns an array.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#any_of-instance_method" title="#any_of (instance method)">#<strong>any_of</strong>(*values)  &#x21d2; LLM::Schema::AnyOf </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns an anyOf union.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#all_of-instance_method" title="#all_of (instance method)">#<strong>all_of</strong>(*values)  &#x21d2; LLM::Schema::AllOf </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns an allOf union.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#one_of-instance_method" title="#one_of (instance method)">#<strong>one_of</strong>(*values)  &#x21d2; LLM::Schema::OneOf </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a oneOf union.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#string-instance_method" title="#string (instance method)">#<strong>string</strong>  &#x21d2; LLM::Schema::String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a string.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#number-instance_method" title="#number (instance method)">#<strong>number</strong>  &#x21d2; LLM::Schema::Number </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a number.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#integer-instance_method" title="#integer (instance method)">#<strong>integer</strong>  &#x21d2; LLM::Schema::Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns an integer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#boolean-instance_method" title="#boolean (instance method)">#<strong>boolean</strong>  &#x21d2; LLM::Schema::Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns a boolean.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#null-instance_method" title="#null (instance method)">#<strong>null</strong>  &#x21d2; LLM::Schema::Null </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns null.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Schema/Parser.html" title="LLM::Schema::Parser (module)">Parser</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Schema/Parser.html#parse-instance_method" title="LLM::Schema::Parser#parse (method)">parse</a></span></p>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="property-class_method">
+  
+    .<strong>property</strong>(name, type, description, options = {})  &#x21d2; <tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The property name</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>Class</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The property type</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>description</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The property description</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A hash of options</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+104
+105
+106
+107
+108
+109
+110
+111</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 104</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_property'>property</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_prop'>prop</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Schema/Utils.html" title="LLM::Schema::Utils (module)">Utils</a></span></span><span class='period'>.</span><span class='id identifier rubyid_resolve'><span class='object_link'><a href="Schema/Utils.html#resolve-instance_method" title="LLM::Schema::Utils#resolve (method)">resolve</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_schema'>schema</span><span class='comma'>,</span> <span class='id identifier rubyid_type'>type</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='label'>description:</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='lparen'>(</span><span class='id identifier rubyid__2'>_2</span> <span class='op'>==</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_prop'>prop</span><span class='period'>.</span><span class='id identifier rubyid_public_send'>public_send</span><span class='lparen'>(</span><span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='id identifier rubyid_prop'>prop</span><span class='period'>.</span><span class='id identifier rubyid_public_send'>public_send</span><span class='lparen'>(</span><span class='id identifier rubyid__1'>_1</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid__2'>_2</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_object'>object</span><span class='lbracket'>[</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_prop'>prop</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="required-class_method">
+  
+    .<strong>required</strong>(names)  &#x21d2; <tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Mark existing properties as required.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>names</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span>&lt;Symbol,<span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+117
+118
+119
+120
+121
+122
+123</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 117</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_required'>required</span><span class='lparen'>(</span><span class='id identifier rubyid_names'>names</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_schema'>schema</span><span class='op'>|</span>
+      <span class='lbracket'>[</span><span class='op'>*</span><span class='id identifier rubyid_names'>names</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="Schema/Utils.html" title="LLM::Schema::Utils (module)">Utils</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Schema/Utils.html#fetch-instance_method" title="LLM::Schema::Utils#fetch (method)">fetch</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_properties'>properties</span><span class='comma'>,</span> <span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_required'>required</span> <span class='rbrace'>}</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="defaults-class_method">
+  
+    .<strong>defaults</strong>(defaults)  &#x21d2; <tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>defaults</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 128</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_defaults'>defaults</span><span class='lparen'>(</span><span class='id identifier rubyid_defaults'>defaults</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_schema'>schema</span><span class='op'>|</span>
+      <span class='id identifier rubyid_defaults'>defaults</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_val'>val</span><span class='op'>|</span>
+        <span class='const'><span class='object_link'><a href="Schema/Utils.html" title="LLM::Schema::Utils (module)">Utils</a></span></span><span class='period'>.</span><span class='id identifier rubyid_fetch'><span class='object_link'><a href="Schema/Utils.html#fetch-instance_method" title="LLM::Schema::Utils#fetch (method)">fetch</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_properties'>properties</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_default'>default</span><span class='lparen'>(</span><span class='id identifier rubyid_val'>val</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="schema-class_method">
+  
+    .<strong>schema</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="LLM::Schema (class)">LLM::Schema</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note private">
+  <strong>This method is part of a private API.</strong>
+  You should avoid using this method if possible, as it may be removed or be changed in the future.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="LLM::Schema (class)">LLM::Schema</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+141
+142
+143
+144
+145</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 141</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_schema'>schema</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='kw'>do</span>
+    <span class='ivar'>@schema</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::Schema (class)">Schema</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="object-class_method">
+  
+    .<strong>object</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note private">
+  <strong>This method is part of a private API.</strong>
+  You should avoid using this method if possible, as it may be removed or be changed in the future.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+150
+151
+152
+153
+154</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 150</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_object'>object</span>
+  <span class='id identifier rubyid_lock'>lock</span> <span class='kw'>do</span>
+    <span class='ivar'>@object</span> <span class='op'>||=</span> <span class='id identifier rubyid_schema'>schema</span><span class='period'>.</span><span class='id identifier rubyid_object'>object</span><span class='lparen'>(</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_s-class_method">
+  
+    .<strong>to_s</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Render the schema as a prompt-friendly string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='const'><span class='object_link'><a href="Schema/Renderer.html" title="LLM::Schema::Renderer (module)">Renderer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_render'><span class='object_link'><a href="Schema/Renderer.html#render-instance_method" title="LLM::Schema::Renderer#render (method)">render</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='label'>root:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inherited-class_method">
+  
+    .<strong>inherited</strong>(klass)  
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Configures a monitor for a subclass</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+89
+90
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 89</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_inherited'>inherited</span><span class='lparen'>(</span><span class='id identifier rubyid_klass'>klass</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='period'>.</span><span class='id identifier rubyid_lock'><span class='object_link'><a href="../LLM.html#lock-class_method" title="LLM.lock (method)">lock</a></span></span><span class='lparen'>(</span><span class='symbol'>:inherited</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_klass'>klass</span><span class='period'>.</span><span class='id identifier rubyid_instance_eval'>instance_eval</span> <span class='lbrace'>{</span> <span class='ivar'>@__monitor</span> <span class='op'>=</span> <span class='const'>Monitor</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="to_s-instance_method">
+  
+    #<strong>to_s</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='inspect-instance_method'>inspect</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Render a schema leaf as a prompt-friendly string.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+249
+250
+251</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 249</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="object-instance_method">
+  
+    #<strong>object</strong>(properties)  &#x21d2; <tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns an object</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>properties</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A hash of properties</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">LLM::Schema::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+175
+176
+177</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 175</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_object'>object</span><span class='lparen'>(</span><span class='id identifier rubyid_properties'>properties</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Schema/Object.html" title="LLM::Schema::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/Object.html#initialize-instance_method" title="LLM::Schema::Object#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_properties'>properties</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="array-instance_method">
+  
+    #<strong>array</strong>(*items)  &#x21d2; <tt><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">LLM::Schema::Array</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns an array</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>items</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>An array of items</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">LLM::Schema::Array</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+183
+184
+185</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 183</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_array'>array</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/Array.html#initialize-instance_method" title="LLM::Schema::Array#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_items'>items</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="any_of-instance_method">
+  
+    #<strong>any_of</strong>(*values)  &#x21d2; <tt><span class='object_link'><a href="Schema/AnyOf.html" title="LLM::Schema::AnyOf (class)">LLM::Schema::AnyOf</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns an anyOf union</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>values</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span>&lt;<span class='object_link'><a href="Schema/Leaf.html" title="LLM::Schema::Leaf (class)">LLM::Schema::Leaf</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The union values</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/AnyOf.html" title="LLM::Schema::AnyOf (class)">LLM::Schema::AnyOf</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+191
+192
+193</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 191</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_any_of'>any_of</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Schema/AnyOf.html" title="LLM::Schema::AnyOf (class)">AnyOf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/AnyOf.html#initialize-instance_method" title="LLM::Schema::AnyOf#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="all_of-instance_method">
+  
+    #<strong>all_of</strong>(*values)  &#x21d2; <tt><span class='object_link'><a href="Schema/AllOf.html" title="LLM::Schema::AllOf (class)">LLM::Schema::AllOf</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns an allOf union</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>values</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span>&lt;<span class='object_link'><a href="Schema/Leaf.html" title="LLM::Schema::Leaf (class)">LLM::Schema::Leaf</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The union values</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/AllOf.html" title="LLM::Schema::AllOf (class)">LLM::Schema::AllOf</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+199
+200
+201</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 199</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_all_of'>all_of</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Schema/AllOf.html" title="LLM::Schema::AllOf (class)">AllOf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/AllOf.html#initialize-instance_method" title="LLM::Schema::AllOf#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="one_of-instance_method">
+  
+    #<strong>one_of</strong>(*values)  &#x21d2; <tt><span class='object_link'><a href="Schema/OneOf.html" title="LLM::Schema::OneOf (class)">LLM::Schema::OneOf</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a oneOf union</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>values</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Array.html" title="LLM::Schema::Array (class)">Array</a></span>&lt;<span class='object_link'><a href="Schema/Leaf.html" title="LLM::Schema::Leaf (class)">LLM::Schema::Leaf</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The union values</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/OneOf.html" title="LLM::Schema::OneOf (class)">LLM::Schema::OneOf</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+207
+208
+209</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 207</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_one_of'>one_of</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="Schema/OneOf.html" title="LLM::Schema::OneOf (class)">OneOf</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/OneOf.html#initialize-instance_method" title="LLM::Schema::OneOf#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_values'>values</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="string-instance_method">
+  
+    #<strong>string</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">LLM::Schema::String</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a string</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">LLM::Schema::String</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+214
+215
+216</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 214</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_string'>string</span>
+  <span class='const'><span class='object_link'><a href="Schema/String.html" title="LLM::Schema::String (class)">String</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/Leaf.html#initialize-instance_method" title="LLM::Schema::Leaf#initialize (method)">new</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="number-instance_method">
+  
+    #<strong>number</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/Number.html" title="LLM::Schema::Number (class)">LLM::Schema::Number</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a number</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Number.html" title="LLM::Schema::Number (class)">LLM::Schema::Number</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>a number</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+221
+222
+223</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 221</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_number'>number</span>
+  <span class='const'><span class='object_link'><a href="Schema/Number.html" title="LLM::Schema::Number (class)">Number</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/Leaf.html#initialize-instance_method" title="LLM::Schema::Leaf#initialize (method)">new</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="integer-instance_method">
+  
+    #<strong>integer</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/Integer.html" title="LLM::Schema::Integer (class)">LLM::Schema::Integer</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns an integer</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Integer.html" title="LLM::Schema::Integer (class)">LLM::Schema::Integer</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+228
+229
+230</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 228</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_integer'>integer</span>
+  <span class='const'><span class='object_link'><a href="Schema/Integer.html" title="LLM::Schema::Integer (class)">Integer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/Leaf.html#initialize-instance_method" title="LLM::Schema::Leaf#initialize (method)">new</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="boolean-instance_method">
+  
+    #<strong>boolean</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/Boolean.html" title="LLM::Schema::Boolean (class)">LLM::Schema::Boolean</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a boolean</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Boolean.html" title="LLM::Schema::Boolean (class)">LLM::Schema::Boolean</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+235
+236
+237</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 235</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_boolean'>boolean</span>
+  <span class='const'><span class='object_link'><a href="Schema/Boolean.html" title="LLM::Schema::Boolean (class)">Boolean</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/Leaf.html#initialize-instance_method" title="LLM::Schema::Leaf#initialize (method)">new</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="null-instance_method">
+  
+    #<strong>null</strong>  &#x21d2; <tt><span class='object_link'><a href="Schema/Null.html" title="LLM::Schema::Null (class)">LLM::Schema::Null</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns null</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Schema/Null.html" title="LLM::Schema::Null (class)">LLM::Schema::Null</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+242
+243
+244</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/schema.rb', line 242</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_null'>null</span>
+  <span class='const'><span class='object_link'><a href="Schema/Null.html" title="LLM::Schema::Null (class)">Null</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Schema/Leaf.html#initialize-instance_method" title="LLM::Schema::Leaf#initialize (method)">new</a></span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Aug  9 18:50:19 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.44 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

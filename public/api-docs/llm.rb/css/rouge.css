@@ -1,0 +1,69 @@
+code.ruby {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow: auto;
+}
+
+code.ruby .c { color: #999988; font-style: italic; }  /* Comment */
+code.ruby .err { color: #a61717; background-color: #e3d2d2; } /* Error */
+code.ruby .k { color: #0000ff; font-weight: bold; }  /* Keyword */
+code.ruby .o { color: #555555; }  /* Operator */
+code.ruby .ch { color: #999988; font-style: italic; }  /* Comment.Hashbang */
+code.ruby .cm { color: #999988; font-style: italic; }  /* Comment.Multiline */
+code.ruby .cp { color: #999999; }  /* Comment.Preproc */
+code.ruby .cpf { color: #999999; font-style: italic; }  /* Comment.PreprocFile */
+code.ruby .c1 { color: #999988; font-style: italic; }  /* Comment.Single */
+code.ruby .cs { color: #999999; font-style: italic; }  /* Comment.Special */
+code.ruby .gd { color: #a61717; background-color: #e3d2d2; }  /* Generic.Deleted */
+code.ruby .ge { font-style: italic; }  /* Generic.Emph */
+code.ruby .gr { color: #ff0000; }  /* Generic.Error */
+code.ruby .gh { color: #999999; }  /* Generic.Heading */
+code.ruby .gi { color: #00a000; background-color: #ddffdd; }  /* Generic.Inserted */
+code.ruby .go { color: #888888; }  /* Generic.Output */
+code.ruby .gp { color: #555555; }  /* Generic.Prompt */
+code.ruby .gs { font-weight: bold; }  /* Generic.Strong */
+code.ruby .gu { color: #800080; font-weight: bold; }  /* Generic.Subheading */
+code.ruby .gt { color: #aa0000; }  /* Generic.Traceback */
+code.ruby .kc { color: #0000ff; font-weight: bold; }  /* Keyword.Constant */
+code.ruby .kd { color: #0000ff; font-weight: bold; }  /* Keyword.Declaration */
+code.ruby .kn { color: #0000ff; font-weight: bold; }  /* Keyword.Namespace */
+code.ruby .kp { color: #0000ff; font-weight: bold; }  /* Keyword.Pseudo */
+code.ruby .kr { color: #0000ff; font-weight: bold; }  /* Keyword.Reserved */
+code.ruby .kt { color: #445588; font-weight: bold; }  /* Keyword.Type */
+code.ruby .m { color: #009999; }  /* Literal.Number */
+code.ruby .s { color: #d14; }  /* Literal.String */
+code.ruby .na { color: #008080; }  /* Name.Attribute */
+code.ruby .nb { color: #0086b3; }  /* Name.Builtin */
+code.ruby .nc { color: #445588; font-weight: bold; }  /* Name.Class */
+code.ruby .no { color: #008080; }  /* Name.Constant */
+code.ruby .nd { color: #3c5d5d; font-weight: bold; }  /* Name.Decorator */
+code.ruby .ni { color: #800080; }  /* Name.Entity */
+code.ruby .ne { color: #990000; font-weight: bold; }  /* Name.Exception */
+code.ruby .nf { color: #990000; font-weight: bold; }  /* Name.Function */
+code.ruby .nl { color: #990000; font-weight: bold; }  /* Name.Label */
+code.ruby .nn { color: #555555; }  /* Name.Namespace */
+code.ruby .nt { color: #000080; font-weight: bold; }  /* Name.Tag */
+code.ruby .nv { color: #008080; }  /* Name.Variable */
+code.ruby .ow { color: #0000ff; font-weight: bold; }  /* Operator.Word */
+code.ruby .w { color: #bbbbbb; }  /* Text.Whitespace */
+code.ruby .mf { color: #009999; }  /* Literal.Number.Float */
+code.ruby .mh { color: #009999; }  /* Literal.Number.Hex */
+code.ruby .mi { color: #009999; }  /* Literal.Number.Integer */
+code.ruby .mo { color: #009999; }  /* Literal.Number.Oct */
+code.ruby .sb { color: #d14; }  /* Literal.String.Backtick */
+code.ruby .sc { color: #d14; }  /* Literal.String.Char */
+code.ruby .sd { color: #d14; font-style: italic; }  /* Literal.String.Doc */
+code.ruby .s2 { color: #d14; }  /* Literal.String.Double */
+code.ruby .se { color: #d14; font-weight: bold; }  /* Literal.String.Escape */
+code.ruby .sh { color: #d14; }  /* Literal.String.Heredoc */
+code.ruby .si { color: #d14; font-style: italic; }  /* Literal.String.Interpol */
+code.ruby .sx { color: #d14; }  /* Literal.String.Other */
+code.ruby .sr { color: #009926; }  /* Literal.String.Regex */
+code.ruby .s1 { color: #d14; }  /* Literal.String.Single */
+code.ruby .ss { color: #990073; }  /* Literal.String.Symbol */
+code.ruby .bp { color: #999999; }  /* Name.Builtin.Pseudo */
+code.ruby .vc { color: #008080; }  /* Name.Variable.Class */
+code.ruby .vg { color: #008080; }  /* Name.Variable.Global */
+code.ruby .vi { color: #008080; }  /* Name.Variable.Instance */
+code.ruby .il { color: #009999; }  /* Literal.Number.Integer.Long */

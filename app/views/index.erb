@@ -1,0 +1,64 @@
+<main class="home-showcase">
+  <a class="home-logo" href="/" aria-label="r.uby.dev home">
+    <img src="/images/rubydev-workmark.svg" alt="r.uby.dev">
+  </a>
+
+  <section class="home-console" id="home-console">
+    <div class="console-output" id="console-output" aria-live="polite">
+      <div class="console-status" id="console-status"></div>
+      <div class="console-answer" id="console-answer"></div>
+    </div>
+    <form class="console-form" id="console-form" autocomplete="off">
+      <span class="console-prompt">&gt;</span>
+      <input class="console-input" type="text" placeholder="Ready when you are">
+      <button class="console-expand" type="button" title="Expand chat" aria-label="Expand chat" aria-expanded="false">
+        <svg class="icon-expand" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+        <svg class="icon-collapse" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline><line x1="14" y1="10" x2="21" y2="3"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+      </button>
+      <button class="console-reset" type="button" title="Reset conversation" aria-label="Reset conversation">
+        <svg class="console-reset-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"/></svg>
+      </button>
+    </form>
+    <p class="console-note">powered by <a target="_blank" href="https://github.com/r-uby-dev/llm#readme">llm.rb</a></p>
+  </section>
+
+  <section class="home-contact">
+    <h2 class="home-section-title">About</h2>
+    <p>
+      r.uby.dev is the home of the advanced AI runtimes known as
+      <a target="_blank" href="https://github.com/r-uby-dev/llm#readme">llm.rb</a> and
+      <a target="_blank" href="https://github.com/r-uby-dev/mruby-llm#readme">mruby-llm</a>.
+      <br>
+      Say hi at
+      <a href="mailto:robert@r.uby.dev">robert@r.uby.dev</a>.
+    </p>
+  </section>
+
+  <h2 class="home-section-title">Portfolio</h2>
+
+  <div class="project-grid">
+    <a class="project-card" href="https://github.com/r-uby-dev/llm#readme" target="_blank" rel="noopener">
+      <h3 class="project-name">llm.rb</h3>
+      <p class="project-tagline">llm.rb is an advanced runtime for building agentic AI applications on CRuby.</p>
+      <p class="project-meta"><span class="lang-dot lang-ruby"></span> Ruby<span class="project-license">MIT</span></p>
+    </a>
+
+    <a class="project-card" href="https://github.com/r-uby-dev/mruby-llm#readme" target="_blank" rel="noopener">
+      <h3 class="project-name">mruby-llm</h3>
+      <p class="project-tagline">mruby-llm is an advanced runtime for building agentic AI applications on mruby.</p>
+      <p class="project-meta"><span class="lang-dot lang-mruby"></span> mruby<span class="project-license">MIT</span></p>
+    </a>
+
+    <a class="project-card" href="https://github.com/0x1eef/mruby-command#readme" target="_blank" rel="noopener">
+      <h3 class="project-name">mruby-command</h3>
+      <p class="project-tagline">mruby-command is a Go-inspired command library for mruby.</p>
+      <p class="project-meta"><span class="lang-dot lang-mruby"></span> mruby<span class="project-license">0BSD</span></p>
+    </a>
+
+    <a class="project-card" href="https://github.com/0x1eef/xchan.rb#readme" target="_blank" rel="noopener">
+      <h3 class="project-name">xchan.rb</h3>
+      <p class="project-tagline">xchan.rb is an easy-to-use library for InterProcess Communication (IPC).</p>
+      <p class="project-meta"><span class="lang-dot lang-ruby"></span> Ruby<span class="project-license">0BSD</span></p>
+    </a>
+  </div>
+</main>

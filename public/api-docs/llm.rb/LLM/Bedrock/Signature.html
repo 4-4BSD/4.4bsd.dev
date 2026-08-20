@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: LLM::Bedrock::Signature
+  
+    &mdash; Documentation by YARD 0.9.44
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/main.css" type="text/css">
+
+  <link rel="stylesheet" href="../../css/rouge.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "LLM::Bedrock::Signature";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../LLM.html" title="LLM (module)">LLM</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Bedrock.html" title="LLM::Bedrock (class)">Bedrock</a></span></span>
+     &raquo; 
+    <span class="title">Signature</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: LLM::Bedrock::Signature
+  
+  
+  <span class="private note title">Private</span>
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">LLM::Bedrock::Signature</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/llm/providers/bedrock/signature.rb
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p class="note private">
+  <strong>This class is part of a private API.</strong>
+  You should avoid using this class if possible, as it may be removed or be changed in the future.
+</p>
+<p>Signs HTTP requests and headers with AWS Signature V4.</p>
+
+<p>Returns the signed headers as a Hash through #to_h, ready to merge
+into an <span class='object_link'><a href="../Transport/Request.html" title="LLM::Transport::Request (class)">Transport::Request</a></span> or other HTTP client. Everything else is
+private.</p>
+
+<p>Uses only Ruby&#39;s stdlib (openssl, digest) with no external deps.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_signature'>signature</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Bedrock.html" title="LLM::Bedrock (class)">Bedrock</a></span></span><span class='op'>::</span><span class='const'>Signature</span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="LLM::Bedrock::Signature#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+  <span class='label'>credentials:</span> <span class='const'><span class='object_link'><a href="../../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span>
+    <span class='label'>access_key_id:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AWS_ACCESS_KEY_ID</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='label'>secret_access_key:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AWS_SECRET_ACCESS_KEY</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+    <span class='label'>aws_region:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>us-east-1</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>host:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bedrock-runtime.us-east-1.amazonaws.com</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>session_token:</span> <span class='kw'>nil</span>
+  <span class='rparen'>)</span><span class='comma'>,</span>
+  <span class='label'>method:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>POST</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/model/anthropic.claude-3/converse</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>{&quot;messages&quot;:[...]}</span><span class='tstring_end'>&#39;</span></span>
+<span class='rparen'>)</span>
+<span class='id identifier rubyid_signature'>signature</span><span class='period'>.</span><span class='id identifier rubyid_sign!'>sign!</span><span class='lparen'>(</span><span class='id identifier rubyid_req'>req</span><span class='rparen'>)</span></code></pre>
+    
+  </div>
+
+
+</div>
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="SERVICE-constant" class="">SERVICE =
+          <div class="docstring">
+  <div class="discussion">
+    <p class="note private">
+  <strong>This constant is part of a private API.</strong>
+  You should avoid using this constant if possible, as it may be removed or be changed in the future.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bedrock</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(credentials:, method:, path:, body:, query: nil)  &#x21d2; Signature </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  <span class="private note title">private</span>
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of Signature.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_h-instance_method" title="#to_h (instance method)">#<strong>to_h</strong>  &#x21d2; Hash{String =&gt; String} </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  <span class="private note title">private</span>
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the signed headers as a plain Hash.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sign!-instance_method" title="#sign! (instance method)">#<strong>sign!</strong>(req)  &#x21d2; LLM::Transport::Request </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  <span class="private note title">private</span>
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(credentials:, method:, path:, body:, query: nil)  &#x21d2; <tt><span class='object_link'><a href="" title="LLM::Bedrock::Signature (class)">Signature</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note private">
+  <strong>This method is part of a private API.</strong>
+  You should avoid using this method if possible, as it may be removed or be changed in the future.
+</p>
+<p>Returns a new instance of Signature.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>credentials</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>AWS signing credentials and host</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>method</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>HTTP method (&quot;POST&quot;, &quot;GET&quot;, etc.)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Request path (e.g. &quot;/model/.../converse&quot;)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>body</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Raw request body</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>query</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Canonical query string</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock/signature.rb', line 41</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>credentials:</span><span class='comma'>,</span> <span class='label'>method:</span><span class='comma'>,</span> <span class='label'>path:</span><span class='comma'>,</span> <span class='label'>body:</span><span class='comma'>,</span> <span class='label'>query:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='ivar'>@credentials</span> <span class='op'>=</span> <span class='id identifier rubyid_credentials'>credentials</span>
+  <span class='ivar'>@method</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span>
+  <span class='ivar'>@path</span> <span class='op'>=</span> <span class='id identifier rubyid_path'>path</span>
+  <span class='ivar'>@query</span> <span class='op'>=</span> <span class='id identifier rubyid_query'>query</span>
+  <span class='ivar'>@body</span> <span class='op'>=</span> <span class='id identifier rubyid_body'>body</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="to_h-instance_method">
+  
+    #<strong>to_h</strong>  &#x21d2; <tt>Hash{String =&gt; String}</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note private">
+  <strong>This method is part of a private API.</strong>
+  You should avoid using this method if possible, as it may be removed or be changed in the future.
+</p>
+<p>Returns the signed headers as a plain Hash.</p>
+
+<p>Call this once per request and merge the result into your
+HTTP headers. Each call recomputes the signature with the
+current time, so call it immediately before sending.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash{String =&gt; String}</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock/signature.rb', line 57</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_h'>to_h</span>
+  <span class='id identifier rubyid_now'>now</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_utc'>utc</span>
+  <span class='id identifier rubyid_amz_date'>amz_date</span> <span class='op'>=</span> <span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y%m%dT%H%M%SZ</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_date_stamp'>date_stamp</span> <span class='op'>=</span> <span class='id identifier rubyid_now'>now</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%Y%m%d</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_payload_hash'>payload_hash</span> <span class='op'>=</span> <span class='const'>Digest</span><span class='op'>::</span><span class='const'>SHA256</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span><span class='ivar'>@body</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X-Amz-Date</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_amz_date'>amz_date</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X-Amz-Content-Sha256</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_payload_hash'>payload_hash</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Host</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='ivar'>@credentials</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>X-Amz-Security-Token</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@credentials</span><span class='period'>.</span><span class='id identifier rubyid_session_token'>session_token</span> <span class='kw'>if</span> <span class='ivar'>@credentials</span><span class='period'>.</span><span class='id identifier rubyid_session_token'>session_token</span>
+  <span class='id identifier rubyid_signed_headers'>signed_headers</span> <span class='op'>=</span> <span class='id identifier rubyid_build_signed_headers'>build_signed_headers</span>
+  <span class='id identifier rubyid_canonical_headers'>canonical_headers</span> <span class='op'>=</span> <span class='id identifier rubyid_build_canonical_headers'>build_canonical_headers</span><span class='lparen'>(</span><span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span> <span class='id identifier rubyid_signed_headers'>signed_headers</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_canonical_uri'>canonical_uri</span> <span class='op'>=</span> <span class='id identifier rubyid_build_canonical_uri'>build_canonical_uri</span>
+  <span class='id identifier rubyid_canonical_query'>canonical_query</span> <span class='op'>=</span> <span class='id identifier rubyid_build_canonical_query'>build_canonical_query</span>
+  <span class='id identifier rubyid_canonical_request'>canonical_request</span> <span class='op'>=</span> <span class='id identifier rubyid_build_canonical_request'>build_canonical_request</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_canonical_uri'>canonical_uri</span><span class='comma'>,</span> <span class='id identifier rubyid_canonical_query'>canonical_query</span><span class='comma'>,</span> <span class='id identifier rubyid_canonical_headers'>canonical_headers</span><span class='comma'>,</span> <span class='id identifier rubyid_signed_headers'>signed_headers</span><span class='comma'>,</span> <span class='id identifier rubyid_payload_hash'>payload_hash</span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_credential_scope'>credential_scope</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_date_stamp'>date_stamp</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@credentials</span><span class='period'>.</span><span class='id identifier rubyid_aws_region'>aws_region</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="#SERVICE-constant" title="LLM::Bedrock::Signature::SERVICE (constant)">SERVICE</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'>/aws4_request</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_string_to_sign'>string_to_sign</span> <span class='op'>=</span> <span class='id identifier rubyid_build_string_to_sign'>build_string_to_sign</span><span class='lparen'>(</span>
+    <span class='id identifier rubyid_amz_date'>amz_date</span><span class='comma'>,</span> <span class='id identifier rubyid_credential_scope'>credential_scope</span><span class='comma'>,</span> <span class='id identifier rubyid_canonical_request'>canonical_request</span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_signing_key'>signing_key</span> <span class='op'>=</span> <span class='id identifier rubyid_derive_signing_key'>derive_signing_key</span><span class='lparen'>(</span><span class='id identifier rubyid_date_stamp'>date_stamp</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_signature'>signature</span> <span class='op'>=</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>HMAC</span><span class='period'>.</span><span class='id identifier rubyid_hexdigest'>hexdigest</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>sha256</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_signing_key'>signing_key</span><span class='comma'>,</span> <span class='id identifier rubyid_string_to_sign'>string_to_sign</span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_headers'>headers</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Authorization</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AWS4-HMAC-SHA256 </span><span class='tstring_end'>&quot;</span></span> \
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Credential=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@credentials</span><span class='period'>.</span><span class='id identifier rubyid_access_key_id'>access_key_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_credential_scope'>credential_scope</span><span class='embexpr_end'>}</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span> \
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SignedHeaders=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_signed_headers'>signed_headers</span><span class='embexpr_end'>}</span><span class='tstring_content'>, Signature=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_signature'>signature</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_headers'>headers</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sign!-instance_method">
+  
+    #<strong>sign!</strong>(req)  &#x21d2; <tt><span class='object_link'><a href="../Transport/Request.html" title="LLM::Transport::Request (class)">LLM::Transport::Request</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note private">
+  <strong>This method is part of a private API.</strong>
+  You should avoid using this method if possible, as it may be removed or be changed in the future.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>req</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Transport/Request.html" title="LLM::Transport::Request (class)">LLM::Transport::Request</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Transport/Request.html" title="LLM::Transport::Request (class)">LLM::Transport::Request</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock/signature.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_sign!'>sign!</span><span class='lparen'>(</span><span class='id identifier rubyid_req'>req</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_to_h'>to_h</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='id identifier rubyid_req'>req</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_req'>req</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Aug  9 18:50:31 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.44 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: LLM::Bedrock
+  
+    &mdash; Documentation by YARD 0.9.44
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/main.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/rouge.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "LLM::Bedrock";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (B)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span>
+     &raquo; 
+    <span class="title">Bedrock</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: LLM::Bedrock
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="Provider.html" title="LLM::Provider (class)">Provider</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="Provider.html" title="LLM::Provider (class)">Provider</a></span></li>
+          
+            <li class="next">LLM::Bedrock</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Bedrock/RequestAdapter.html" title="LLM::Bedrock::RequestAdapter (module)">RequestAdapter</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/llm/providers/bedrock.rb<span class="defines">,<br>
+  lib/llm/providers/bedrock/models.rb,<br> lib/llm/providers/bedrock/signature.rb,<br> lib/llm/providers/bedrock/error_handler.rb,<br> lib/llm/providers/bedrock/stream_parser.rb,<br> lib/llm/providers/bedrock/stream_decoder.rb,<br> lib/llm/providers/bedrock/request_adapter.rb,<br> lib/llm/providers/bedrock/response_adapter.rb</span>
+
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>The Bedrock class implements a provider for
+<a href="https://aws.amazon.com/bedrock/">Amazon Bedrock</a>.</p>
+
+<p>Bedrock provides access to foundation models from Anthropic, Meta,
+Mistral, AI21 Labs, Cohere, and more through the AWS infrastructure.
+This provider uses the Bedrock Converse API for chat completions,
+and the Converse Stream API for streaming.</p>
+
+<p>Unlike other llm.rb providers which use API key authentication,
+Bedrock uses AWS Signature V4 (SigV4) for request signing.
+You must provide AWS credentials (access key, secret key, and region)
+instead of a single API key.</p>
+
+<p>Streaming uses the AWS Event Stream binary protocol instead of
+standard SSE. The binary framing is decoded inline using only
+Ruby&#39;s stdlib.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>llm</span><span class='tstring_end'>&quot;</span></span>
+
+<span class='id identifier rubyid_llm'>llm</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='period'>.</span><span class='id identifier rubyid_bedrock'><span class='object_link'><a href="../LLM.html#bedrock-class_method" title="LLM.bedrock (method)">bedrock</a></span></span><span class='lparen'>(</span>
+  <span class='label'>access_key_id:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AWS_ACCESS_KEY_ID</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>secret_access_key:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>AWS_SECRET_ACCESS_KEY</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='comma'>,</span>
+  <span class='label'>region:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>us-east-1</span><span class='tstring_end'>&quot;</span></span>
+<span class='rparen'>)</span>
+<span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Context.html" title="LLM::Context (class)">Context</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Context.html#initialize-instance_method" title="LLM::Context#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_llm'>llm</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_talk'>talk</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Hello, how are you?</span><span class='tstring_end'>&quot;</span></span>
+<span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:assistant?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid__1'>_1</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='rbrace'>}</span></code></pre>
+    
+  </div>
+
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Bedrock/RequestAdapter.html" title="LLM::Bedrock::RequestAdapter (module)">RequestAdapter</a></span>, <span class='object_link'><a href="Bedrock/ResponseAdapter.html" title="LLM::Bedrock::ResponseAdapter (module)">ResponseAdapter</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Bedrock/ErrorHandler.html" title="LLM::Bedrock::ErrorHandler (class)">ErrorHandler</a></span>, <span class='object_link'><a href="Bedrock/Models.html" title="LLM::Bedrock::Models (class)">Models</a></span>, <span class='object_link'><a href="Bedrock/Signature.html" title="LLM::Bedrock::Signature (class)">Signature</a></span>, <span class='object_link'><a href="Bedrock/StreamDecoder.html" title="LLM::Bedrock::StreamDecoder (class)">StreamDecoder</a></span>, <span class='object_link'><a href="Bedrock/StreamParser.html" title="LLM::Bedrock::StreamParser (class)">StreamParser</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="HOST_PATTERN-constant" class="">HOST_PATTERN =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>bedrock-runtime.%s.amazonaws.com</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#default_model-instance_method" title="#default_model (instance method)">#<strong>default_model</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the provider&#39;s name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#complete-instance_method" title="#complete (instance method)">#<strong>complete</strong>(prompt, params = {})  &#x21d2; LLM::Response </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Provides an interface to the Bedrock Converse API.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#models-instance_method" title="#models (instance method)">#<strong>models</strong>  &#x21d2; LLM::Bedrock::Models </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Provides an interface to Bedrock&#39;s ListFoundationModels API.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#files-instance_method" title="#files (instance method)">#<strong>files</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#images-instance_method" title="#images (instance method)">#<strong>images</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#audio-instance_method" title="#audio (instance method)">#<strong>audio</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#moderations-instance_method" title="#moderations (instance method)">#<strong>moderations</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#responses-instance_method" title="#responses (instance method)">#<strong>responses</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#vector_stores-instance_method" title="#vector_stores (instance method)">#<strong>vector_stores</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#embed-instance_method" title="#embed (instance method)">#<strong>embed</strong>(input, model: nil, **params)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#assistant_role-instance_method" title="#assistant_role (instance method)">#<strong>assistant_role</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tool_role-instance_method" title="#tool_role (instance method)">#<strong>tool_role</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Bedrock expects tool results as user messages containing <code>toolResult</code> content blocks rather than a distinct <code>tool</code> role.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(access_key_id: nil, secret_access_key: nil, region: nil, session_token: nil, host: nil, port: 443, ssl: true, timeout: 60)  &#x21d2; Bedrock </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>A new instance of Bedrock.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Bedrock/RequestAdapter.html" title="LLM::Bedrock::RequestAdapter (module)">RequestAdapter</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Bedrock/RequestAdapter.html#adapt-instance_method" title="LLM::Bedrock::RequestAdapter#adapt (method)">#adapt</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="Provider.html" title="LLM::Provider (class)">Provider</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Provider.html#adapt_function-instance_method" title="LLM::Provider#adapt_function (method)">#adapt_function</a></span>, <span class='object_link'><a href="Provider.html#build_messages-instance_method" title="LLM::Provider#build_messages (method)">#build_messages</a></span>, <span class='object_link'><a href="Provider.html#chat-instance_method" title="LLM::Provider#chat (method)">#chat</a></span>, <span class='object_link'><a href="Provider.html#developer_role-instance_method" title="LLM::Provider#developer_role (method)">#developer_role</a></span>, <span class='object_link'><a href="Provider.html#inspect-instance_method" title="LLM::Provider#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="Provider.html#interrupt!-instance_method" title="LLM::Provider#interrupt! (method)">#interrupt!</a></span>, <span class='object_link'><a href="Provider.html#key%3F-instance_method" title="LLM::Provider#key? (method)">#key?</a></span>, <span class='object_link'><a href="Provider.html#ocr-instance_method" title="LLM::Provider#ocr (method)">#ocr</a></span>, <span class='object_link'><a href="Provider.html#request_owner-instance_method" title="LLM::Provider#request_owner (method)">#request_owner</a></span>, <span class='object_link'><a href="Provider.html#respond-instance_method" title="LLM::Provider#respond (method)">#respond</a></span>, <span class='object_link'><a href="Provider.html#schema-instance_method" title="LLM::Provider#schema (method)">#schema</a></span>, <span class='object_link'><a href="Provider.html#server_tool-instance_method" title="LLM::Provider#server_tool (method)">#server_tool</a></span>, <span class='object_link'><a href="Provider.html#server_tools-instance_method" title="LLM::Provider#server_tools (method)">#server_tools</a></span>, <span class='object_link'><a href="Provider.html#system_role-instance_method" title="LLM::Provider#system_role (method)">#system_role</a></span>, <span class='object_link'><a href="Provider.html#tracer-instance_method" title="LLM::Provider#tracer (method)">#tracer</a></span>, <span class='object_link'><a href="Provider.html#tracer=-instance_method" title="LLM::Provider#tracer= (method)">#tracer=</a></span>, <span class='object_link'><a href="Provider.html#user_role-instance_method" title="LLM::Provider#user_role (method)">#user_role</a></span>, <span class='object_link'><a href="Provider.html#web_search-instance_method" title="LLM::Provider#web_search (method)">#web_search</a></span>, <span class='object_link'><a href="Provider.html#with-instance_method" title="LLM::Provider#with (method)">#with</a></span>, <span class='object_link'><a href="Provider.html#with_tracer-instance_method" title="LLM::Provider#with_tracer (method)">#with_tracer</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(access_key_id: nil, secret_access_key: nil, region: nil, session_token: nil, host: nil, port: 443, ssl: true, timeout: 60)  &#x21d2; <tt><span class='object_link'><a href="" title="LLM::Bedrock (class)">Bedrock</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns a new instance of Bedrock.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>access_key_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>AWS access key ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>secret_access_key</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>AWS secret access key</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>region</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>AWS region (e.g. &quot;us-east-1&quot;)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>session_token</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>AWS session token for temporary credentials</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>host</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Override the Bedrock API host</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>port</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>443</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Connection port</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ssl</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to use SSL</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>60</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Request timeout in seconds</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 58</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>access_key_id:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>secret_access_key:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+               <span class='label'>region:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>session_token:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+               <span class='label'>host:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>port:</span> <span class='int'>443</span><span class='comma'>,</span> <span class='label'>ssl:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>60</span><span class='comma'>,</span>
+               <span class='op'>**</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_region'>region</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>us-east-1</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@access_key_id</span> <span class='op'>=</span> <span class='id identifier rubyid_access_key_id'>access_key_id</span>
+  <span class='ivar'>@secret_access_key</span> <span class='op'>=</span> <span class='id identifier rubyid_secret_access_key'>secret_access_key</span>
+  <span class='ivar'>@aws_region</span> <span class='op'>=</span> <span class='id identifier rubyid_region'>region</span>
+  <span class='ivar'>@session_token</span> <span class='op'>=</span> <span class='id identifier rubyid_session_token'>session_token</span>
+  <span class='id identifier rubyid_host'>host</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="#HOST_PATTERN-constant" title="LLM::Bedrock::HOST_PATTERN (constant)">HOST_PATTERN</a></span></span> <span class='op'>%</span> <span class='id identifier rubyid_region'>region</span>
+  <span class='ivar'>@aws_host</span> <span class='op'>=</span> <span class='id identifier rubyid_host'>host</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='label'>key:</span> <span class='ivar'>@access_key_id</span><span class='comma'>,</span> <span class='label'>host:</span><span class='comma'>,</span> <span class='label'>port:</span><span class='comma'>,</span> <span class='label'>ssl:</span><span class='comma'>,</span> <span class='label'>timeout:</span><span class='comma'>,</span> <span class='label'>persistent:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="default_model-instance_method">
+  
+    #<strong>default_model</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+170
+171
+172</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 170</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_default_model'>default_model</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>deepseek.v3.2</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    #<strong>name</strong>  &#x21d2; <tt>Symbol</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the provider&#39;s name</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Returns the provider&#39;s name</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='symbol'>:bedrock</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="complete-instance_method">
+  
+    #<strong>complete</strong>(prompt, params = {})  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="LLM::Response (class)">LLM::Response</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Provides an interface to the Bedrock Converse API</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>prompt</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The input prompt to be completed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>params</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The parameters to maintain throughout the conversation.
+Any parameter the provider supports can be included and
+not only those listed here.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Response.html" title="LLM::Response (class)">LLM::Response</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html" target="_parent" title="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html">https://docs.aws.amazon.com/bedrock/latest/APIReference/API_runtime_Converse.html</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_complete'>complete</span><span class='lparen'>(</span><span class='id identifier rubyid_prompt'>prompt</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='id identifier rubyid_stream'>stream</span><span class='comma'>,</span> <span class='id identifier rubyid_tools'>tools</span><span class='comma'>,</span> <span class='id identifier rubyid_role'>role</span> <span class='op'>=</span> <span class='id identifier rubyid_normalize_complete_params'>normalize_complete_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_req'>req</span><span class='comma'>,</span> <span class='id identifier rubyid_messages'>messages</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_complete_request'>build_complete_request</span><span class='lparen'>(</span><span class='id identifier rubyid_prompt'>prompt</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='id identifier rubyid_role'>role</span><span class='comma'>,</span> <span class='label'>stream:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_tracer'>tracer</span><span class='period'>.</span><span class='id identifier rubyid_set_request_metadata'>set_request_metadata</span><span class='lparen'>(</span><span class='label'>user_input:</span> <span class='id identifier rubyid_extract_user_input'>extract_user_input</span><span class='lparen'>(</span><span class='id identifier rubyid_messages'>messages</span><span class='comma'>,</span> <span class='label'>fallback:</span> <span class='id identifier rubyid_prompt'>prompt</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_sign!'>sign!</span><span class='lparen'>(</span><span class='id identifier rubyid_req'>req</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_model_id'>model_id</span> <span class='op'>=</span> <span class='id identifier rubyid_model_id_for'>model_id_for</span><span class='lparen'>(</span><span class='id identifier rubyid_req'>req</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='id identifier rubyid_span'>span</span><span class='comma'>,</span> <span class='id identifier rubyid_tracer'>tracer</span> <span class='op'>=</span> <span class='id identifier rubyid_execute'>execute</span><span class='lparen'>(</span><span class='label'>request:</span> <span class='id identifier rubyid_req'>req</span><span class='comma'>,</span> <span class='label'>stream:</span><span class='comma'>,</span> <span class='label'>operation:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chat</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>stream_parser:</span><span class='comma'>,</span> <span class='label'>model:</span> <span class='id identifier rubyid_model_id'>model_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Bedrock/ResponseAdapter.html" title="LLM::Bedrock::ResponseAdapter (module)">ResponseAdapter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_adapt'><span class='object_link'><a href="Bedrock/ResponseAdapter.html#adapt-class_method" title="LLM::Bedrock::ResponseAdapter.adapt (method)">adapt</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='label'>type:</span> <span class='symbol'>:completion</span><span class='rparen'>)</span>
+    <span class='period'>.</span><span class='id identifier rubyid_extend'>extend</span><span class='lparen'>(</span><span class='const'>Module</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_define_method'>define_method</span><span class='lparen'>(</span><span class='symbol'>:__tools__</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_tools'>tools</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_tracer'>tracer</span><span class='period'>.</span><span class='id identifier rubyid_on_request_finish'>on_request_finish</span><span class='lparen'>(</span><span class='label'>operation:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>chat</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>model:</span> <span class='id identifier rubyid_model_id'>model_id</span><span class='comma'>,</span> <span class='label'>res:</span><span class='comma'>,</span> <span class='label'>span:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_res'>res</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="models-instance_method">
+  
+    #<strong>models</strong>  &#x21d2; <tt><span class='object_link'><a href="Bedrock/Models.html" title="LLM::Bedrock::Models (class)">LLM::Bedrock::Models</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'><p>Unlike the Converse API (bedrock-runtime), this endpoint lives
+on the control plane (bedrock.<region>.amazonaws.com).</p>
+</div>
+  </div>
+
+<p>Provides an interface to Bedrock&#39;s ListFoundationModels API.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Bedrock/Models.html" title="LLM::Bedrock::Models (class)">LLM::Bedrock::Models</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_ListFoundationModels.html" target="_parent" title="https://docs.aws.amazon.com/bedrock/latest/APIReference/API_ListFoundationModels.html">https://docs.aws.amazon.com/bedrock/latest/APIReference/API_ListFoundationModels.html</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_models'>models</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::Bedrock (class)">Bedrock</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Bedrock/Models.html" title="LLM::Bedrock::Models (class)">Models</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Bedrock/Models.html#initialize-instance_method" title="LLM::Bedrock::Models#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="files-instance_method">
+  
+    #<strong>files</strong>  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+114
+115
+116</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 114</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_files'>files</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="images-instance_method">
+  
+    #<strong>images</strong>  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+120
+121
+122</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 120</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_images'>images</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="audio-instance_method">
+  
+    #<strong>audio</strong>  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+126
+127
+128</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 126</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_audio'>audio</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="moderations-instance_method">
+  
+    #<strong>moderations</strong>  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+132
+133
+134</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 132</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_moderations'>moderations</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="responses-instance_method">
+  
+    #<strong>responses</strong>  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+138
+139
+140</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 138</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_responses'>responses</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="vector_stores-instance_method">
+  
+    #<strong>vector_stores</strong>  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_vector_stores'>vector_stores</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="embed-instance_method">
+  
+    #<strong>embed</strong>(input, model: nil, **params)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NotImplementedError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+150
+151
+152</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 150</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_embed'>embed</span><span class='lparen'>(</span><span class='id identifier rubyid_input'>input</span><span class='comma'>,</span> <span class='label'>model:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>**</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NotImplementedError</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="assistant_role-instance_method">
+  
+    #<strong>assistant_role</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+156
+157
+158</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 156</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_assistant_role'>assistant_role</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>assistant</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tool_role-instance_method">
+  
+    #<strong>tool_role</strong>  &#x21d2; <tt>Symbol</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Bedrock expects tool results as user messages containing
+<code>toolResult</code> content blocks rather than a distinct <code>tool</code> role.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+164
+165
+166</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/providers/bedrock.rb', line 164</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tool_role'>tool_role</span>
+  <span class='symbol'>:user</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Aug  9 18:50:26 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.44 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>

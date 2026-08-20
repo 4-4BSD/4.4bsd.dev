@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>r.uby.dev — ask questions about the llm.rb runtime</title>
+    <link rel="canonical" href="https://r.uby.dev/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+
+    <!-- SEO -->
+    <meta name="description" content="Ask questions about the llm.rb runtime.">
+    <meta name="robots" content="index,follow">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="r.uby.dev">
+    <meta property="og:title" content="r.uby.dev">
+    <meta property="og:description" content="Ask questions about the llm.rb runtime.">
+    <meta property="og:url" content="https://r.uby.dev/">
+    <meta property="og:image" content="https://r.uby.dev/images/rubydev.svg">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="r.uby.dev">
+    <meta name="twitter:description" content="Ask questions about the llm.rb runtime.">
+    <meta name="twitter:image" content="https://r.uby.dev/images/rubydev.svg">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/highlight.min.css">
+
+    <%= csrf_metatag %>
+  </head>
+  <body class="home-body">
+    <%= yield %>
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b565dccbae55404faf2c00fc90b87f9a"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+
+    <script src="/assets/js/vendor/marked.min.js"></script>
+    <script src="/assets/js/vendor/highlight.min.js"></script>
+    <script type="module" src="/assets/js/app.js"></script>
+  </body>
+</html>

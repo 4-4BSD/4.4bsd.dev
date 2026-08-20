@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+def main(argv)
+  Dir.chdir File.join(__dir__, "..", "..") do
+    env = {"BUNDLE_GEMFILE" => File.join(Dir.pwd, "Gemfile")}
+    Process.spawn env, "bundle", "exec", "rackup", *argv
+    Process.wait
+    exit $?.exitstatus
+  end
+end
+main(ARGV)

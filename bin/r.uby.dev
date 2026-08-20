@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "rbconfig"
+
+def usage
+  warn <<~USAGE
+    #{$0} command [OPTIONS]
+
+    commands:
+      web               serve public/ locally
+  USAGE
+end
+
+def main(argv)
+  root = File.realpath File.join(__dir__, "..")
+
+  case argv[0]
+  when nil
+    usage
+  when "web"
+    command = File.join(root, "libexec", "rubydev", argv[0])
+    Process.spawn RbConfig.ruby, command, *argv[1..]
+    Process.wait
+    exit $?.exitstatus
+  else
+    usage
+  end
+end
+main(ARGV)

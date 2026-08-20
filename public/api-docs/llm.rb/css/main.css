@@ -1,0 +1,46 @@
+body {
+  font-family: ui-sans-serif, system-ui, sans-serif,
+               "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+               "Noto Color Emoji" !important;
+  @media (max-width: 1399px) and
+         (max-height: 768px) and
+         (resolution <= 1dppx) and
+         (hover: hover) {
+    zoom: 0.8;
+  }
+
+  @media (min-width: 1400px) and
+         (max-width: 1470px) and
+         (resolution >= 1dppx) and
+         (hover: hover) {
+    zoom: 0.9;
+  }
+}
+
+#main #content {
+  margin: 0 auto;
+  max-width: 868px;
+
+  ul {
+    font-family: system-ui, Apple Color Emoji, Segoe UI Emoji, sans-serif;
+  }
+
+  #filecontents {
+    ul li {
+      margin-bottom: 7px;
+    }
+  }
+
+  #toc {
+    display: none;
+  }
+
+  blockquote {
+    border-left: 4px solid #dfe2e5; /* GitHub's border color */
+    margin: 0; /* Remove default margin */
+    padding: 0.5em 1em; /* Add padding for spacing */
+    color: #24292e; /* Text color */
+    background-color: #f6f8fa; /* Light background color */
+    font-style: italic; /* Italicize text */
+  }
+}

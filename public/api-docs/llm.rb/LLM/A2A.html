@@ -1,0 +1,3157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: LLM::A2A
+  
+    &mdash; Documentation by YARD 0.9.44
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/main.css" type="text/css">
+
+  <link rel="stylesheet" href="../css/rouge.css" type="text/css">
+
+<script type="text/javascript">
+  pathId = "LLM::A2A";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="main_progress" aria-hidden="true"></div>
+
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span>
+     &raquo; 
+    <span class="title">A2A</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: LLM::A2A
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">LLM::A2A</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/llm/a2a.rb<span class="defines">,<br>
+  lib/llm/a2a/card.rb,<br> lib/llm/a2a/error.rb,<br> lib/llm/a2a/tasks.rb,<br> lib/llm/a2a/notifications.rb,<br> lib/llm/a2a/transport/http.rb</span>
+
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p>The <span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span> class provides access to agents that implement the
+Agent2Agent (A2A) Protocol. A2A defines a standard way for
+independent AI agents to discover each other&#39;s capabilities,
+negotiate interaction modalities, and collaborate on tasks.</p>
+
+<p>In llm.rb, <span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span> supports both HTTP+JSON/REST and JSON-RPC 2.0
+protocol bindings and focuses on discovering agent skills that can be
+used through <span class='object_link'><a href="Context.html" title="LLM::Context (class)">Context</a></span> and <span class='object_link'><a href="Agent.html" title="LLM::Agent (class)">Agent</a></span>.</p>
+
+<p>Requests can be made concurrently and responses are matched by task id.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <h4 class="tag_title">Examples:</h4>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>REST binding (default)</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_a2a'>a2a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'>A2A</span><span class='period'>.</span><span class='id identifier rubyid_rest'><span class='object_link'><a href="#rest-class_method" title="LLM::A2A.rest (method)">rest</a></span></span><span class='lparen'>(</span><span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://agent.example.com</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_card'>card</span> <span class='op'>=</span> <span class='id identifier rubyid_a2a'>a2a</span><span class='period'>.</span><span class='id identifier rubyid_card'>card</span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_skills'>skills</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:name</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_task'>task</span> <span class='op'>=</span> <span class='id identifier rubyid_a2a'>a2a</span><span class='period'>.</span><span class='id identifier rubyid_send_message'>send_message</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>What is the weather in Tokyo?</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_task'>task</span>
+<span class='id identifier rubyid_a2a'>a2a</span><span class='period'>.</span><span class='id identifier rubyid_tasks'>tasks</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_task'>task</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>JSON-RPC binding</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_a2a'>a2a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'>A2A</span><span class='period'>.</span><span class='id identifier rubyid_jsonrpc'><span class='object_link'><a href="#jsonrpc-class_method" title="LLM::A2A.jsonrpc (method)">jsonrpc</a></span></span><span class='lparen'>(</span><span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://agent.example.com</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span></code></pre>
+    
+      
+        <h5 class="example_title"><div class='inline'><p>Using skills as tools in a context</p>
+</div></h5>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_llm'>llm</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='period'>.</span><span class='id identifier rubyid_openai'><span class='object_link'><a href="../LLM.html#openai-class_method" title="LLM.openai (method)">openai</a></span></span><span class='lparen'>(</span><span class='label'>key:</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>KEY</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_a2a'>a2a</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'>A2A</span><span class='period'>.</span><span class='id identifier rubyid_rest'><span class='object_link'><a href="#rest-class_method" title="LLM::A2A.rest (method)">rest</a></span></span><span class='lparen'>(</span><span class='label'>url:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://agent.example.com</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_ctx'>ctx</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Context.html" title="LLM::Context (class)">Context</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Context.html#initialize-instance_method" title="LLM::Context#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_llm'>llm</span><span class='comma'>,</span> <span class='label'>tools:</span> <span class='id identifier rubyid_a2a'>a2a</span><span class='period'>.</span><span class='id identifier rubyid_skills'>skills</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_talk'>talk</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Analyze this data using the remote agent.</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_talk'>talk</span><span class='lparen'>(</span><span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_wait'>wait</span><span class='lparen'>(</span><span class='symbol'>:sequential</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>while</span> <span class='id identifier rubyid_ctx'>ctx</span><span class='period'>.</span><span class='id identifier rubyid_pending_functions?'>pending_functions?</span></code></pre>
+    
+  </div>
+
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="A2A/Transport.html" title="LLM::A2A::Transport (module)">Transport</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="A2A/Card.html" title="LLM::A2A::Card (class)">Card</a></span>, <span class='object_link'><a href="A2A/Notifications.html" title="LLM::A2A::Notifications (class)">Notifications</a></span>, <span class='object_link'><a href="A2A/Tasks.html" title="LLM::A2A::Tasks (class)">Tasks</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="Error-constant" class="">Error =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Generic A2A protocol error.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Error.html" title="LLM::Error (class)">Error</a></span></span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='comment'>##
+</span>  <span class='comment'># @return [Integer, nil]
+</span>  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:code</span>
+
+  <span class='comment'>##
+</span>  <span class='comment'># @return [Object, nil]
+</span>  <span class='id identifier rubyid_attr_reader'>attr_reader</span> <span class='symbol'>:data</span>
+
+  <span class='comment'>##
+</span>  <span class='comment'># @param [String] message
+</span>  <span class='comment'># @param [Integer, nil] code
+</span>  <span class='comment'># @param [Object, nil] data
+</span>  <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+    <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+    <span class='ivar'>@code</span> <span class='op'>=</span> <span class='id identifier rubyid_code'>code</span>
+    <span class='ivar'>@data</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre></dd>
+      
+        <dt id="AgentCardError-constant" class="">AgentCardError =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Raised when the agent card cannot be fetched or parsed.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="TaskNotFoundError-constant" class="">TaskNotFoundError =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Raised when a task is not found.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="TaskNotCancelableError-constant" class="">TaskNotCancelableError =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Raised when a task cannot be cancelled.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="UnsupportedOperationError-constant" class="">UnsupportedOperationError =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Raised when the agent does not support the requested operation.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="ContentTypeNotSupportedError-constant" class="">ContentTypeNotSupportedError =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Raised when a content type is not supported.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+        <dt id="VersionNotSupportedError-constant" class="">VersionNotSupportedError =
+          <div class="docstring">
+  <div class="discussion">
+    <p>Raised when the A2A protocol version is not supported.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='rparen'>)</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#binding-instance_method" title="#binding (instance method)">#<strong>binding</strong>  &#x21d2; Symbol </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the active protocol binding.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#http-class_method" title="http (class method)">.<strong>http</strong>(url:, headers: {}, timeout: 30, persistent: false, transport: nil, binding: :rest, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; LLM::A2A </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Builds an A2A client over HTTP.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rest-class_method" title="rest (class method)">.<strong>rest</strong>(url:, headers: {}, timeout: 30, persistent: false, transport: nil, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; LLM::A2A </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Builds an A2A client over HTTP+JSON/REST.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#jsonrpc-class_method" title="jsonrpc (class method)">.<strong>jsonrpc</strong>(url:, headers: {}, timeout: 30, persistent: false, transport: nil, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; LLM::A2A </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Builds an A2A client over HTTP+JSON with JSON-RPC 2.0.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">#<strong>inspect</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#card-instance_method" title="#card (instance method)">#<strong>card</strong>  &#x21d2; LLM::A2A::Card </a>
+    
+
+    
+      (also: #agent_card)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the remote agent card.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#skills-instance_method" title="#skills (instance method)">#<strong>skills</strong>  &#x21d2; Array&lt;Class&lt;LLM::Tool&gt;&gt; </a>
+    
+
+    
+      (also: #tools)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the agent&#39;s skills adapted as callable tools.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#tasks-instance_method" title="#tasks (instance method)">#<strong>tasks</strong>  &#x21d2; LLM::A2A::Tasks </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns task-oriented A2A operations.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#notifications-instance_method" title="#notifications (instance method)">#<strong>notifications</strong>  &#x21d2; LLM::A2A::Notifications </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns push notification configuration operations.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_message-instance_method" title="#send_message (instance method)">#<strong>send_message</strong>(text, configuration = {}, metadata: nil)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Sends a message to the agent and returns the response.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_streaming_message-instance_method" title="#send_streaming_message (instance method)">#<strong>send_streaming_message</strong>(text, configuration = {}) {|event| ... } </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Sends a streaming message to the agent.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_task-instance_method" title="#get_task (instance method)">#<strong>get_task</strong>(task_id, history_length: nil)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Gets the current state of a task.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cancel_task-instance_method" title="#cancel_task (instance method)">#<strong>cancel_task</strong>(task_id, metadata: nil)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Cancels a task in progress.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#subscribe_to_task-instance_method" title="#subscribe_to_task (instance method)">#<strong>subscribe_to_task</strong>(task_id) {|event| ... } </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Subscribes to streaming updates for an existing task.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list_tasks-instance_method" title="#list_tasks (instance method)">#<strong>list_tasks</strong>(context_id: nil, status: nil, history_length: nil, status_timestamp_after: nil, include_artifacts: nil, page_size: 20, page_token: nil)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Lists tasks with optional filtering.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_task_push_notification_config-instance_method" title="#create_task_push_notification_config (instance method)">#<strong>create_task_push_notification_config</strong>(task_id, url:, token: nil, authentication: nil, id: nil)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Creates a push notification configuration for a task.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_task_push_notification_config-instance_method" title="#get_task_push_notification_config (instance method)">#<strong>get_task_push_notification_config</strong>(task_id, id)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Retrieves a push notification configuration for a task.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#list_task_push_notification_configs-instance_method" title="#list_task_push_notification_configs (instance method)">#<strong>list_task_push_notification_configs</strong>(task_id, page_size: nil, page_token: nil)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Lists push notification configurations for a task.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete_task_push_notification_config-instance_method" title="#delete_task_push_notification_config (instance method)">#<strong>delete_task_push_notification_config</strong>(task_id, id)  &#x21d2; LLM::Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Deletes a push notification configuration for a task.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#extended_card-instance_method" title="#extended_card (instance method)">#<strong>extended_card</strong>  &#x21d2; LLM::A2A::Card </a>
+    
+
+    
+      (also: #get_extended_agent_card)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Returns the authenticated extended agent card.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(transport:, binding: :rest, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; LLM::A2A </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+    
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(transport:, binding: :rest, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; <tt><span class='object_link'><a href="" title="LLM::A2A (class)">LLM::A2A</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>binding</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:rest</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The protocol binding to use. One of <code>:rest</code> (HTTP+JSON/REST) or
+<code>:jsonrpc</code> (JSON-RPC 2.0). Defaults to <code>:rest</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>transport</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The transport used to communicate with the remote A2A agent</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>base_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional base path prefix for REST endpoints</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>protocol_version</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;1.0&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The expected A2A protocol version. Defaults to <code>&quot;1.0&quot;</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>transport:</span><span class='comma'>,</span> <span class='label'>binding:</span> <span class='symbol'>:rest</span><span class='comma'>,</span> <span class='label'>base_path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>protocol_version:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@binding</span> <span class='op'>=</span> <span class='id identifier rubyid_binding'>binding</span>
+  <span class='ivar'>@base_path</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Utils.html" title="LLM::Utils (module)">Utils</a></span></span><span class='period'>.</span><span class='id identifier rubyid_normalize_base_path'><span class='object_link'><a href="Utils.html#normalize_base_path-instance_method" title="LLM::Utils#normalize_base_path (method)">normalize_base_path</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_base_path'>base_path</span><span class='rparen'>)</span>
+  <span class='ivar'>@protocol_version</span> <span class='op'>=</span> <span class='id identifier rubyid_protocol_version'>protocol_version</span>
+  <span class='ivar'>@transport</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="binding-instance_method">
+  
+    #<strong>binding</strong>  &#x21d2; <tt>Symbol</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the active protocol binding.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 136</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_binding'>binding</span>
+  <span class='ivar'>@binding</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="http-class_method">
+  
+    .<strong>http</strong>(url:, headers: {}, timeout: 30, persistent: false, transport: nil, binding: :rest, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; <tt><span class='object_link'><a href="" title="LLM::A2A (class)">LLM::A2A</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Builds an A2A client over HTTP.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The base URL of the A2A agent (e.g., &quot;<a href="https://agent.example.com%22">https://agent.example.com&quot;</a>)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>headers</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Extra HTTP headers to include in requests (e.g., Authorization)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>30</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The timeout in seconds for HTTP requests</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>persistent</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to use persistent HTTP connections</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>transport</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Transport.html" title="LLM::Transport (class)">LLM::Transport</a></span></tt>, <tt>Class</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional override with any <span class='object_link'><a href="Transport.html" title="LLM::Transport (class)">Transport</a></span> instance, subclass, or shortcut</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>binding</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:rest</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The protocol binding to use. One of <code>:rest</code> or <code>:jsonrpc</code></p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>base_path</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional base path prefix for REST endpoints</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>protocol_version</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&quot;1.0&quot;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>The expected A2A protocol version. Defaults to <code>&quot;1.0&quot;</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="LLM::A2A (class)">LLM::A2A</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_http'>http</span><span class='lparen'>(</span><span class='label'>url:</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>30</span><span class='comma'>,</span> <span class='label'>persistent:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>transport:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>binding:</span> <span class='symbol'>:rest</span><span class='comma'>,</span> <span class='label'>base_path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>protocol_version:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='label'>binding:</span><span class='comma'>,</span>
+    <span class='label'>base_path:</span><span class='comma'>,</span>
+    <span class='label'>protocol_version:</span><span class='comma'>,</span>
+    <span class='label'>transport:</span> <span class='const'><span class='object_link'><a href="A2A/Transport.html" title="LLM::A2A::Transport (module)">Transport</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="A2A/Transport/HTTP.html" title="LLM::A2A::Transport::HTTP (class)">HTTP</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="A2A/Transport/HTTP.html#initialize-instance_method" title="LLM::A2A::Transport::HTTP#initialize (method)">new</a></span></span><span class='lparen'>(</span>
+      <span class='label'>url:</span><span class='comma'>,</span>
+      <span class='label'>headers:</span><span class='comma'>,</span>
+      <span class='label'>timeout:</span><span class='comma'>,</span>
+      <span class='label'>persistent:</span><span class='comma'>,</span>
+      <span class='label'>transport:</span><span class='comma'>,</span>
+      <span class='label'>protocol_version:</span>
+    <span class='rparen'>)</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="rest-class_method">
+  
+    .<strong>rest</strong>(url:, headers: {}, timeout: 30, persistent: false, transport: nil, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; <tt><span class='object_link'><a href="" title="LLM::A2A (class)">LLM::A2A</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Builds an A2A client over HTTP+JSON/REST.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>headers</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>30</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>persistent</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>transport</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Transport.html" title="LLM::Transport (class)">LLM::Transport</a></span></tt>, <tt>Class</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="LLM::A2A (class)">LLM::A2A</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 99</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_rest'>rest</span><span class='lparen'>(</span><span class='label'>url:</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>30</span><span class='comma'>,</span> <span class='label'>persistent:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>transport:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>base_path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>protocol_version:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_http'>http</span><span class='lparen'>(</span>
+    <span class='label'>url:</span><span class='comma'>,</span>
+    <span class='label'>headers:</span><span class='comma'>,</span>
+    <span class='label'>timeout:</span><span class='comma'>,</span>
+    <span class='label'>persistent:</span><span class='comma'>,</span>
+    <span class='label'>transport:</span><span class='comma'>,</span>
+    <span class='label'>binding:</span> <span class='symbol'>:rest</span><span class='comma'>,</span>
+    <span class='label'>base_path:</span><span class='comma'>,</span>
+    <span class='label'>protocol_version:</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="jsonrpc-class_method">
+  
+    .<strong>jsonrpc</strong>(url:, headers: {}, timeout: 30, persistent: false, transport: nil, base_path: &quot;&quot;, protocol_version: &quot;1.0&quot;)  &#x21d2; <tt><span class='object_link'><a href="" title="LLM::A2A (class)">LLM::A2A</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Builds an A2A client over HTTP+JSON with JSON-RPC 2.0.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>headers</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;String, String&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>timeout</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>30</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>persistent</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>transport</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Transport.html" title="LLM::Transport (class)">LLM::Transport</a></span></tt>, <tt>Class</tt>, <tt>Symbol</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="LLM::A2A (class)">LLM::A2A</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 120</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_jsonrpc'>jsonrpc</span><span class='lparen'>(</span><span class='label'>url:</span><span class='comma'>,</span> <span class='label'>headers:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>timeout:</span> <span class='int'>30</span><span class='comma'>,</span> <span class='label'>persistent:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>transport:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>base_path:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>protocol_version:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>1.0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_http'>http</span><span class='lparen'>(</span>
+    <span class='label'>url:</span><span class='comma'>,</span>
+    <span class='label'>headers:</span><span class='comma'>,</span>
+    <span class='label'>timeout:</span><span class='comma'>,</span>
+    <span class='label'>persistent:</span><span class='comma'>,</span>
+    <span class='label'>transport:</span><span class='comma'>,</span>
+    <span class='label'>binding:</span> <span class='symbol'>:jsonrpc</span><span class='comma'>,</span>
+    <span class='label'>base_path:</span><span class='comma'>,</span>
+    <span class='label'>protocol_version:</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="inspect-instance_method">
+  
+    #<strong>inspect</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+409
+410
+411</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 409</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Utils.html" title="LLM::Utils (module)">Utils</a></span></span><span class='period'>.</span><span class='id identifier rubyid_object_id'><span class='object_link'><a href="Utils.html#object_id-instance_method" title="LLM::Utils#object_id (method)">object_id</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> @binding=</span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="card-instance_method">
+  
+    #<strong>card</strong>  &#x21d2; <tt><span class='object_link'><a href="A2A/Card.html" title="LLM::A2A::Card (class)">LLM::A2A::Card</a></span></tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='agent_card-instance_method'>agent_card</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the remote agent card.</p>
+
+<p>The agent card is fetched from <code>/.well-known/agent-card.json</code> and
+cached for the lifetime of this client instance.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="A2A/Card.html" title="LLM::A2A::Card (class)">LLM::A2A::Card</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146
+147</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 144</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_card'>card</span>
+  <span class='kw'>return</span> <span class='ivar'>@card</span> <span class='kw'>if</span> <span class='kw'>defined?</span><span class='lparen'>(</span><span class='ivar'>@card</span><span class='rparen'>)</span>
+  <span class='ivar'>@card</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="A2A/Card.html" title="LLM::A2A::Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="A2A/Card.html#initialize-instance_method" title="LLM::A2A::Card#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/.well-known/agent-card.json</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="skills-instance_method">
+  
+    #<strong>skills</strong>  &#x21d2; <tt>Array&lt;Class&lt;<span class='object_link'><a href="Tool.html" title="LLM::Tool (class)">LLM::Tool</a></span>&gt;&gt;</tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='tools-instance_method'>tools</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the agent&#39;s skills adapted as callable tools.</p>
+
+<p>Each skill in the agent card is mapped to an <span class='object_link'><a href="Tool.html" title="LLM::Tool (class)">Tool</a></span> subclass
+that wraps a <span class='object_link'><a href="#send_message-instance_method" title="LLM::A2A#send_message (method)">#send_message</a></span> call. When the tool is called, it
+sends a message to the remote agent and returns the task artifacts
+as the result.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Class&lt;<span class='object_link'><a href="Tool.html" title="LLM::Tool (class)">LLM::Tool</a></span>&gt;&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+158
+159
+160</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 158</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_skills'>skills</span>
+  <span class='ivar'>@skills</span> <span class='op'>||=</span> <span class='id identifier rubyid_card'>card</span><span class='period'>.</span><span class='id identifier rubyid_skills'>skills</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Tool.html" title="LLM::Tool (class)">Tool</a></span></span><span class='period'>.</span><span class='id identifier rubyid_a2a'><span class='object_link'><a href="Tool.html#a2a-class_method" title="LLM::Tool.a2a (method)">a2a</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tasks-instance_method">
+  
+    #<strong>tasks</strong>  &#x21d2; <tt><span class='object_link'><a href="A2A/Tasks.html" title="LLM::A2A::Tasks (class)">LLM::A2A::Tasks</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns task-oriented A2A operations.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="A2A/Tasks.html" title="LLM::A2A::Tasks (class)">LLM::A2A::Tasks</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+166
+167
+168</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 166</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tasks'>tasks</span>
+  <span class='ivar'>@tasks</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="A2A/Tasks.html" title="LLM::A2A::Tasks (class)">Tasks</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="A2A/Tasks.html#initialize-instance_method" title="LLM::A2A::Tasks#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="notifications-instance_method">
+  
+    #<strong>notifications</strong>  &#x21d2; <tt><span class='object_link'><a href="A2A/Notifications.html" title="LLM::A2A::Notifications (class)">LLM::A2A::Notifications</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns push notification configuration operations.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="A2A/Notifications.html" title="LLM::A2A::Notifications (class)">LLM::A2A::Notifications</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 173</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_notifications'>notifications</span>
+  <span class='ivar'>@notifications</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="A2A/Notifications.html" title="LLM::A2A::Notifications (class)">Notifications</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="A2A/Notifications.html#initialize-instance_method" title="LLM::A2A::Notifications#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_message-instance_method">
+  
+    #<strong>send_message</strong>(text, configuration = {}, metadata: nil)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Sends a message to the agent and returns the response.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>text</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message text to send</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>configuration</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional configuration (accepted_output_modes, return_immediately)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>metadata</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional metadata to attach to the request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The task or message response</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+185
+186
+187
+188
+189
+190
+191
+192
+193</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 185</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_message'>send_message</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_configuration'>configuration</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>metadata:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SendMessage</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>message:</span> <span class='lbrace'>{</span><span class='label'>role:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ROLE_USER</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>parts:</span> <span class='lbracket'>[</span><span class='lbrace'>{</span><span class='label'>text:</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>messageId:</span> <span class='const'>SecureRandom</span><span class='period'>.</span><span class='id identifier rubyid_uuid'>uuid</span><span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>configuration:</span><span class='comma'>,</span>
+    <span class='label'>metadata:</span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_execute_request'>execute_request</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_streaming_message-instance_method">
+  
+    #<strong>send_streaming_message</strong>(text, configuration = {}) {|event| ... } 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Sends a streaming message to the agent.</p>
+
+<p>The block is called for each <span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span> event in the stream
+(Task, Message, TaskStatusUpdateEvent, TaskArtifactUpdateEvent).</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>text</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The message text to send</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>configuration</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional configuration</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>event</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A stream event</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+204
+205
+206
+207
+208
+209
+210
+211</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 204</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_streaming_message'>send_streaming_message</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='comma'>,</span> <span class='id identifier rubyid_configuration'>configuration</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_event'>on_event</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SendStreamingMessage</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>message:</span> <span class='lbrace'>{</span><span class='label'>role:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ROLE_USER</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>parts:</span> <span class='lbracket'>[</span><span class='lbrace'>{</span><span class='label'>text:</span><span class='rbrace'>}</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>messageId:</span> <span class='const'>SecureRandom</span><span class='period'>.</span><span class='id identifier rubyid_uuid'>uuid</span><span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>configuration:</span>
+  <span class='rparen'>)</span>
+  <span class='id identifier rubyid_execute_stream'>execute_stream</span><span class='lparen'>(</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_event'>on_event</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_task-instance_method">
+  
+    #<strong>get_task</strong>(task_id, history_length: nil)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Gets the current state of a task.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The task ID to retrieve</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>history_length</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional limit on recent messages to include</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 219</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_task'>get_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>history_length:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_content'>?historyLength=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_history_length'>history_length</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_history_length'>history_length</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GetTask</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>id:</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>historyLength:</span> <span class='id identifier rubyid_history_length'>history_length</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="cancel_task-instance_method">
+  
+    #<strong>cancel_task</strong>(task_id, metadata: nil)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Cancels a task in progress.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The task ID to cancel</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>metadata</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional metadata to attach to the request</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 239</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_cancel_task'>cancel_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>metadata:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CancelTask</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>id:</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>metadata:</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:cancel</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subscribe_to_task-instance_method">
+  
+    #<strong>subscribe_to_task</strong>(task_id) {|event| ... } 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p><p>Subscribes to streaming updates for an existing task.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The task ID to subscribe to</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Yield Parameters:</p>
+<ul class="yieldparam">
+  
+    <li>
+      
+        <span class='name'>event</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A stream event</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 257</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_subscribe_to_task'>subscribe_to_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_event'>on_event</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_get_stream'>get_stream</span><span class='lparen'>(</span><span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>:subscribe</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_on_event'>on_event</span><span class='op'>&amp;.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SubscribeToTask</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>id:</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post_stream'>post_stream</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_on_event'>on_event</span><span class='op'>&amp;.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="list_tasks-instance_method">
+  
+    #<strong>list_tasks</strong>(context_id: nil, status: nil, history_length: nil, status_timestamp_after: nil, include_artifacts: nil, page_size: 20, page_token: nil)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Lists tasks with optional filtering.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>context_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional context ID to filter by</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>status</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional task state to filter by</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>history_length</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional limit on recent messages to include</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>status_timestamp_after</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional lower bound for status timestamp filtering</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>include_artifacts</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether to include task artifacts</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>page_size</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>20</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Maximum number of tasks to return</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>page_token</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Pagination cursor</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 279</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_list_tasks'>list_tasks</span><span class='lparen'>(</span><span class='label'>context_id:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>status:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>history_length:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>status_timestamp_after:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+               <span class='label'>include_artifacts:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>page_size:</span> <span class='int'>20</span><span class='comma'>,</span> <span class='label'>page_token:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:contextId</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_context_id'>context_id</span> <span class='kw'>if</span> <span class='id identifier rubyid_context_id'>context_id</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_status'>status</span> <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:historyLength</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_history_length'>history_length</span> <span class='kw'>if</span> <span class='id identifier rubyid_history_length'>history_length</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:statusTimestampAfter</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_status_timestamp_after'>status_timestamp_after</span> <span class='kw'>if</span> <span class='id identifier rubyid_status_timestamp_after'>status_timestamp_after</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:includeArtifacts</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_include_artifacts'>include_artifacts</span> <span class='kw'>unless</span> <span class='id identifier rubyid_include_artifacts'>include_artifacts</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:pageSize</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_page_size'>page_size</span> <span class='kw'>if</span> <span class='id identifier rubyid_page_size'>page_size</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:pageToken</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_page_token'>page_token</span> <span class='kw'>if</span> <span class='id identifier rubyid_page_token'>page_token</span>
+    <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_encode_www_form'>encode_www_form</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ListTasks</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>contextId:</span> <span class='id identifier rubyid_context_id'>context_id</span><span class='comma'>,</span> <span class='label'>status:</span> <span class='id identifier rubyid_status'>status</span><span class='comma'>,</span>
+                                      <span class='label'>historyLength:</span> <span class='id identifier rubyid_history_length'>history_length</span><span class='comma'>,</span>
+                                      <span class='label'>statusTimestampAfter:</span> <span class='id identifier rubyid_status_timestamp_after'>status_timestamp_after</span><span class='comma'>,</span>
+                                      <span class='label'>includeArtifacts:</span> <span class='id identifier rubyid_include_artifacts'>include_artifacts</span><span class='comma'>,</span>
+                                      <span class='label'>pageSize:</span> <span class='id identifier rubyid_page_size'>page_size</span><span class='comma'>,</span> <span class='label'>pageToken:</span> <span class='id identifier rubyid_page_token'>page_token</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_task_push_notification_config-instance_method">
+  
+    #<strong>create_task_push_notification_config</strong>(task_id, url:, token: nil, authentication: nil, id: nil)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Creates a push notification configuration for a task.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The parent task ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The callback URL</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>token</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional token to include with notifications</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>authentication</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional authentication information</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Optional configuration ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 316</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_task_push_notification_config'>create_task_push_notification_config</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>url:</span><span class='comma'>,</span> <span class='label'>token:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>authentication:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>id:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>CreateTaskPushNotificationConfig</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>taskId:</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>url:</span><span class='comma'>,</span> <span class='label'>token:</span><span class='comma'>,</span> <span class='label'>authentication:</span><span class='comma'>,</span> <span class='label'>id:</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pushNotificationConfigs</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_task_push_notification_config-instance_method">
+  
+    #<strong>get_task_push_notification_config</strong>(task_id, id)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Retrieves a push notification configuration for a task.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The parent task ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The configuration ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 334</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_task_push_notification_config'>get_task_push_notification_config</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pushNotificationConfigs/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GetTaskPushNotificationConfig</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>taskId:</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>id:</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="list_task_push_notification_configs-instance_method">
+  
+    #<strong>list_task_push_notification_configs</strong>(task_id, page_size: nil, page_token: nil)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Lists push notification configurations for a task.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The parent task ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>page_size</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Maximum number of configurations to return</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>page_token</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Pagination cursor</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 353</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_list_task_push_notification_configs'>list_task_push_notification_configs</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>page_size:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>page_token:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:pageSize</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_page_size'>page_size</span> <span class='kw'>if</span> <span class='id identifier rubyid_page_size'>page_size</span>
+    <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:pageToken</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_page_token'>page_token</span> <span class='kw'>if</span> <span class='id identifier rubyid_page_token'>page_token</span>
+    <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_encode_www_form'>encode_www_form</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pushNotificationConfigs</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_path'>path</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_query'>query</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ListTaskPushNotificationConfigs</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>taskId:</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>pageSize:</span> <span class='id identifier rubyid_page_size'>page_size</span><span class='comma'>,</span> <span class='label'>pageToken:</span> <span class='id identifier rubyid_page_token'>page_token</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete_task_push_notification_config-instance_method">
+  
+    #<strong>delete_task_push_notification_config</strong>(task_id, id)  &#x21d2; <tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Deletes a push notification configuration for a task.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The parent task ID</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The configuration ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Object.html" title="LLM::Object (class)">LLM::Object</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 377</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete_task_push_notification_config'>delete_task_push_notification_config</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/tasks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/pushNotificationConfigs/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>DeleteTaskPushNotificationConfig</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>taskId:</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='label'>id:</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Object.html" title="LLM::Object (class)">Object</a></span></span><span class='period'>.</span><span class='id identifier rubyid_from'>from</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="extended_card-instance_method">
+  
+    #<strong>extended_card</strong>  &#x21d2; <tt><span class='object_link'><a href="A2A/Card.html" title="LLM::A2A::Card (class)">LLM::A2A::Card</a></span></tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='get_extended_agent_card-instance_method'>get_extended_agent_card</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Returns the authenticated extended agent card.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="A2A/Card.html" title="LLM::A2A::Card (class)">LLM::A2A::Card</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/llm/a2a.rb', line 393</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_extended_card'>extended_card</span>
+  <span class='kw'>case</span> <span class='ivar'>@binding</span>
+  <span class='kw'>when</span> <span class='symbol'>:rest</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_rest_path'>rest_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/extendedAgentCard</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>when</span> <span class='symbol'>:jsonrpc</span>
+    <span class='id identifier rubyid_body'>body</span> <span class='op'>=</span> <span class='id identifier rubyid_build_request'>build_request</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>GetExtendedAgentCard</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_transport'>transport</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="#Error-constant" title="LLM::A2A::Error (constant)">Error</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid A2A binding: </span><span class='embexpr_beg'>#{</span><span class='ivar'>@binding</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+  <span class='const'><span class='object_link'><a href="../LLM.html" title="LLM (module)">LLM</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="LLM::A2A (class)">A2A</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="A2A/Card.html" title="LLM::A2A::Card (class)">Card</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="A2A/Card.html#initialize-instance_method" title="LLM::A2A::Card#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Sun Aug  9 18:50:17 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.44 (ruby-4.0.6).
+</div>
+
+    </div>
+  </body>
+</html>
