@@ -18,9 +18,19 @@ RSYNC_OPTS ?= -a --delete --exclude '*.sqlite3' --exclude '*.sqlite3-*'
 # so this is the soft, zero-downtime path.
 RC_SERVICE ?= service
 RC_NAME ?= $(APPNAME)
+# How the database password is read from rc.conf (rubydev_db_password) so
+# `deploy` can pass it to the migrate step's environment.
+SYSRC ?= sysrc
+# The rc.conf key that holds the PostgreSQL password for the app role.
+DB_PASSWORD_KEYS ?= rubydev_db_password
 
 APP_FILES = Rakefile config.ru falcon.rb Gemfile Gemfile.lock LICENSE README.md
 APP_DIRS = .bundle bin app config db libexec public
+
+RACK_ENV ?= production
+# Runs any app commands in the production environment. Overridable, e.g.
+# `make install RACK_ENV=development` for local syncs.
+export RACK_ENV
 
 .PHONY: install deinstall bundle check-bundle deploy
 
@@ -45,7 +55,14 @@ bundle:
 # graceful (zero-downtime) restart via the rc.d script. Migrations run
 # before the reload so workers boot against the latest schema.
 deploy: install
-	cd "$(DESTDIR)$(APPDIR)" && "$(BUNDLE)" exec rake db:migrate
+	# Inherit the database password from rc.conf (rubydev_db_password) via
+	# sysrc into the migrate step's environment so production can authenticate.
+	@password=$$( $(SYSRC) -e -n "$(DB_PASSWORD_KEYS)" 2>/dev/null ); \
+	if [ -z "$$password" ]; then \
+		echo "warning: $(DB_PASSWORD_KEYS) is not set in rc.conf; production migrate may fail"; \
+	fi; \
+	cd "$(DESTDIR)$(APPDIR)" && \
+	RACK_ENV=$(RACK_ENV) RUBYDEV_DB_PASSWORD="$$password" "$(BUNDLE)" exec rake db:migrate
 	$(RC_SERVICE) "$(RC_NAME)" restart
 
 check-bundle:
