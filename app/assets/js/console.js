@@ -103,14 +103,11 @@ function Console() {
   }
 
   const renderAnswer = (markdown) => {
-    if (typeof marked === "undefined") {
-      answer.textContent = markdown
-      return
-    }
+    answer.textContent = markdown
     answer.innerHTML = marked.parse(markdown)
-    if (typeof hljs !== "undefined") {
-      answer.querySelectorAll("pre code").forEach((el) => hljs.highlightElement(el))
-    }
+    answer.querySelectorAll("a").forEach((el) => el.target = "_blank")
+    answer.querySelectorAll("a").forEach((el) => el.rel = "noopener")
+    answer.querySelectorAll("pre code").forEach((el) => hljs.highlightElement(el))
   }
 
   const showError = (message) => {
