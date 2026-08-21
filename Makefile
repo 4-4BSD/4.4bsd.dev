@@ -28,9 +28,6 @@ APP_FILES = Rakefile config.ru falcon.rb Gemfile Gemfile.lock LICENSE README.md
 APP_DIRS = .bundle bin app config db libexec public
 
 RACK_ENV ?= production
-# Runs any app commands in the production environment. Overridable, e.g.
-# `make install RACK_ENV=development` for local syncs.
-export RACK_ENV
 
 .PHONY: install deinstall bundle check-bundle deploy
 

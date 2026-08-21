@@ -12,15 +12,11 @@ namespace :db do
 
   desc "Run pending migrations (creating the database first if needed)"
   task migrate: :create do
-    before = schema_versions
-    migration_context.migrate
-    after = schema_versions
-    applied = after - before
-    if applied.empty?
-      puts "No pending migrations (schema is up to date)."
+    applied = migration_context.migrate
+    if applied == true
+      puts "No pending migrations (schema was already up to date)."
     else
-      puts "Applied #{applied.size} migration(s):"
-      applied.each { |v| puts "  #{v}" }
+      puts "Migrations complete."
     end
   end
 
@@ -43,13 +39,6 @@ namespace :db do
       ActiveRecord::SchemaMigration.new(pool),
       ActiveRecord::InternalMetadata.new(pool)
     )
-  end
-
-  def schema_versions
-    ActiveRecord::SchemaMigration
-      .new(ActiveRecord::Base.connection_pool)
-      .versions
-      .to_set
   end
 end
 
