@@ -2,7 +2,7 @@
 
 module Raven::Agents
   class Muninn < ActiveRecord::Base
-    acts_as_agent do |agent|
+    acts_as_agent(format: :jsonb) do |agent|
       agent.set name: "r.uby.dev",
                 description: "a chatbot for the r.uby.dev website",
                 instructions: proc { File.read(File.join(__dir__, "muninn", "prompt.md")) },
