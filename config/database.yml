@@ -1,11 +1,25 @@
+# frozen_string_literal: true
+
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
+  adapter: postgresql
+  host: database.home.network
+  port: 5432
+  username: postgres
+  password:
+  database: rubydev_development
 
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
+  adapter: postgresql
+  host: database.home.network
+  port: 5432
+  username: postgres
+  password:
+  database: rubydev_test
 
 production:
-  adapter: sqlite3
-  database: <%= ENV.fetch("DATABASE_PATH", "db/rubydev.sqlite3") %>
+  adapter: postgresql
+  host: localhost
+  port: 5432
+  username: rubydev
+  password: <%= ENV["RUBYDEV_DB_PASSWORD"] %>
+  database: rubydev

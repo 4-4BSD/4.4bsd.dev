@@ -4,8 +4,14 @@ require "bundler/setup"
 require_relative "config/boot"
 
 namespace :db do
-  desc "Run pending migrations"
-  task :migrate do
+  desc "Create the database if it does not exist"
+  task :create do
+    require "active_record/tasks/database_tasks"
+    ActiveRecord::Tasks::DatabaseTasks.create(ActiveRecord::Base.connection_db_config)
+  end
+
+  desc "Run pending migrations (creating the database first if needed)"
+  task migrate: :create do
     migration_context.migrate
   end
 

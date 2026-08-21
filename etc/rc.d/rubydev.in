@@ -22,7 +22,7 @@ load_rc_config "$name"
 : ${rubydev_path:="%%PREFIX%%/bin:/sbin:/bin:/usr/sbin:/usr/bin"}
 : ${rubydev_logfile:="/var/log/rubydev.log"}
 : ${rubydev_db_dir:="/var/db/rubydev"}
-: ${rubydev_db_path:="/var/db/rubydev/rubydev.sqlite3"}
+: ${rubydev_db_password:=""}
 : ${rubydev_github_pat:=""}
 : ${rubydev_deepseek_key:=""}
 : ${rubydev_session_secret:=""}
@@ -54,18 +54,16 @@ rubydev_start()
 	export BUNDLE_GEMFILE="${rubydev_dir}/Gemfile"
 	export RACK_ENV="$rubydev_env"
 	export PATH="$rubydev_path"
-	export DATABASE_PATH="$rubydev_db_path"
 	export RUBYDEV_BIND="$rubydev_bind"
 	export RUBYDEV_PORT="$rubydev_port"
 	export RUBYDEV_WORKERS="$rubydev_workers"
+	[ -n "$rubydev_db_password" ] && export RUBYDEV_DB_PASSWORD="$rubydev_db_password"
 	[ -n "$rubydev_github_pat" ] && export GITHUB_RUBYDEV_PAT="$rubydev_github_pat"
 	[ -n "$rubydev_deepseek_key" ] && export DEEPSEEK_API_KEY="$rubydev_deepseek_key"
 	[ -n "$rubydev_session_secret" ] && export SESSION_SECRET="$rubydev_session_secret"
-	# Ensure the database directory exists, apply migrations, then hand
-	# ownership of the database files to the service user.
-	mkdir -p "$rubydev_db_dir"
+	# Apply pending migrations against the PostgreSQL database, then start
+	# the service. (PostgreSQL needs no local data dir or ownership steps.)
 	"$rubydev_bundle" exec rake db:migrate || return 1
-	chown -R "$rubydev_user" "$rubydev_db_dir"
 	/usr/sbin/daemon -f -p "$pidfile" -t "$name" -u "$rubydev_user" -o "$rubydev_logfile" \
 		"$rubydev_bundle" exec falcon host
 }
