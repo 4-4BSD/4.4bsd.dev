@@ -3,6 +3,7 @@
 module Raven::Tools
   class Apropos < LLM::Tool
     require "llm/tools/utils"
+    include Utils
 
     name "apropos"
     description "search the manual pages for keyword(s)"

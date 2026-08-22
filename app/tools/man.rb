@@ -3,6 +3,7 @@
 module Raven::Tools
   class Man < LLM::Tool
     require "llm/tools/utils"
+    include Utils
 
     name "man"
     description "read a man page"
