@@ -8,7 +8,7 @@ module Raven::Tools
     description "search the manual pages for keyword(s)"
     parameter :keywords, Array[String], "the keyword(s) to search for"
     parameter :timeout, Integer, "how long to wait"
-    required %i[terms]
+    required %i[keywords]
     defaults timeout: 5
 
     def call(keywords:, timeout: 5)
