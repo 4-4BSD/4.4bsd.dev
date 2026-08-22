@@ -4,7 +4,7 @@ require_relative "spec_helper"
 require "stringio"
 
 RSpec.describe "sessionful agent" do
-  def agent = Raven::Agents::Muninn
+  def agent = Raven::Agents::Beastie
   def app = Raven::Routes::Application
 
   # Fetch the CSRF token embedded in the homepage meta tag.
@@ -64,7 +64,7 @@ RSpec.describe "sessionful agent" do
   end
 end
 
-RSpec.describe Raven::Agents::Muninn::Stream do
+RSpec.describe Raven::Agents::Beastie::Stream do
   def stream = described_class.new(@io)
 
   before { @io = StringIO.new }

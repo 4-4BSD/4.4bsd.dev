@@ -6,8 +6,8 @@ class Raven::Routes::API
       r.get(true) do
         r.sse do |sse|
           q = r.params["q"].to_s
-          stream = Raven::Agents::Muninn::Stream.new(sse).tap(&:hello)
-          agent = Raven::Agents::Muninn.find(agent_id)
+          stream = Raven::Agents::Beastie::Stream.new(sse).tap(&:hello)
+          agent = Raven::Agents::Beastie.find(agent_id)
           res = agent.talk(q, stream:)
           stream.done(res:)
         rescue ActiveRecord::RecordNotFound
@@ -20,7 +20,7 @@ class Raven::Routes::API
 
       r.delete(true) do
         check_csrf!
-        Raven::Agents::Muninn.find_by(id: agent_id)&.destroy
+        Raven::Agents::Beastie.find_by(id: agent_id)&.destroy
         session.delete("agent_id")
         {ok: true}
       end
