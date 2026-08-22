@@ -5,7 +5,7 @@ module Raven::Tools
     require "llm/tools/utils"
 
     name "man"
-    description "read a FreeBSD man page"
+    description "read a man page"
     parameter :name, String, "the name of the man page"
     parameter :section, Number, "optional section"
     parameter :timeout, Integer, "how long to wait"
