@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 220" role="img" aria-labelledby="title desc">
   <title id="title">4.4bsd.dev</title>
-  <desc id="desc">A wide 4.4bsd.dev wordmark with three small ruby gemstones moving around the text.</desc>
+  <desc id="desc">A wide 4.4bsd.dev wordmark with three small FreeBSD daemon orbs floating around the text.</desc>
   <defs>
     <linearGradient id="body" x1="45" y1="35" x2="211" y2="224" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#e0796f"/>
@@ -26,6 +26,11 @@
       <stop offset="0.42" stop-color="#d89a92" stop-opacity="0.18"/>
       <stop offset="1" stop-color="#d89a92" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="orb" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#e0796f"/>
+      <stop offset="0.45" stop-color="#a7312b"/>
+      <stop offset="1" stop-color="#5b090d"/>
+    </radialGradient>
     <linearGradient id="wordmark" x1="0" y1="76" x2="0" y2="138" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#ffffff"/>
       <stop offset="0.48" stop-color="#e1e4e8"/>
@@ -42,20 +47,16 @@
     <filter id="textShadow" x="-20%" y="-45%" width="140%" height="190%">
       <feDropShadow dx="0" dy="7" stdDeviation="6" flood-color="#000" flood-opacity="0.55"/>
     </filter>
-    <symbol id="gemstone" viewBox="0 0 256 256">
-      <path d="M33 91 78 30h100l45 61-95 134Z" fill="url(#body)" stroke="#250507" stroke-width="7" stroke-linejoin="round"/>
-      <path d="M78 30h100l-50 61Z" fill="url(#table)" stroke="#250507" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M33 91h95l-52 44Z" fill="#b03a33" stroke="#250507" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M223 91h-95l52 44Z" fill="url(#right)" stroke="#250507" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M76 135 128 225 33 91Z" fill="#7a1a1b" stroke="#250507" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M180 135 128 225 223 91Z" fill="#62080d" stroke="#250507" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M76 135h104l-52 90Z" fill="url(#center)" stroke="#250507" stroke-width="4" stroke-linejoin="round"/>
-      <path d="M78 30 128 91 76 135 33 91Z" fill="#a32d29" opacity="0.72"/>
-      <path d="M178 30 128 91 180 135 223 91Z" fill="#6f1416" opacity="0.72"/>
-      <path d="M128 91 76 135h104Z" fill="#c44f47" opacity="0.5"/>
-      <path d="M49 91 84 43h43L86 96Z" fill="url(#glow)"/>
-      <path d="M85 62 101 43h35L93 87Z" fill="#fff6eb" opacity="0.52"/>
-      <path d="M97 153h62" fill="none" stroke="#cf8d85" stroke-width="4" stroke-linecap="round" opacity="0.25"/>
+    <symbol id="daemon-orb" viewBox="0 0 256 256">
+      <!-- horns -->
+      <path d="M88 72 C82 60 72 50 58 46 C62 54 64 62 70 78 Z" fill="url(#orb)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M168 72 C174 60 184 50 198 46 C194 54 192 62 186 78 Z" fill="url(#orb)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <!-- sphere -->
+      <circle cx="128" cy="140" r="82" fill="url(#orb)" stroke="#250507" stroke-width="7"/>
+      <!-- glow highlight -->
+      <ellipse cx="96" cy="94" rx="34" ry="24" fill="url(#glow)" transform="rotate(-24 96 94)"/>
+      <!-- specular sparkle -->
+      <path d="M104 84 L112 68 L118 84 L134 90 L118 96 L112 112 L106 96 L90 90 Z" fill="#ffffff" opacity="0.35"/>
     </symbol>
   </defs>
   <style>
@@ -98,54 +99,54 @@
     .accent-shadow {
       stroke: var(--accent-shadow);
     }
-    .gem {
+    .daemon {
       animation-duration: 6.5s;
       animation-iteration-count: infinite;
       animation-timing-function: ease-in-out;
     }
-    .gem-a { animation-name: gem-a; }
-    .gem-b { animation-name: gem-b; animation-duration: 7.5s; }
-    .gem-c { animation-name: gem-c; animation-duration: 8s; }
-    .gem-front {
+    .daemon-a { animation-name: daemon-a; }
+    .daemon-b { animation-name: daemon-b; animation-duration: 7.5s; }
+    .daemon-c { animation-name: daemon-c; animation-duration: 8s; }
+    .daemon-front {
       opacity: 0;
       animation-duration: 12s;
       animation-iteration-count: infinite;
       animation-timing-function: ease-in-out;
     }
-    .gem-front-a { animation-name: gem-front-a; }
-    .gem-front-b { animation-name: gem-front-b; animation-delay: -4s; }
-    .gem-front-c { animation-name: gem-front-c; animation-delay: -8s; }
-    @keyframes gem-a {
+    .daemon-front-a { animation-name: daemon-front-a; }
+    .daemon-front-b { animation-name: daemon-front-b; animation-delay: -4s; }
+    .daemon-front-c { animation-name: daemon-front-c; animation-delay: -8s; }
+    @keyframes daemon-a {
       0%, 100% { transform: translate(42px, 82px) rotate(-10deg); }
       35% { transform: translate(66px, 45px) rotate(5deg); }
       70% { transform: translate(84px, 118px) rotate(-18deg); }
     }
-    @keyframes gem-b {
+    @keyframes daemon-b {
       0%, 100% { transform: translate(236px, 13px) rotate(3deg); }
       33% { transform: translate(192px, 28px) rotate(-9deg); }
       66% { transform: translate(292px, 24px) rotate(12deg); }
     }
-    @keyframes gem-c {
+    @keyframes daemon-c {
       0%, 100% { transform: translate(430px, 78px) rotate(8deg); }
       38% { transform: translate(397px, 45px) rotate(-4deg); }
       72% { transform: translate(446px, 117px) rotate(16deg); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .gem { animation: none; }
-      .gem-front { animation: none; opacity: 0; }
-      .gem-a { transform: translate(42px, 82px) rotate(-10deg); }
-      .gem-b { transform: translate(236px, 13px) rotate(3deg); }
-      .gem-c { transform: translate(430px, 78px) rotate(8deg); }
+      .daemon { animation: none; }
+      .daemon-front { animation: none; opacity: 0; }
+      .daemon-a { transform: translate(42px, 82px) rotate(-10deg); }
+      .daemon-b { transform: translate(236px, 13px) rotate(3deg); }
+      .daemon-c { transform: translate(430px, 78px) rotate(8deg); }
     }
-    @keyframes gem-front-a {
+    @keyframes daemon-front-a {
       0%, 42%, 51%, 100% { opacity: 0; }
       45%, 48% { opacity: 0.9; }
     }
-    @keyframes gem-front-b {
+    @keyframes daemon-front-b {
       0%, 57%, 66%, 100% { opacity: 0; }
       60%, 63% { opacity: 0.86; }
     }
-    @keyframes gem-front-c {
+    @keyframes daemon-front-c {
       0%, 72%, 81%, 100% { opacity: 0; }
       75%, 78% { opacity: 0.88; }
     }
@@ -155,9 +156,9 @@
   <path class="rule-strong" d="M90 32h380" stroke-width="2" stroke-linecap="round" opacity="0.72"/>
 
   <g filter="url(#shadow)" opacity="0.92">
-    <g class="gem gem-a"><use href="#gemstone" width="78" height="78"/></g>
-    <g class="gem gem-b"><use href="#gemstone" width="84" height="84"/></g>
-    <g class="gem gem-c"><use href="#gemstone" width="78" height="78"/></g>
+    <g class="daemon daemon-a"><use href="#daemon-orb" width="78" height="78"/></g>
+    <g class="daemon daemon-b"><use href="#daemon-orb" width="84" height="84"/></g>
+    <g class="daemon daemon-c"><use href="#daemon-orb" width="78" height="78"/></g>
   </g>
 
   <g font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" text-anchor="middle">
@@ -171,9 +172,9 @@
   </g>
 
   <g filter="url(#shadow)">
-    <g class="gem gem-a"><use class="gem-front gem-front-a" href="#gemstone" width="78" height="78"/></g>
-    <g class="gem gem-b"><use class="gem-front gem-front-b" href="#gemstone" width="84" height="84"/></g>
-    <g class="gem gem-c"><use class="gem-front gem-front-c" href="#gemstone" width="78" height="78"/></g>
+    <g class="daemon daemon-a"><use class="daemon-front daemon-front-a" href="#daemon-orb" width="78" height="78"/></g>
+    <g class="daemon daemon-b"><use class="daemon-front daemon-front-b" href="#daemon-orb" width="84" height="84"/></g>
+    <g class="daemon daemon-c"><use class="daemon-front daemon-front-c" href="#daemon-orb" width="78" height="78"/></g>
   </g>
 
   <path class="accent-shadow" d="M90 176h380" stroke-width="8" stroke-linecap="round"/>
