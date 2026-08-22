@@ -13,7 +13,7 @@ module Raven::Agents
     ##
     # @return [Array<LLM::Tool>]
     def tools
-      [Raven::Tools::ManPage, Raven::Tools::Apropos]
+      [Raven::Tools::Man, Raven::Tools::Apropos]
     end
 
     private
