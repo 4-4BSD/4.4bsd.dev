@@ -2,9 +2,9 @@
 # frozen_string_literal: true
 
 ##
-# Falcon service definition for r.uby.dev.
+# Falcon service definition for 4.4bsd.dev.
 #
-# Run with `bundle exec falcon host` (or `service rubydev reload`), which
+# Run with `bundle exec falcon host` (or `service bsd44 reload`), which
 # starts an async-service Controller that:
 #
 #   * binds a single shared listener in the parent process,
@@ -22,10 +22,10 @@
 
 require "falcon/environment/rack"
 
-hostname = "r.uby.dev"
-bind = ENV.fetch("RUBYDEV_BIND", "127.0.0.1")
-port = ENV.fetch("RUBYDEV_PORT", "9292")
-count = Integer(ENV.fetch("RUBYDEV_WORKERS", "1"))
+hostname = "4.4bsd.dev"
+bind = ENV.fetch("BSD44_BIND", "127.0.0.1")
+port = ENV.fetch("BSD44_PORT", "9292")
+count = Integer(ENV.fetch("BSD44_WORKERS", "1"))
 
 service(hostname) do
   include Falcon::Environment::Rack

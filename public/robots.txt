@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://r.uby.dev/sitemap.xml
+Sitemap: https://4.4bsd.dev/sitemap.xml

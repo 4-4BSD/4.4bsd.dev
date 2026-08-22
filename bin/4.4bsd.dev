@@ -19,7 +19,7 @@ def main(argv)
   when nil
     usage
   when "web"
-    command = File.join(root, "libexec", "rubydev", argv[0])
+    command = File.join(root, "libexec", "bsd44", argv[0])
     Process.spawn RbConfig.ruby, command, *argv[1..]
     Process.wait
     exit $?.exitstatus

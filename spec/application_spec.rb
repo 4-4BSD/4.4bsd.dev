@@ -16,7 +16,7 @@ RSpec.describe "sessionful agent" do
   it "serves the homepage" do
     get "/"
     expect(last_response.status).to eq(200)
-    expect(last_response.body).to include("r.uby.dev")
+    expect(last_response.body).to include("4.4bsd.dev")
   end
 
   it "serves the resume" do

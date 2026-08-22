@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 220" role="img" aria-labelledby="title desc">
-  <title id="title">r.uby.dev</title>
-  <desc id="desc">A wide r.uby.dev wordmark with three small ruby gemstones moving around the text.</desc>
+  <title id="title">4.4bsd.dev</title>
+  <desc id="desc">A wide 4.4bsd.dev wordmark with three small ruby gemstones moving around the text.</desc>
   <defs>
     <linearGradient id="body" x1="45" y1="35" x2="211" y2="224" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#e0796f"/>
@@ -163,11 +163,11 @@
   <g font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" text-anchor="middle">
     <text class="wordmark-halo" x="280" y="126" fill="none" stroke="#ffffff"
           font-size="72" font-weight="800"
-          filter="url(#textShadow)">r.uby.dev</text>
+          filter="url(#textShadow)">4.4bsd.dev</text>
     <text class="wordmark-outline" x="280" y="126" fill="none" stroke="#d0d7de"
-          font-size="72" font-weight="800">r.uby.dev</text>
+          font-size="72" font-weight="800">4.4bsd.dev</text>
     <text class="wordmark-fill" x="280" y="126" fill="#24292f"
-          font-size="72" font-weight="800">r.uby.dev</text>
+          font-size="72" font-weight="800">4.4bsd.dev</text>
   </g>
 
   <g filter="url(#shadow)">

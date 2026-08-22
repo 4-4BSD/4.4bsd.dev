@@ -6,7 +6,7 @@ development:
   port: 5432
   username: postgres
   password:
-  database: rubydev_development
+  database: bsd44_development
 
 test:
   adapter: postgresql
@@ -14,12 +14,12 @@ test:
   port: 5432
   username: postgres
   password:
-  database: rubydev_test
+  database: bsd44_test
 
 production:
   adapter: postgresql
   host: localhost
   port: 5432
-  username: rubydev
-  password: <%= ENV["RUBYDEV_DB_PASSWORD"] %>
-  database: rubydev
+  username: bsd44
+  password: <%= ENV["BSD44_DB_PASSWORD"] %>
+  database: bsd44

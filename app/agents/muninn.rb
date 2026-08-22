@@ -3,8 +3,8 @@
 module Raven::Agents
   class Muninn < ActiveRecord::Base
     acts_as_agent(format: :jsonb) do |agent|
-      agent.set name: "r.uby.dev",
-                description: "a chatbot for the r.uby.dev website",
+      agent.set name: "4.4bsd.dev",
+                description: "a chatbot for the 4.4bsd.dev website",
                 instructions: proc { File.read(File.join(__dir__, "muninn", "prompt.md")) },
                 tools: :tools,
                 concurrency: :async
@@ -15,7 +15,7 @@ module Raven::Agents
     def github
       @github ||= LLM::MCP.http(
         url: "https://api.githubcopilot.com/mcp/",
-        headers: {"Authorization" => "Bearer #{ENV['GITHUB_RUBYDEV_PAT']}"},
+        headers: {"Authorization" => "Bearer #{ENV['GITHUB_BSD44_PAT']}"},
         transport: :net_http_persistent
       )
     end

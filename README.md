@@ -1,20 +1,20 @@
 <p align="center">
-  <a href="https://r.uby.dev">
+  <a href="https://4.4bsd.dev">
     <img
-      src="public/images/rubydev-workmark.svg"
+      src="public/images/44bsd-workmark.svg"
       width="400"
       height="200"
       border="0"
-      alt="a r.uby.dev project"
+      alt="a 4.4bsd.dev project"
      >
   </a>
 </p>
 
-> A [r.uby.dev](https://r.uby.dev) project.
+> A [4.4bsd.dev](https://4.4bsd.dev) project.
 
-Welcome to the r.uby.dev website.
+Welcome to the 4.4bsd.dev website.
 
-r.uby.dev is the home of the r.uby.dev chatbot — a friendly robot that
+4.4bsd.dev is the home of the 4.4bsd.dev chatbot — a friendly robot that
 answers questions about [llm.rb](https://github.com/r-uby-dev/llm#readme)
 and [mruby-llm](https://github.com/r-uby-dev/mruby-llm#readme). It is
 connected to the live GitHub repositories of both projects, so it can read

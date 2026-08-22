@@ -1,31 +1,31 @@
 #!/bin/sh
 
-# PROVIDE: rubydev
+# PROVIDE: bsd44
 # REQUIRE: LOGIN NETWORKING
 # KEYWORD: shutdown
 
 . /etc/rc.subr
 
-name="rubydev"
-rcvar="rubydev_enable"
+name="bsd44"
+rcvar="bsd44_enable"
 
 load_rc_config "$name"
 
-: ${rubydev_enable:="NO"}
-: ${rubydev_dir:="%%APPDIR%%"}
-: ${rubydev_user:="www"}
-: ${rubydev_bind:="127.0.0.1"}
-: ${rubydev_port:="9292"}
-: ${rubydev_workers:="1"}
-: ${rubydev_env:="production"}
-: ${rubydev_bundle:="%%PREFIX%%/bin/bundle"}
-: ${rubydev_path:="%%PREFIX%%/bin:/sbin:/bin:/usr/sbin:/usr/bin"}
-: ${rubydev_logfile:="/var/log/rubydev.log"}
-: ${rubydev_db_dir:="/var/db/rubydev"}
-: ${rubydev_db_password:=""}
-: ${rubydev_github_pat:=""}
-: ${rubydev_deepseek_key:=""}
-: ${rubydev_session_secret:=""}
+: ${bsd44_enable:="NO"}
+: ${bsd44_dir:="%%APPDIR%%"}
+: ${bsd44_user:="www"}
+: ${bsd44_bind:="127.0.0.1"}
+: ${bsd44_port:="9292"}
+: ${bsd44_workers:="1"}
+: ${bsd44_env:="production"}
+: ${bsd44_bundle:="%%PREFIX%%/bin/bundle"}
+: ${bsd44_path:="%%PREFIX%%/bin:/sbin:/bin:/usr/sbin:/usr/bin"}
+: ${bsd44_logfile:="/var/log/bsd44.log"}
+: ${bsd44_db_dir:="/var/db/bsd44"}
+: ${bsd44_db_password:=""}
+: ${bsd44_github_pat:=""}
+: ${bsd44_deepseek_key:=""}
+: ${bsd44_session_secret:=""}
 
 # Falcon host runs a supervisor (the pidfile process) that owns the
 # listener and manages forked workers. SIGHUP triggers a blue-green
@@ -37,38 +37,38 @@ stop_cmd="${name}_stop"
 status_cmd="${name}_status"
 restart_cmd="${name}_restart"
 
-rubydev_start()
+bsd44_start()
 {
 	if [ -f "$pidfile" ]; then
 		echo "${name} is already running."
 		return 1
 	fi
 
-	if [ ! -d "$rubydev_dir" ]; then
-		warn "${rubydev_dir} does not exist"
+	if [ ! -d "$bsd44_dir" ]; then
+		warn "${bsd44_dir} does not exist"
 		return 1
 	fi
 
 	echo "Starting ${name}."
-	cd "$rubydev_dir" || return 1
-	export BUNDLE_GEMFILE="${rubydev_dir}/Gemfile"
-	export RACK_ENV="$rubydev_env"
-	export PATH="$rubydev_path"
-	export RUBYDEV_BIND="$rubydev_bind"
-	export RUBYDEV_PORT="$rubydev_port"
-	export RUBYDEV_WORKERS="$rubydev_workers"
-	[ -n "$rubydev_db_password" ] && export RUBYDEV_DB_PASSWORD="$rubydev_db_password"
-	[ -n "$rubydev_github_pat" ] && export GITHUB_RUBYDEV_PAT="$rubydev_github_pat"
-	[ -n "$rubydev_deepseek_key" ] && export DEEPSEEK_API_KEY="$rubydev_deepseek_key"
-	[ -n "$rubydev_session_secret" ] && export SESSION_SECRET="$rubydev_session_secret"
+	cd "$bsd44_dir" || return 1
+	export BUNDLE_GEMFILE="${bsd44_dir}/Gemfile"
+	export RACK_ENV="$bsd44_env"
+	export PATH="$bsd44_path"
+	export BSD44_BIND="$bsd44_bind"
+	export BSD44_PORT="$bsd44_port"
+	export BSD44_WORKERS="$bsd44_workers"
+	[ -n "$bsd44_db_password" ] && export BSD44_DB_PASSWORD="$bsd44_db_password"
+	[ -n "$bsd44_github_pat" ] && export GITHUB_BSD44_PAT="$bsd44_github_pat"
+	[ -n "$bsd44_deepseek_key" ] && export DEEPSEEK_API_KEY="$bsd44_deepseek_key"
+	[ -n "$bsd44_session_secret" ] && export SESSION_SECRET="$bsd44_session_secret"
 	# Apply pending migrations against the PostgreSQL database, then start
 	# the service. (PostgreSQL needs no local data dir or ownership steps.)
-	"$rubydev_bundle" exec rake db:migrate || return 1
-	/usr/sbin/daemon -f -p "$pidfile" -t "$name" -u "$rubydev_user" -o "$rubydev_logfile" \
-		"$rubydev_bundle" exec falcon host
+	"$bsd44_bundle" exec rake db:migrate || return 1
+	/usr/sbin/daemon -f -p "$pidfile" -t "$name" -u "$bsd44_user" -o "$bsd44_logfile" \
+		"$bsd44_bundle" exec falcon host
 }
 
-rubydev_stop()
+bsd44_stop()
 {
 	if [ ! -f "$pidfile" ]; then
 		echo "${name} is not running."
@@ -86,11 +86,11 @@ rubydev_stop()
 # them to become ready, then gracefully drain the old ones — the shared
 # listener stays bound the whole time, so there is no 502 gap. If the
 # service isn't running, fall back to a plain start.
-rubydev_restart()
+bsd44_restart()
 {
 	if [ ! -f "$pidfile" ]; then
 		echo "Starting ${name}."
-		rubydev_start
+		bsd44_start
 		return $?
 	fi
 
@@ -98,7 +98,7 @@ rubydev_restart()
 	kill -HUP "$(cat "$pidfile")"
 }
 
-rubydev_status()
+bsd44_status()
 {
 	if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
 		echo "${name} is running as pid $(cat "$pidfile")."
