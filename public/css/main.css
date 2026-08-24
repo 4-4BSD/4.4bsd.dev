@@ -788,7 +788,7 @@ header {
 }
 
 .console-output {
-  height: 250px;
+  height: 260px;
   overflow-y: auto;
   padding: 14px 16px;
   background: #ffffff;
