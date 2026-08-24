@@ -31,7 +31,7 @@ module Raven::Tools
     def spawn(keywords:)
       Command
         .new("apropos")
-        .env("MANPATH" => "/usr/share/man")
+        .env("MANPATH" => "/usr/share/man:/usr/local/man:/usr/local/share/man")
         .argv(*keywords)
         .spawn
     end

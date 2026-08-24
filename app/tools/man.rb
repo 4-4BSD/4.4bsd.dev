@@ -32,7 +32,7 @@ module Raven::Tools
     def spawn(name:, section:)
       Command
         .new("man")
-        .env("MANPATH" => "/usr/share/man")
+        .env("MANPATH" => "/usr/share/man:/usr/local/man:/usr/local/share/man")
         .argv("-P", "cat", *[section ? section.to_s : nil, name.to_s].compact)
         .spawn
     end
