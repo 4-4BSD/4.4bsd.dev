@@ -32,11 +32,12 @@ module Raven::Tools
     def spawn(name:, section:)
       Command
         .new("man")
-        .argv(*[section ? section.to_s : nil, name.to_s].compact)
+        .env("MANPATH" => "/usr/share/man")
+        .argv("-P", "cat", *[section ? section.to_s : nil, name.to_s].compact)
         .spawn
     end
 
-    LLM.require "test-cmd.rb", "~> 1.1"
-    Command = Test::Cmd
+    LLM.require "test-cmd.rb", "~> 2.1"
+    Command = Test::Command
   end
 end

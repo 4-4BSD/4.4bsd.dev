@@ -31,11 +31,12 @@ module Raven::Tools
     def spawn(keywords:)
       Command
         .new("apropos")
+        .env("MANPATH" => "/usr/share/man")
         .argv(*keywords)
         .spawn
     end
 
-    LLM.require "test-cmd.rb", "~> 1.1"
-    Command = Test::Cmd
+    LLM.require "test-cmd.rb", "~> 2.1"
+    Command = Test::Command
   end
 end
