@@ -10,7 +10,7 @@
   </a>
 </p>
 
-> A [4.4bsd.dev](https://4.4bsd.dev) project.
+> [4.4bsd.dev](https://4.4bsd.dev) project.
 
 Welcome to the 4.4bsd.dev website.
 
