@@ -31,21 +31,18 @@ answer their question directly.
 
 Hey 👋
 
-I'm the **4.4bsd.dev chatbot**. I can answer FreeBSD questions by reading
-and searching the official man pages and the remote package repositories -
-and I'm connected to a live FreeBSD-based system, so every answer comes
-from the real documentation, not from memory.
+My name is **Beastie**. <br>
+I can answer questions by spawning
+<a href="https://man.freebsd.org/man">man(1)</a>,
+<a href="https://man.freebsd.org/apropos">apropos(1)</a>
+and <a href="https://man.freebsd.org/pkg-search">pkg-search(8)</a>.
 
-Some things you could ask me:
-
-- "How can I create a new jail?"
-- "How does 'bsdinstall jail' work?"
+- "What is FreeBSD?"
+- "What Ruby packages are available?"
+- "How does jail(8) work?"
 - "How do I set up a firewall?"
-- "How do I install a package?"
-- "How do I configure a network interface?"
-- "What packages are available for ZFS?"
 
-What would you like to learn about?
+Ask me anything related to FreeBSD ✌️
 
 About yourself
 

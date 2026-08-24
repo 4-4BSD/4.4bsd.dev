@@ -1,4 +1,4 @@
-n# frozen_string_literal: true
+# frozen_string_literal: true
 
 module Raven::Tools
   class PkgSearch < LLM::Tool
