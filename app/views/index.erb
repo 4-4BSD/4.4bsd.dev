@@ -6,7 +6,21 @@
   <section class="home-console" id="home-console">
     <div class="console-output" id="console-output" aria-live="polite">
       <div class="console-status" id="console-status"></div>
-      <div class="console-answer" id="console-answer"></div>
+      <div class="console-answer" id="console-answer">
+        <p>Hey 👋</p>
+        <p>My name is <strong>Beastie</strong>.<br>
+        I can answer questions by spawning
+        <a href="https://man.freebsd.org/man">man(1)</a>,
+        <a href="https://man.freebsd.org/apropos">apropos(1)</a>
+        and <a href="https://man.freebsd.org/pkg-search">pkg-search(8)</a>.</p>
+        <ul>
+          <li>"What is FreeBSD?"</li>
+          <li>"What Ruby packages are available?"</li>
+          <li>"How does jail(8) work?"</li>
+          <li>"How do I set up a firewall?"</li>
+        </ul>
+        <p>Ask me anything related to FreeBSD ✌️</p>
+      </div>
     </div>
     <form class="console-form" id="console-form" autocomplete="off">
       <span class="console-prompt">&gt;</span>
@@ -19,7 +33,7 @@
         <svg class="console-reset-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"/></svg>
       </button>
     </form>
-    <p class="console-note">powered by <a target="_blank" href="https://hardenedbsd.org">hardenedBSD</a></p>
+    <p class="console-note">powered by <a target="_blank" href="https://freebsd.org">FreeBSD</a></p>
   </section>
 
   <section class="home-contact">
@@ -27,10 +41,9 @@
     <p>
       4.4bsd.dev provides a chatbot that is connected to a live FreeBSD-based system.
       <br>
-      The chatbot has access to <a target="_blank" href="https://man.freebsd.org/man">man(1)</a>, <a target="_blank" href="https://man.freebsd.org/apropos">apropos(1)</a>
-      and <a href="_blank" href="https://man.freebsd.org/pkg-search">pkg-search(8)</a>.
+      All answers are based on official FreeBSD sources.
       <br>
-      All answers are based on official FreeBSD sources and not the model's training data.
+      Say hi at <a href="mailto:robert@r.uby.dev">robert@r.uby.dev</a>
     </p>
   </section>
 
@@ -39,22 +52,22 @@
     <a class="project-card" href="https://github.com/0x1eef/mruby-jail#readme" target="_blank" rel="noopener">
       <h3 class="project-name">mruby-jail</h3>
       <p class="project-tagline">mruby-jail provides an object-oriented interface around libjail</p>
-      <p class="project-meta"><span class="lang-dot lang-ruby"></span> shell<span class="project-license">0BSD</span></p>
+      <p class="project-meta"><span class="lang-dot lang-ruby"></span> ruby<span class="project-license">0BSD</span></p>
     </a>
     <a class="project-card" href="https://github.com/0x1eef/mruby-kernel-process#readme" target="_blank" rel="noopener">
       <h3 class="project-name">mruby-kernel-process</h3>
       <p class="project-tagline">mruby-kernel-process provides an object-oriented interface around the FreeBSD process table</p>
-      <p class="project-meta"><span class="lang-dot lang-ruby"></span> shell<span class="project-license">0BSD</span></p>
+      <p class="project-meta"><span class="lang-dot lang-ruby"></span> ruby<span class="project-license">0BSD</span></p>
     </a>
     <a class="project-card" href="https://github.com/0x1eef/sourcezap#readme" target="_blank" rel="noopener">
       <h3 class="project-name">sourcezap</h3>
       <p class="project-tagline">sourcezap can help you manage and install the source tree</p>
-      <p class="project-meta"><span class="lang-dot lang-ruby"></span> shell<span class="project-license">0BSD</span></p>
+      <p class="project-meta"><span class="lang-dot lang-shell"></span> shell<span class="project-license">0BSD</span></p>
     </a>
     <a class="project-card" href="https://github.com/0x1eef/portzap#readme" target="_blank" rel="noopener">
       <h3 class="project-name">portzap</h3>
       <p class="project-tagline">portzap can help you manage and install the ports tree</p>
-      <p class="project-meta"><span class="lang-dot lang-mruby"></span> shell<span class="project-license">0BSD</span></p>
+      <p class="project-meta"><span class="lang-dot lang-shell"></span> shell<span class="project-license">0BSD</span></p>
     </a>
   </div>
 </main>
