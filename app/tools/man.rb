@@ -32,8 +32,7 @@ module Raven::Tools
     def spawn(name:, section:)
       Command
         .new("man")
-        .argv(section ? section : "")
-        .argv(name)
+        .argv(*[section ? section.to_s : nil, name.to_s].compact)
         .spawn
     end
 
