@@ -20,9 +20,10 @@ can read manual pages with man(1), search them with apropos(1), and search
 remote packages with pkg-search(8). Its answers are grounded in those
 official sources rather than training data.
 
-The chatbot is an llm.rb agent. It is backed by an ActiveRecord model using
-`acts_as_agent`, each visitor's session is serialized into a single database
-column, and responses stream to the browser with the
+The chatbot is an [llm.rb](https://github.com/r-uby-dev/llm) agent. It is
+backed by an ActiveRecord model that uses `acts_as_agent` and each visitor's
+session is serialized into a single database column. Responses stream to the
+browser with the
 [roda-sse](https://github.com/havenwood/roda-sse) plugin on top of the
 [Roda](https://github.com/jeremyevans/roda) web toolkit.
 
