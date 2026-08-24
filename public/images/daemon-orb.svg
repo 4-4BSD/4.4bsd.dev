@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="32 38 192 192" role="img" aria-label="FreeBSD daemon orb">
+  <defs>
+    <radialGradient id="orb" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#e0796f"/>
+      <stop offset="0.45" stop-color="#a7312b"/>
+      <stop offset="1" stop-color="#5b090d"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="38%" cy="22%" r="66%">
+      <stop offset="0" stop-color="#fff8ed" stop-opacity="0.68"/>
+      <stop offset="0.42" stop-color="#d89a92" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#d89a92" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- horns -->
+  <path d="M88 72 C82 60 72 50 58 46 C62 54 64 62 70 78 Z" fill="url(#orb)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M168 72 C174 60 184 50 198 46 C194 54 192 62 186 78 Z" fill="url(#orb)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+  <!-- sphere -->
+  <circle cx="128" cy="140" r="82" fill="url(#orb)" stroke="#250507" stroke-width="7"/>
+  <!-- glow highlight -->
+  <ellipse cx="96" cy="94" rx="34" ry="24" fill="url(#glow)" transform="rotate(-24 96 94)"/>
+  <!-- specular sparkle -->
+  <path d="M104 84 L112 68 L118 84 L134 90 L118 96 L112 112 L106 96 L90 90 Z" fill="#ffffff" opacity="0.35"/>
+</svg>
