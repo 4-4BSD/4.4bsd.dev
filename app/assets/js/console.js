@@ -1,3 +1,5 @@
+import { Icons } from "/assets/js/icons.js"
+
 function Console() {
   const self = Object.create(null)
 
@@ -9,23 +11,22 @@ function Console() {
   const expand = document.querySelector(".console-expand")
   const consoleEl = document.getElementById("home-console")
 
-  const SEARCH_ICON = '<svg class="console-status-icon" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.25"/><path d="M9.75 9.75 14 14" stroke-linecap="round"/></svg>'
-
-  const MAN_ICON = '<svg class="console-status-icon" viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 1.5h6L13 4.5v10H4z"/><path d="M10 1.5v3h3M6.5 8h5M6.5 10.5h5M6.5 13h3" stroke-linecap="round"/></svg>'
-
   const iconFor = (name) => {
-    if (name === "man") return MAN_ICON
-    return SEARCH_ICON
+    if (name === "man") return Icons.ManPage
+    if (name === "apropos") return Icons.Apropos
+    return Icons.PkgSearch
   }
 
   const TOOL_LABELS = {
     man: "Reading man page...",
-    apropos: "Searching man pages..."
+    apropos: "Searching man pages...",
+    "pkg-search": "Searching packages..."
   }
 
   const TOOL_DONE_LABELS = {
     man: "Read man page",
-    apropos: "Searched man pages"
+    apropos: "Searched man pages",
+    "pkg-search": "Searched packages"
   }
 
   const activeTools = new Map()
