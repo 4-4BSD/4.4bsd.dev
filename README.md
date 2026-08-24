@@ -14,17 +14,15 @@
 
 Welcome to the 4.4bsd.dev website.
 
-4.4bsd.dev is the home of the 4.4bsd.dev chatbot — a friendly robot that
-answers questions about [llm.rb](https://github.com/r-uby-dev/llm#readme)
-and [mruby-llm](https://github.com/r-uby-dev/mruby-llm#readme). It is
-connected to the live GitHub repositories of both projects, so it can read
-READMEs, search the source code, and look up issues and pull requests. Its
-answers are grounded in the real repositories rather than training data.
+4.4bsd.dev is the home of a FreeBSD chatbot that answers questions using
+the live documentation and package repositories on a FreeBSD system. It
+can read manual pages with man(1), search them with apropos(1), and search
+remote packages with pkg-search(8). Its answers are grounded in those
+official sources rather than training data.
 
-The chatbot is itself an llm.rb agent. It is backed by an ActiveRecord model
-using [`acts_as_agent`](https://r.uby.dev/api-docs/llm.rb/LLM/ActiveRecord/ActsAsAgent.html#acts_as_agent-instance_method),
-each visitor's session is serialized into a single database column, and
-responses stream to the browser with the
+The chatbot is an llm.rb agent. It is backed by an ActiveRecord model using
+`acts_as_agent`, each visitor's session is serialized into a single database
+column, and responses stream to the browser with the
 [roda-sse](https://github.com/havenwood/roda-sse) plugin on top of the
 [Roda](https://github.com/jeremyevans/roda) web toolkit.
 
