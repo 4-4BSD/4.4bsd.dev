@@ -8,6 +8,13 @@ namespace :db do
   task :create do
     require "active_record/tasks/database_tasks"
     ActiveRecord::Tasks::DatabaseTasks.create(ActiveRecord::Base.connection_db_config)
+  ensure
+    ##
+    # DatabaseTasks.create leaves the pool connected to the
+    # maintenance database ("postgres") when the target
+    # database already exists. Restore the connection to the
+    # configured database.
+    ActiveRecord::Base.establish_connection(db_config)
   end
 
   desc "Run pending migrations (creating the database first if needed)"
@@ -39,6 +46,14 @@ namespace :db do
       ActiveRecord::SchemaMigration.new(pool),
       ActiveRecord::InternalMetadata.new(pool)
     )
+  end
+
+  ##
+  # Loads the database config for the current environment.
+  def db_config
+    raw    = ERB.new(File.read(File.join(__dir__, "config", "database.yml"))).result
+    config = YAML.safe_load(raw, aliases: true)
+    config.fetch(Raven.env)
   end
 end
 
