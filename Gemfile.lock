@@ -1,9 +1,3 @@
-GIT
-  remote: https://github.com/r-uby-dev/llm.git
-  revision: 35d2e41ab52d6b9deafb442b124358d3bfb0860a
-  specs:
-    llm.rb (15.0.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -104,6 +98,7 @@ GEM
       kramdown (~> 2.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
+    llm.rb (15.1.0)
     localhost (1.8.0)
       bake
     lockf.rb (3.0.0)
@@ -255,7 +250,7 @@ DEPENDENCIES
   json
   kramdown
   kramdown-parser-gfm
-  llm.rb!
+  llm.rb (~> 15.1)
   logger
   net-http-persistent
   pg
@@ -311,7 +306,7 @@ CHECKSUMS
   kramdown-parser-gfm (1.1.0) sha256=fb39745516427d2988543bf01fc4cf0ab1149476382393e0e9c48592f6581729
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
-  llm.rb (15.0.3)
+  llm.rb (15.1.0) sha256=5570c840e3cade00d421526bf36236c8d24016dce0b30e8212b2c1367c159236
   localhost (1.8.0) sha256=df7ea825b4f64949c588c17efac86bc47ddc4460d723778abe933b71759b2701
   lockf.rb (3.0.0) sha256=74cea27dff3f6a5408bcbb3ceb6be9f8d733619ba75fc5fa7883b22b7003ed2d
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
