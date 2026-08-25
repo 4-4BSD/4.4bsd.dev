@@ -13,6 +13,6 @@ RSpec.configure do |config|
 
   # Isolate each example from the previous agent data.
   config.before(:each) do
-    Raven::Agents::Beastie.delete_all
+    Raven::Agents::Puffy.delete_all
   end
 end

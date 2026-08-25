@@ -5,10 +5,10 @@ class Raven::Routes::API
     route do |r|
       r.post(true) do
         check_csrf!
-        if agent = Raven::Agents::Beastie.find_by(id: agent_id)
+        if agent = Raven::Agents::Puffy.find_by(id: agent_id)
           {ok: true, id: agent.id}
         else
-          agent = Raven::Agents::Beastie.create!
+          agent = Raven::Agents::Puffy.create!
           session["agent_id"] = agent.id
           {ok: true, id: agent.id}
         end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Raven::Agents::Beastie
+class Raven::Agents::Puffy
   class Stream < LLM::Stream
     def initialize(io)
       @io = io
