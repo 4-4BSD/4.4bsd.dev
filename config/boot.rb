@@ -12,6 +12,7 @@ module Raven
   require "yaml"
   require "base64"
   require "test/cmd"
+  require "fdr"
 
   Routes = Module.new
   Agents = Module.new
