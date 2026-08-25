@@ -10,14 +10,12 @@ function Console() {
   const reset = document.querySelector(".console-reset")
   const expand = document.querySelector(".console-expand")
   const consoleEl = document.getElementById("home-console")
-  const output = document.getElementById("console-output")
   const answerTemplate = document.getElementById("console-answer-template")
 
   const renderDefaultAnswer = () => {
     const clone = answerTemplate.content.cloneNode(true)
     answer.innerHTML = ""
     answer.replaceChildren(clone)
-    output.classList.add("is-centered")
   }
   renderDefaultAnswer()
 
@@ -125,7 +123,6 @@ function Console() {
   self.beginTurn = () => {
     answer.innerHTML = ""
     answer.classList.remove("is-error")
-    output.classList.remove("is-centered")
     clearStatus()
     renderStatus()
   }

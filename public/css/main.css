@@ -777,11 +777,6 @@ header {
   max-width: 100%;
 }
 
-.home-console.is-expanded .console-output.is-centered {
-  justify-content: flex-start;
-  padding-top: 14px;
-}
-
 .home-console.is-expanded .console-form {
   width: 100%;
   max-width: 900px;
@@ -793,7 +788,7 @@ header {
 }
 
 .console-output {
-  height: 260px;
+  height: 285px;
   overflow-y: auto;
   padding: 14px 16px;
   background: #ffffff;
@@ -807,18 +802,10 @@ header {
   overflow-wrap: break-word;
 }
 
-.console-output.is-centered {
-  display: flex;
-  flex-direction: column;
-  justify-content: safe center;
-  padding-top: 24px;
-}
-
 .console-status {
   display: none;
   margin: 0 0 10px;
   font-size: 13px;
-  flex: 0 0 auto;
 }
 
 .console-status.is-active {
