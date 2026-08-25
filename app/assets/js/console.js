@@ -10,14 +10,14 @@ function Console() {
   const reset = document.querySelector(".console-reset")
   const expand = document.querySelector(".console-expand")
   const consoleEl = document.getElementById("home-console")
+  const output = document.getElementById("console-output")
   const answerTemplate = document.getElementById("console-answer-template")
 
-  // The default greeting shown on load and after a reset. Cloned from a
-  // <template> so the console-answer element itself always starts empty.
   const renderDefaultAnswer = () => {
     const clone = answerTemplate.content.cloneNode(true)
     answer.innerHTML = ""
     answer.replaceChildren(clone)
+    output.classList.add("is-centered")
   }
   renderDefaultAnswer()
 
@@ -125,6 +125,7 @@ function Console() {
   self.beginTurn = () => {
     answer.innerHTML = ""
     answer.classList.remove("is-error")
+    output.classList.remove("is-centered")
     clearStatus()
     renderStatus()
   }

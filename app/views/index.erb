@@ -7,34 +7,10 @@
     <div class="console-output" id="console-output" aria-live="polite">
       <div class="console-status" id="console-status"></div>
       <div class="console-answer" id="console-answer">
-        <p>Hey 👋</p>
-        <p>My name is <strong>Puffy</strong>.<br>
-        I can answer FreeBSD questions by spawning
-        <a target="_blank" rel="noopener" href="https://man.freebsd.org/man">man(1)</a>,
-        <a target="_blank" rel="noopener" href="https://man.freebsd.org/apropos">apropos(1)</a>
-        and <a target="_blank" rel="noopener" href="https://man.freebsd.org/pkg-search">pkg-search(8)</a>.</p>
-        <ul>
-          <li>"What is FreeBSD?"</li>
-          <li>"What Ruby packages are available?"</li>
-          <li>"How does jail(8) work?"</li>
-          <li>"How do I set up a firewall?"</li>
-        </ul>
-        <p>Ask me anything about FreeBSD.</p>
+        <%= render "partials/greeting" %>
       </div>
       <template id="console-answer-template">
-        <p>Hey 👋</p>
-        <p>My name is <strong>Puffy</strong>.<br>
-        I can answer FreeBSD questions by spawning
-        <a target="_blank" rel="noopener" href="https://man.freebsd.org/man">man(1)</a>,
-        <a target="_blank" rel="noopener" href="https://man.freebsd.org/apropos">apropos(1)</a>
-        and <a target="_blank" rel="noopener" href="https://man.freebsd.org/pkg-search">pkg-search(8)</a>.</p>
-        <ul>
-          <li>"What is FreeBSD?"</li>
-          <li>"What Ruby packages are available?"</li>
-          <li>"How does jail(8) work?"</li>
-          <li>"How do I set up a firewall?"</li>
-        </ul>
-        <p>Ask me anything about FreeBSD.</p>
+        <%= render "partials/greeting" %>
       </template>
     </div>
     <form class="console-form" id="console-form" autocomplete="off">
