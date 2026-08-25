@@ -19,10 +19,26 @@ const PkgSearch = `
     <path d="M2 5l6 3.5L14 5M8 8.5V14.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`
 
+const GrepSource = `
+  <svg class="console-status-icon" viewBox="0 0 16 16" width="12" height="12"
+       fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+    <circle cx="6.5" cy="6.5" r="3.25"/>
+    <path d="M9 9l3.5 3.5M8 4.5 6.75 6.5M8 4.5 9.25 6.5M4.5 8 6.5 6.75M4.5 8l2 1" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`
+
+const ReadSource = `
+  <svg class="console-status-icon" viewBox="0 0 16 16" width="12" height="12"
+       fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+    <path d="M3 2.5h7l3 3v8H3z"/>
+    <path d="M10 2.5v3h3M5.5 8h5M5.5 10.5h5M5.5 13h2.5" stroke-linecap="round"/>
+  </svg>`
+
 const Icons = {
   ManPage,
   Apropos,
-  PkgSearch
+  PkgSearch,
+  GrepSource,
+  ReadSource
 }
 
 export { Icons }

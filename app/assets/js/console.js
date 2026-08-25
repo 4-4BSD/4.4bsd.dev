@@ -22,19 +22,25 @@ function Console() {
   const iconFor = (name) => {
     if (name === "man") return Icons.ManPage
     if (name === "apropos") return Icons.Apropos
+    if (name === "grep-source") return Icons.GrepSource
+    if (name === "read-source") return Icons.ReadSource
     return Icons.PkgSearch
   }
 
   const TOOL_LABELS = {
     man: "Reading man page...",
     apropos: "Searching man pages...",
-    "pkg-search": "Searching packages..."
+    "pkg-search": "Searching packages...",
+    "grep-source": "Searching FreeBSD source...",
+    "read-source": "Reading FreeBSD source..."
   }
 
   const TOOL_DONE_LABELS = {
     man: "Read man page",
     apropos: "Searched man pages",
-    "pkg-search": "Searched packages"
+    "pkg-search": "Searched packages",
+    "grep-source": "Searched FreeBSD source",
+    "read-source": "Read FreeBSD source"
   }
 
   const activeTools = new Map()
