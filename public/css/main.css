@@ -597,6 +597,14 @@ header {
   height: auto;
 }
 
+.home-logo object {
+  display: block;
+  width: 100%;
+  aspect-ratio: 560 / 220;
+  height: auto;
+  border: 0;
+}
+
 .home-section-title {
   margin: 28px 0 20px;
   text-align: left;

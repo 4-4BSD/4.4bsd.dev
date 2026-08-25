@@ -181,7 +181,7 @@
     }
   </style>
 
-  <g filter="url(#shadow)" opacity="0.92">
+  <g opacity="0.92">
     <g class="daemon daemon-a"><use href="#openbsd-fish" width="78" height="78"/></g>
     <g class="daemon daemon-b"><use href="#freebsd-orb" width="84" height="84"/></g>
     <g class="daemon daemon-c"><use href="#hardenedbsd-orb" width="78" height="78"/></g>
@@ -197,7 +197,7 @@
           font-size="72" font-weight="800">4.4BSD</text>
   </g>
 
-  <g filter="url(#shadow)">
+  <g>
     <g class="daemon daemon-a"><use class="daemon-front daemon-front-a" href="#openbsd-fish" width="78" height="78"/></g>
     <g class="daemon daemon-b"><use class="daemon-front daemon-front-b" href="#freebsd-orb" width="84" height="84"/></g>
     <g class="daemon daemon-c"><use class="daemon-front daemon-front-c" href="#hardenedbsd-orb" width="78" height="78"/></g>

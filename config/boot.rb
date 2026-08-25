@@ -10,6 +10,7 @@ module Raven
   require "json"
   require "erb"
   require "yaml"
+  require "base64"
   require "test/cmd"
 
   Routes = Module.new
