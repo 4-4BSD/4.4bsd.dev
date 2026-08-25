@@ -13,7 +13,13 @@ module Raven::Agents
     ##
     # @return [Array<LLM::Tool>]
     def tools
-      [Raven::Tools::Man, Raven::Tools::Apropos, Raven::Tools::PkgSearch]
+      [
+        Raven::Tools::ReadSource,
+        Raven::Tools::GrepSource,
+        Raven::Tools::Man,
+        Raven::Tools::Apropos,
+        Raven::Tools::PkgSearch
+      ]
     end
 
     private
