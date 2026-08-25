@@ -68,6 +68,7 @@ function App() {
       const expanded = console.consoleEl.classList.toggle("is-expanded")
       console.expand.setAttribute("aria-expanded", expanded ? "true" : "false")
       console.expand.title = expanded ? "Collapse chat" : "Expand chat"
+      console.input.focus()
     })
 
     if (window.matchMedia("(hover: hover)").matches) {

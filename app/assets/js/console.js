@@ -10,6 +10,16 @@ function Console() {
   const reset = document.querySelector(".console-reset")
   const expand = document.querySelector(".console-expand")
   const consoleEl = document.getElementById("home-console")
+  const answerTemplate = document.getElementById("console-answer-template")
+
+  // The default greeting shown on load and after a reset. Cloned from a
+  // <template> so the console-answer element itself always starts empty.
+  const renderDefaultAnswer = () => {
+    const clone = answerTemplate.content.cloneNode(true)
+    answer.innerHTML = ""
+    answer.replaceChildren(clone)
+  }
+  renderDefaultAnswer()
 
   const iconFor = (name) => {
     if (name === "man") return Icons.ManPage
@@ -146,9 +156,10 @@ function Console() {
   self.showError = showError
 
   self.resetUI = () => {
-    answer.innerHTML = ""
     answer.classList.remove("is-error")
+    renderDefaultAnswer()
     clearStatus()
+    input.focus()
   }
 
   return self
