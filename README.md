@@ -14,20 +14,15 @@
 
 Welcome to the 4.4bsd.dev website.
 
-4.4bsd.dev is the home of a FreeBSD chatbot that answers questions using
-the live documentation and package repositories on a FreeBSD system. It
-can read manual pages with man(1), search them with apropos(1), and search
-remote packages with pkg-search(8). Its answers are grounded in those
-official sources rather than training data.
+4.4bsd.dev is the home of a chatbot that connects to a
+live FreeBSD-based system. The chatbot can spawn
+programs such as man(1), apropos(1) and pkg-search(8). It
+also has access to the FreeBSD source tree (aka `/usr/src/`)
+and a specialized set of tools to query it effectively.
 
-The chatbot is an [llm.rb](https://github.com/r-uby-dev/llm) agent. It is
-backed by an ActiveRecord model that uses `acts_as_agent` and each visitor's
-session is serialized into a single database column. Responses stream to the
-browser with the
-[roda-sse](https://github.com/havenwood/roda-sse) plugin on top of the
-[Roda](https://github.com/jeremyevans/roda) web toolkit.
+The chatbot is an [llm.rb](https://github.com/r-uby-dev/llm) agent,
+and this application must be run on a FreeBSD-based system with
+a copy of the source tree available in `/usr/src`. The
+[4.4bsd.dev](https://4.4bsd.dev) website runs on a fork
+of FreeBSD (HardenedBSD 15.1-STABLE).
 
-## License
-
-This software is released under the terms of the MIT license. <br>
-See [LICENSE](./LICENSE) for details.
