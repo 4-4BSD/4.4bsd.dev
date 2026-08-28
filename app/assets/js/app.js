@@ -1,5 +1,5 @@
-import { Agent } from "/js/agent.js"
-import { Console } from "/js/console.js"
+import { Agent } from "./agent.js"
+import { Console } from "./console.js"
 
 function App() {
   const self = Object.create(null)

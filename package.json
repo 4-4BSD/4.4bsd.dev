@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "scripts": {
+    "build:js": "esbuild app/assets/js/app.js --bundle --minify --format=iife --legal-comments=eof --outfile=public/assets/js/main.js",
+    "build:css": "esbuild app/assets/css/main.css --bundle --minify --legal-comments=eof --outfile=public/css/main.css",
+    "build": "npm run build:js && npm run build:css"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  },
+  "dependencies": {
+    "highlight.js": "^11.12.0",
+    "marked": "^18.0.11"
+  }
+}

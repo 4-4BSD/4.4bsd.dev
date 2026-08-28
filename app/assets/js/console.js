@@ -1,4 +1,6 @@
-import { Icons } from "/js/icons.js"
+import { marked } from "marked"
+import hljs from "highlight.js/lib/common"
+import { Icons } from "./icons.js"
 
 function Console() {
   const self = Object.create(null)

@@ -29,7 +29,7 @@ APP_DIRS = .bundle bin app config db libexec public
 
 RACK_ENV ?= production
 
-.PHONY: install deinstall bundle check-bundle deploy
+.PHONY: install deinstall bundle check-bundle deploy assets
 
 install: check-bundle
 	$(MKDIR) "$(DESTDIR)$(APPDIR)"
@@ -47,6 +47,13 @@ install: check-bundle
 bundle:
 	$(BUNDLE) config set path .bundle/gems
 	$(BUNDLE) install
+
+# Build frontend assets locally (never on the server). Produces
+# public/assets/js/main.js and public/css/main.css, which are committed
+# and shipped by `install`.
+assets:
+	npm install
+	npm run build
 
 # Deploy: sync the app in place, apply any pending migrations, then do a
 # graceful (zero-downtime) restart via the rc.d script. Migrations run

@@ -1,4 +1,4 @@
-import { Api } from "/js/api.js"
+import { Api } from "./api.js"
 
 const EVENT_HANDLERS = {
   tool_call:   "onToolCall",
