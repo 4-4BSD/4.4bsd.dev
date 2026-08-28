@@ -2,24 +2,19 @@
 
 module Raven::Routes
   class Application < Roda
-    plugin :json
-    plugin :sse
     plugin :render, views: File.join(__dir__, "..", "views")
     plugin :public, root: File.expand_path("../../public", __dir__)
-    plugin :all_verbs
-    plugin :sessions, secret: ENV["SESSION_SECRET"] || "change me" * 24
     plugin :route_csrf, require_request_specific_tokens: false, check_header: true
-    plugin :send_file
+    plugin :sessions, secret: ENV["SESSION_SECRET"] || "change me" * 24
 
     route do |r|
       r.public
 
-      r.on "assets/js" do
-        r.get(/(.+)/) do |file|
-          root = File.expand_path(File.join(Raven.root, "app", "assets", "js"))
-          path = File.expand_path(File.join(root, file))
-          next unless path.start_with?(root + File::SEPARATOR) && File.file?(path)
-          send_file path
+      r.on "man" do
+        r.on String do |page|
+          r.get do
+            man2page(page, r.params["section"]).stdout
+          end
         end
       end
 
@@ -38,9 +33,29 @@ module Raven::Routes
       end
     end
 
-    def resume!
-      response["content-type"] = "text/html"
-      view("resume", engine: "md", layout: "resume")
+    ##
+    # @param [String] name
+    #  The man page name
+    # @param [String, nil]
+    #  An optional section number.
+    # @return [Test::Command]
+    def man2html(name, section)
+      Test::Command
+        .new("man2html")
+        .stdin(man(name, section))
+        .stdout
+    end
+
+    ##
+    # @param [String] name
+    #  The man page name
+    # @param [String, nil] section
+    #  Optional section
+    # @return [Test::Command]
+    def man(name, section)
+      Test::Command
+        .new("man")
+        .argv([section ? Integer(section) : nil, name].compact)
     end
 
     ##
@@ -60,7 +75,11 @@ module Raven::Routes
          aria-hidden="true">
          </object>)
     end
-
     include Base64
+
+    def resume!
+      response["content-type"] = "text/html"
+      view("resume", engine: "md", layout: "resume")
+    end
   end
 end
