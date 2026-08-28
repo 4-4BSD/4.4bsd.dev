@@ -624,6 +624,7 @@ header {
   display: flex;
   flex-direction: column;
   padding: 20px 22px;
+  min-height: 156px;
   background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 8px;
