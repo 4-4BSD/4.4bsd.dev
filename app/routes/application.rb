@@ -11,9 +11,12 @@ module Raven::Routes
       r.public
 
       r.on "man" do
-        r.on String do |page|
+        r.on String do |manpage|
           r.get do
-            man2html(page, r.params["section"])
+            content = man2html(manpage, r.params["section"])
+            locals = {content:}
+            layout_opts = {locals: {manpage:}}
+            view("man", layout: "layouts/man", layout_opts:, locals:)
           end
         end
       end
@@ -36,6 +39,8 @@ module Raven::Routes
     def man2html(name, section)
       Test::Command
         .new("man2html")
+        .argv("-bare")
+        .argv("-nodepage")
         .stdin(man(name, section))
         .stdout
     end
