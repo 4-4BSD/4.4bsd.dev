@@ -25,7 +25,7 @@
     <meta name="twitter:description" content="Ask questions about FreeBSD.">
     <meta name="twitter:image" content="https://4.4bsd.dev/images/44bsd.svg">
 
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/main.css?v=<%= Raven.version %>">
 
     <%= csrf_metatag %>
   </head>
@@ -36,6 +36,6 @@
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b565dccbae55404faf2c00fc90b87f9a"}'></script>
     <!-- End Cloudflare Web Analytics -->
 
-    <script defer src="/assets/js/main.js"></script>
+    <script defer src="/assets/js/main.js?v=<%= Raven.version %>"></script>
   </body>
 </html>

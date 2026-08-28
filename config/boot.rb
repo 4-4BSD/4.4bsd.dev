@@ -36,6 +36,12 @@ module Raven
   end
 
   ##
+  # @return [String]
+  def self.version
+    @version ||= File.read(File.join(root, ".version")).strip
+  end
+
+  ##
   # Establish database connection
   raw    = ERB.new(File.read(File.join(__dir__, "database.yml"))).result
   config = YAML.safe_load(raw, aliases: true)

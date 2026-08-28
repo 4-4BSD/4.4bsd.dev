@@ -73,6 +73,12 @@ check-bundle:
 	@test -f .bundle/config || (echo "Run 'make bundle' as an unprivileged user before 'make install'." >&2; exit 1)
 	@test -d .bundle/gems || (echo "Run 'make bundle' as an unprivileged user before 'make install'." >&2; exit 1)
 
+# Write the current HEAD commit into .version. Runs automatically before
+# every commit (see .git/hooks/pre-commit) so .version always tracks HEAD.
+version:
+	@git rev-parse HEAD > .version
+	@echo "wrote .version: $$(cat .version)"
+
 deinstall:
 	$(RM) "$(DESTDIR)$(RCDIR)/bsd44"
 	rm -rf "$(DESTDIR)$(APPDIR)"
