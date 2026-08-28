@@ -22,12 +22,6 @@ module Raven::Routes
         view("index")
       end
 
-      r.on "resume" do
-        r.get(true) { resume! }
-        r.root { resume! }
-        r.get("index.html") { resume! }
-      end
-
       r.on "api" do
         r.run Raven::Routes::API
       end
@@ -76,10 +70,5 @@ module Raven::Routes
          </object>)
     end
     include Base64
-
-    def resume!
-      response["content-type"] = "text/html"
-      view("resume", engine: "md", layout: "resume")
-    end
   end
 end
