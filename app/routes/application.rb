@@ -13,7 +13,7 @@ module Raven::Routes
       r.on "man" do
         r.on String do |page|
           r.get do
-            man2page(page, r.params["section"]).stdout
+            man2html(page, r.params["section"])
           end
         end
       end
@@ -49,7 +49,8 @@ module Raven::Routes
     def man(name, section)
       Test::Command
         .new("man")
-        .argv([section ? Integer(section) : nil, name].compact)
+        .env("MANPATH" => "/usr/share/man")
+        .argv(*[section ? Integer(section) : nil, name].compact)
     end
 
     ##
