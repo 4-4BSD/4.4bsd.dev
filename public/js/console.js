@@ -1,4 +1,4 @@
-import { Icons } from "/assets/js/icons.js"
+import { Icons } from "/js/icons.js"
 
 function Console() {
   const self = Object.create(null)

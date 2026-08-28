@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="4.4BSD - three BSD daemon orbs">
+  <defs>
+    <radialGradient id="orb-red" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#e0796f"/>
+      <stop offset="0.45" stop-color="#a7312b"/>
+      <stop offset="1" stop-color="#5b090d"/>
+    </radialGradient>
+    <radialGradient id="orb-blue" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#7aa5d9"/>
+      <stop offset="0.45" stop-color="#35669e"/>
+      <stop offset="1" stop-color="#162f4a"/>
+    </radialGradient>
+    <radialGradient id="fish" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#6fc1d8"/>
+      <stop offset="0.45" stop-color="#2b7e9e"/>
+      <stop offset="1" stop-color="#0d3a4a"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="38%" cy="22%" r="66%">
+      <stop offset="0" stop-color="#fff8ed" stop-opacity="0.68"/>
+      <stop offset="0.42" stop-color="#d89a92" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#d89a92" stop-opacity="0"/>
+    </radialGradient>
+
+    <g id="orb-freebsd">
+      <path d="M88 72 C82 60 72 50 58 46 C62 54 64 62 70 78 Z" fill="url(#orb-red)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M168 72 C174 60 184 50 198 46 C194 54 192 62 186 78 Z" fill="url(#orb-red)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <circle cx="128" cy="150" r="82" fill="url(#orb-red)" stroke="#250507" stroke-width="7"/>
+      <ellipse cx="96" cy="104" rx="34" ry="24" fill="url(#glow)" transform="rotate(-24 96 104)"/>
+      <path d="M104 94 L112 78 L118 94 L134 100 L118 106 L112 122 L106 106 L90 100 Z" fill="#ffffff" opacity="0.35"/>
+    </g>
+
+    <g id="orb-hardened">
+      <path d="M88 72 C82 60 72 50 58 46 C62 54 64 62 70 78 Z" fill="url(#orb-blue)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M168 72 C174 60 184 50 198 46 C194 54 192 62 186 78 Z" fill="url(#orb-blue)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <circle cx="128" cy="150" r="82" fill="url(#orb-blue)" stroke="#250507" stroke-width="7"/>
+      <ellipse cx="96" cy="104" rx="34" ry="24" fill="url(#glow)" transform="rotate(-24 96 104)"/>
+      <path d="M104 94 L112 78 L118 94 L134 100 L118 106 L112 122 L106 106 L90 100 Z" fill="#ffffff" opacity="0.35"/>
+    </g>
+
+    <g id="openbsd-fish">
+      <path d="M112 92 L128 64 L144 92 Z" fill="url(#fish)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M112 208 L128 236 L144 208 Z" fill="url(#fish)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M192 136 L220 150 L192 164 Z" fill="url(#fish)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M64 150 L20 120 L28 150 L20 180 Z" fill="url(#fish)" stroke="#250507" stroke-width="6" stroke-linejoin="round"/>
+      <circle cx="128" cy="150" r="72" fill="url(#fish)" stroke="#250507" stroke-width="7"/>
+      <circle cx="158" cy="128" r="16" fill="#ffffff" stroke="#250507" stroke-width="5"/>
+      <circle cx="162" cy="132" r="7" fill="#250507"/>
+      <path d="M176 158 Q190 170 202 152" fill="none" stroke="#250507" stroke-width="5" stroke-linecap="round"/>
+      <path d="M148 204 Q168 220 184 206 Q168 196 148 204 Z" fill="url(#fish)" stroke="#250507" stroke-width="5" stroke-linejoin="round"/>
+      <ellipse cx="104" cy="110" rx="22" ry="14" fill="url(#glow)" transform="rotate(-20 104 110)"/>
+    </g>
+  </defs>
+
+  <g transform="translate(256 256)">
+    <!-- OpenBSD fish: top -->
+    <g transform="translate(0 -150)"><use href="#openbsd-fish" transform="scale(0.85) translate(-128 -150)"/></g>
+    <!-- FreeBSD orb: bottom-left -->
+    <g transform="translate(-129.93 75)"><use href="#orb-freebsd" transform="scale(0.85) translate(-128 -150)"/></g>
+    <!-- HardenedBSD orb: bottom-right -->
+    <g transform="translate(129.93 75)"><use href="#orb-hardened" transform="scale(0.85) translate(-128 -150)"/></g>
+  </g>
+</svg>
