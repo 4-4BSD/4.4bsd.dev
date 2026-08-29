@@ -3,7 +3,8 @@
   "scripts": {
     "build:js": "esbuild app/assets/js/app.js --bundle --minify --format=iife --legal-comments=eof --outfile=public/assets/js/main.js",
     "build:css": "esbuild app/assets/css/main.css --bundle --minify --legal-comments=eof --outfile=public/css/main.css",
-    "build": "npm run build:js && npm run build:css"
+    "build:man:css": "esbuild app/assets/css/man.css --bundle --minify --legal-comments=eof --outfile=public/css/man.css",
+    "build": "npm run build:js && npm run build:css && npm run build:man:css"
   },
   "devDependencies": {
     "esbuild": "^0.25.0"

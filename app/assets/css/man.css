@@ -1,0 +1,51 @@
+@import "main.css";
+
+/* Man pages — same text and centered layout as the rest of the site, but
+   tuned for plain reading: no top padding and a lighter, calmer look. */
+
+/* Drop the site's top padding so a man page starts right at the top. */
+main {
+  padding-top: 0;
+}
+
+main.home-showcase {
+  padding: 16px 0 56px;
+}
+
+/* Lighter canvas: a soft off-white instead of stark card white. */
+body.home-body {
+  --surface: #ffffff;
+  background: #f7f8fa;
+}
+
+/* man2html emits bare semantic markup inside PRE blocks. Loosen the
+   site's heavy code rules so the page reads like documentation. */
+main pre {
+  margin: 0 0 18px;
+  padding: 0;
+  overflow-x: auto;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: #3a3f45;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+main pre code {
+  padding: 0;
+  border: 0;
+  border-left: 0;
+  background: transparent;
+}
+
+/* Keep section headings, just a little lighter. */
+main h2 {
+  margin: 22px 0 8px;
+  font-size: 15px;
+  color: #1f2328;
+}
+
+main h3 {
+  margin: 18px 0 6px;
+}
