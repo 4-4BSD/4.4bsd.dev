@@ -57,7 +57,7 @@ module Raven::Routes
     def man(name, section)
       command = Test::Command
         .new("man")
-        .env("MANPATH" => "/usr/share/man")
+        .env("MANPATH" => "/usr/share/man:/usr/local/man:/usr/local/share/man")
         .argv(*[section ? Integer(section) : nil, name].compact)
       raise "bad request" unless command.success?
       command
