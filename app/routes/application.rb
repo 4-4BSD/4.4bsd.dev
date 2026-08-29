@@ -13,10 +13,13 @@ module Raven::Routes
       r.on "man" do
         r.on String do |manpage|
           r.get do
+            raise "bad request" unless manpage =~ /^[a-zA-Z0-9]+$/
             content = man2html(manpage, r.params["section"])
             locals = {content:}
             layout_opts = {locals: {manpage:}}
             view("man", layout: "layouts/man", layout_opts:, locals:)
+          rescue
+            r.halt [400, {"content-type" => "text/plain"}, ["Bad request"]]
           end
         end
       end
