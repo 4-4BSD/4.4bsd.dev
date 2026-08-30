@@ -13,7 +13,7 @@ module Raven::Routes
       r.on "man" do
         r.on String do |manpage|
           r.get do
-            raise "bad request" unless manpage =~ /^[a-zA-Z0-9-]+$/
+            raise "bad request" unless manpage =~ /^[a-zA-Z0-9\-\.]+$/
             content = man2html(manpage, r.params["section"])
             locals = {content:}
             layout_opts = {locals: {manpage:}}
@@ -42,8 +42,10 @@ module Raven::Routes
     def man2html(name, section)
       Test::Command
         .new("man2html")
+        .argv("-compress")
         .argv("-bare")
         .argv("-nodepage")
+        .argv("-cgiurl", "/man/${title}?section=${section}")
         .stdin(man(name, section))
         .stdout
     end
@@ -58,7 +60,7 @@ module Raven::Routes
       command = Test::Command
         .new("man")
         .env("MANPATH" => "/usr/share/man:/usr/local/man:/usr/local/share/man")
-        .argv(*[section ? Integer(section) : nil, name].compact)
+        .argv(*[section ? Integer(section).to_s : nil, name].compact)
       raise "bad request" unless command.success?
       command
     end

@@ -33,7 +33,8 @@ module Raven::Tools
       Command
         .new("man")
         .env("MANPATH" => "/usr/share/man:/usr/local/man:/usr/local/share/man")
-        .argv("-P", "cat", *[section ? section.to_s : nil, name.to_s].compact)
+        .argv("-P", "cat")
+        .argv(*[section ? section.to_s : nil, name.to_s].compact)
         .spawn
     end
 
