@@ -7,6 +7,9 @@ function App() {
   const agent = Agent()
 
   self.boot = () => {
+    console.input.removeAttribute("disabled")
+    console.input.setAttribute("placeholder", "Ready when you are")
+
     console.form.addEventListener("submit", async (event) => {
       event.preventDefault()
       const q = console.input.value.trim()
@@ -75,7 +78,6 @@ function App() {
       console.input.focus()
     }
   }
-
   return self
 }
 
