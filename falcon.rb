@@ -30,6 +30,7 @@ count = Integer(ENV.fetch("BSD44_WORKERS", "1"))
 service(hostname) do
   include Falcon::Environment::Rack
   count(count)
+  preload(false)
   endpoint do
     Async::HTTP::Endpoint.parse("http://#{bind}:#{port}").with(
       protocol: Async::HTTP::Protocol::HTTP1
