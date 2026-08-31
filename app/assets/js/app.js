@@ -64,7 +64,6 @@ function App() {
         /* ignore */
       }
       console.resetUI()
-      await agent.create()
     })
 
     console.expand.addEventListener("click", () => {

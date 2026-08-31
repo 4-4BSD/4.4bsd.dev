@@ -2,6 +2,7 @@
 
 module Raven::Agents
   class Puffy < ActiveRecord::Base
+    acts_as_paranoid
     acts_as_agent(format: :jsonb) do |agent|
       agent.set name: "puffy",
                 description: "a chatbot for the 4.4bsd.dev website",

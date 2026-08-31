@@ -13,6 +13,7 @@ module Raven
   require "base64"
   require "test/cmd"
   require "fdr"
+  require "paranoia"
 
   Routes = Module.new
   Agents = Module.new

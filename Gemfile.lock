@@ -118,6 +118,8 @@ GEM
       connection_pool (>= 2.2.4, < 4)
     openssl (4.0.2)
     parallel (2.1.0)
+    paranoia (3.1.0)
+      activerecord (>= 7, < 8.2)
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
@@ -264,6 +266,7 @@ DEPENDENCIES
   llm.rb (~> 15.1)
   logger
   net-http-persistent
+  paranoia
   pg
   rack-test (~> 2.2)
   rackup (~> 2.3)
@@ -326,6 +329,7 @@ CHECKSUMS
   net-http-persistent (4.0.8) sha256=ef3de8319d691537b329053fae3a33195f8b070bbbfae8bf1a58c796081960e6
   openssl (4.0.2) sha256=1037ad2868ae58df9ad917891c0c0f9815a1172f6846d4bcdd508e4c2ee747c2
   parallel (2.1.0) sha256=b35258865c2e31134c5ecb708beaaf6772adf9d5efae28e93e99260877b09356
+  paranoia (3.1.0) sha256=36574a46e8df663d0da7d9008e987b72a6a9eccee13c058b7094acc810e39f52
   parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54
   pg (1.6.3) sha256=1388d0563e13d2758c1089e35e973a3249e955c659592d10e5b77c468f628a99
   pg (1.6.3-aarch64-linux) sha256=0698ad563e02383c27510b76bf7d4cd2de19cd1d16a5013f375dd473e4be72ea
