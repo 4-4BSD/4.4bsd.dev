@@ -2,10 +2,17 @@
 
 module Raven::Routes
   class Application < Roda
-    plugin :render, views: File.join(__dir__, "..", "views")
-    plugin :public, root: File.expand_path("../../public", __dir__)
-    plugin :route_csrf, require_request_specific_tokens: false, check_header: true
-    plugin :sessions, secret: ENV["SESSION_SECRET"] || "change me" * 24
+    plugin :render,
+      views: File.join(__dir__, "..", "views"),
+      cache: false,
+      check_template_mtime: true
+    plugin :public,
+      root: File.expand_path("../../public", __dir__)
+    plugin :route_csrf,
+      require_request_specific_tokens: false,
+      check_header: true
+    plugin :sessions,
+      secret: ENV["SESSION_SECRET"] || "change me" * 24
 
     route do |r|
       r.public
