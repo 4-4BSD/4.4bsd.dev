@@ -32,10 +32,13 @@
   <body class="home-body">
     <%= yield %>
 
-    <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b565dccbae55404faf2c00fc90b87f9a"}'></script>
-    <!-- End Cloudflare Web Analytics -->
-
-    <script defer src="/assets/js/main.js?v=<%= Raven.version %>"></script>
+    <script defer
+            src="/assets/js/main.js?v=<%= Raven.version %>">
+    </script>
+    <script defer
+            type='module'
+            src='https://static.cloudflareinsights.com/beacon.min.js'
+            data-cf-beacon='{"token": "aec826b9c7334bdc8f00a83ccec4034c"}'>
+    </script>
   </body>
 </html>
