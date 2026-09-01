@@ -2,6 +2,30 @@ import { marked } from "marked"
 import hljs from "highlight.js/lib/common"
 import { Icons } from "./icons.js"
 
+// Turn bare man-page references like ls(1), jail(2) into
+// anchor tags. Runs on the raw markdown before parsing.
+marked.use({
+  extensions: [{
+    name: "manRef",
+    level: "inline",
+    start(src) { return src.match(/[a-zA-Z][\w.-]*\(\d\)/)?.index },
+    tokenizer(src) {
+      const m = /^([a-zA-Z][\w.-]*)\((\d)\)/.exec(src)
+      if (!m) return false
+      return {
+        type: "manRef",
+        raw: m[0],
+        name: m[1],
+        section: m[2]
+      }
+    },
+    renderer({ name, section }) {
+      const href = `/man/${name}?section=${section}`
+      return `<a href="${href}">${name}(${section})</a>`
+    }
+  }]
+})
+
 function Console() {
   const self = Object.create(null)
 
@@ -106,13 +130,54 @@ function Console() {
     status.classList.remove("is-active")
   }
 
-  const renderAnswer = (markdown) => {
-    answer.textContent = markdown
-    answer.innerHTML = marked.parse(markdown)
-    answer.querySelectorAll("a").forEach((el) => el.target = "_blank")
-    answer.querySelectorAll("a").forEach((el) => el.rel = "noopener")
-    answer.querySelectorAll("pre code").forEach((el) => hljs.highlightElement(el))
+  let pendingMd = null
+  let pointerOverLink = false
+
+  const doRender = (highlight = true) => {
+    if (pendingMd == null) return
+    const md = pendingMd
+    pendingMd = null
+    answer.innerHTML = marked.parse(md)
+    answer.querySelectorAll("a").forEach((el) => {
+      el.target = "_blank"
+      el.rel = "noopener"
+    })
+    if (highlight)
+      answer.querySelectorAll("pre code").forEach((el) => hljs.highlightElement(el))
   }
+
+  const scheduleRender = (markdown) => {
+    pendingMd = markdown
+    if (!pointerOverLink) doRender(false)
+  }
+
+  const flushRender = (markdown) => {
+    if (markdown != null) pendingMd = markdown
+    if (!pointerOverLink) doRender(true)
+  }
+
+  // While streaming, doRender replaces answer.innerHTML, which
+  // destroys the <a> the user clicked before navigation completes.
+  // Intercept clicks on links and navigate via window.open, which
+  // fires synchronously and survives the DOM replacement.
+  answer.addEventListener("click", (e) => {
+    const link = e.target.closest?.("a")
+    if (!link?.href) return
+    e.preventDefault()
+    window.open(link.href, "_blank", "noopener")
+  })
+
+  // Park renders while the pointer is over a link so it stays
+  // put and is clickable. Resume immediately when the pointer leaves.
+  answer.addEventListener("pointerover", (e) => {
+    if (e.target.closest?.("a")) pointerOverLink = true
+  })
+  answer.addEventListener("pointerout", (e) => {
+    if (e.target.closest?.("a") && !e.relatedTarget?.closest?.("a")) {
+      pointerOverLink = false
+      if (pendingMd) doRender(false)
+    }
+  })
 
   const showError = (message) => {
     clearStatus()
@@ -129,6 +194,8 @@ function Console() {
   self.consoleEl = consoleEl
 
   self.beginTurn = () => {
+    pendingMd = null
+    pointerOverLink = false
     answer.innerHTML = ""
     answer.classList.remove("is-error")
     clearStatus()
@@ -158,7 +225,8 @@ function Console() {
     renderStatus()
   }
 
-  self.renderAnswer = renderAnswer
+  self.renderAnswer = scheduleRender
+  self.flushRender = flushRender
   self.showError = showError
 
   self.resetUI = () => {

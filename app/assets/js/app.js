@@ -44,6 +44,8 @@ function App() {
             console.finishTurn()
             if (buffer.trim() === "" && data.answer) {
               console.renderAnswer(data.answer)
+            } else {
+              console.flushRender(buffer)
             }
           },
 
