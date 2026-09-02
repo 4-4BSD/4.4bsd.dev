@@ -39,6 +39,8 @@ namespace :db do
     end
   end
 
+  ##
+  # @return [ActiveRecord::MigrationContext]
   def migration_context
     pool = ActiveRecord::Base.connection_pool
     ActiveRecord::MigrationContext.new(
@@ -54,6 +56,16 @@ namespace :db do
     raw    = ERB.new(File.read(File.join(__dir__, "config", "database.yml"))).result
     config = YAML.safe_load(raw, aliases: true)
     config.fetch(Raven.env)
+  end
+end
+
+require_relative "rake/lib/migrations"
+namespace :g do
+  desc "Generate a migration (e.g. rake g:migration[create_users])"
+  task :migration, [:name] do |_task, args|
+    Raven::Migrations.generate(args[:name])
+  rescue ArgumentError => error
+    abort error.message
   end
 end
 
