@@ -18,7 +18,7 @@ class Raven::Routes::API
       if agent = Raven::Agents::Puffy.find_by(id:)
         {ok: true, id: agent.id}
       else
-        agent = Raven::Agents::Puffy.create!
+        agent = Raven::Agents::Puffy.create!(owner: request.ip)
         session["agent_id"] = agent.id
         {ok: true, id: agent.id}
       end
