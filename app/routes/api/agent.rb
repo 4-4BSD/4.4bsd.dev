@@ -5,16 +5,7 @@ class Raven::Routes::API
     route do |r|
       r.get(true) do
         r.sse do |sse|
-          q = r.params["q"].to_s
-          stream = Raven::Agents::Beastie::Stream.new(sse).tap(&:hello)
-          agent = Raven::Agents::Beastie.find(agent_id)
-          res = agent.talk(q, stream:)
-          stream.done(res:)
-        rescue ActiveRecord::RecordNotFound
-          stream.error(message: "agent unavailable")
-        rescue => e
-          warn "sse error: #{e.class}: #{e.message}"
-          stream.error(message: "internal server error (#{e.class})")
+          talk(r, sse)
         end
       end
 
@@ -24,6 +15,22 @@ class Raven::Routes::API
         session.delete("agent_id")
         {ok: true}
       end
+    end
+
+    private
+
+    ##
+    # @return [void]
+    def talk(r, sse)
+      q = r.params["q"].to_s
+      stream = Raven::Agents::Beastie::Stream.new(sse).tap(&:hello)
+      agent = Raven::Agents::Beastie.find(agent_id)
+      res = agent.talk(q, stream:)
+      stream.done(res:)
+    rescue ActiveRecord::RecordNotFound
+      stream.error(message: "agent unavailable")
+    rescue => e
+      stream.error(message: "internal server error (#{e.class})")
     end
 
     ##
