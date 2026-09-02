@@ -15,10 +15,10 @@ class Raven::Routes::API
     # Create an agent, yo.
     # @return [Hash]
     def create_agent!(id)
-      if agent = Raven::Agents::Puffy.find_by(id:)
+      if agent = Raven::Agents::Beastie.find_by(id:)
         {ok: true, id: agent.id}
       else
-        agent = Raven::Agents::Puffy.create!(owner: request.ip)
+        agent = Raven::Agents::Beastie.create!(owner: request.ip)
         session["agent_id"] = agent.id
         {ok: true, id: agent.id}
       end
