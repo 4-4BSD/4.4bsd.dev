@@ -2,6 +2,8 @@
 
 class Roda::RodaPlugins
   module Agent
+    require_relative "agent/scope"
+    require_relative "agent/stream"
     require_relative "agent/operations"
 
     extend self
