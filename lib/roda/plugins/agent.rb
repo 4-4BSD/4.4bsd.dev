@@ -4,13 +4,14 @@ class Roda::RodaPlugins
   module Agent
     require_relative "agent/router"
     require_relative "agent/scope"
+    require_relative "agent/scope/session"
     require_relative "agent/stream"
     require_relative "agent/operations"
 
     extend self
     extend Operations
     DEFAULTS = {path: "agents", scope: :session}.freeze
-    SCOPES   = {session: SessionScope, global: GlobalScope}
+    SCOPES   = {session: Scope::Session}.freeze
 
     ##
     # @param [Roda] _app
