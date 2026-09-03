@@ -11,7 +11,7 @@ module Raven::Routes
     plugin :public,
       root: File.expand_path("../../public", __dir__)
     plugin :agent,
-            agents: [{class: Beastie, stream: Beastie::Stream}]
+            agents: [{class: Beastie, stream: Beastie::Stream, scope: :session}]
 
     route do |r|
       r.public
