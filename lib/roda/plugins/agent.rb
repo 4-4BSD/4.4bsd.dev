@@ -27,9 +27,8 @@ class Roda::RodaPlugins
     # @return [void]
     def configure(app, options)
       options = DEFAULTS.merge(options)
-      global_store = {}
       options[:agents].each do |agent|
-        scope = SCOPES[agent[:scope]]
+        scope = SCOPES[agent[:scope]].new(app)
         key = agent[:class].name
         registry[key] = agent.slice(:class, :stream).merge!(scope:)
       end
