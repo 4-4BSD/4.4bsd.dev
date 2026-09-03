@@ -26,7 +26,7 @@ module Roda::RodaPlugins::Agent
     # @param [LLM::Response] res
     #  A response object.
     # @return [void]
-    def done(res:)
+    def goodbye(res:)
     end
 
     ##

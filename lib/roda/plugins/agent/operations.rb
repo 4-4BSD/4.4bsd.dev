@@ -19,7 +19,7 @@ class Roda::RodaPlugins::Agent
       stream = stream!(name).new(sse).tap(&:hello)
       agent = scope.find!(klass)
       res = agent.talk(query, stream:)
-      stream&.done(res:)
+      stream&.goodbye(res:)
     rescue ActiveRecord::RecordNotFound
       stream&.error(message: "agent unavailable")
     rescue => e
