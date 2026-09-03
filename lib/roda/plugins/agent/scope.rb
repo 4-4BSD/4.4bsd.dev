@@ -71,5 +71,11 @@ class Roda::RodaPlugins::Agent
     def session
       @app.session
     end
+
+    ##
+    # @return [Rack::Request]
+    def request
+      @app.request
+    end
   end
 end
