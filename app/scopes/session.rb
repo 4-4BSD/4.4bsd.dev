@@ -5,7 +5,7 @@ module Raven::Scopes
   # The {Raven::Scopes::Session Session} scope stores one
   # agent per visitor session, and records the visitor's
   # client IP on each generated agent.
-  class Session < Roda::RodaPlugins::Agent::Scope::Session
+  class Session < LLM::Roda::Scope::Session
     ##
     # Create an agent and bind it to this visitor's
     # session, tagging it with the client IP.

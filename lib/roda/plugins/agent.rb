@@ -55,3 +55,7 @@ class Roda::RodaPlugins
   end
   register_plugin(:agent, Agent)
 end
+
+module LLM
+  Roda = Roda::RodaPlugins::Agent
+end
