@@ -40,10 +40,15 @@ class Roda::RodaPlugins
       @registry ||= {}
     end
 
-    module InstanceMethods
-      def mount_agents!(r)
-        options = self.class.opts[:agent]
-        r.on(options[:path]) { r.run options[:app] }
+    module RequestMethods
+      ##
+      # Mounts the agent fleet under the configured path,
+      # e.g. `r.agent!` in the app's route block.
+      #
+      # @return [void]
+      def agent!
+        options = scope.class.opts[:agent]
+        on(options[:path]) { run options[:app] }
       end
     end
   end
