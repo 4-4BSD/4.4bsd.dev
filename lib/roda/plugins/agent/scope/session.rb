@@ -32,7 +32,7 @@ class Roda::RodaPlugins::Agent
     # @param [Class(LLM::Agent)] klass
     # @return [LLM::Agent]
     def create(klass)
-      klass.create!.tap { session[key!(klass)] = _1.id }
+      klass.create!.tap { session[key!(klass)] = it.id }
     end
 
     ##

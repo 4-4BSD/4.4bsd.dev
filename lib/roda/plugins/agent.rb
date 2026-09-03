@@ -10,8 +10,9 @@ class Roda::RodaPlugins
 
     extend self
     extend Operations
+
     DEFAULTS = {path: "agents", scope: :session}.freeze
-    SCOPES   = {session: Scope::Session}.freeze
+    SCOPES = {session: Scope::Session}.freeze
 
     ##
     # @param [Roda] _app

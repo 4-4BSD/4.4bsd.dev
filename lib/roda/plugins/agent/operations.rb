@@ -22,7 +22,7 @@ class Roda::RodaPlugins::Agent
       stream&.goodbye(res:)
     rescue ActiveRecord::RecordNotFound
       stream&.error(message: "agent unavailable")
-    rescue => e
+    rescue
       stream&.error(message: "internal server error")
     end
 

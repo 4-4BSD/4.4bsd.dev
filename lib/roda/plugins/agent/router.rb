@@ -10,8 +10,8 @@ class Roda::RodaPlugins::Agent
 
     route do |r|
       r.on String do |name|
-        r.post(true)   { [check_csrf!, Agent.create!(name)].last }
-        r.sse          { |sse| Agent.update!(name, r.params, sse) }
+        r.post(true) { [check_csrf!, Agent.create!(name)].last }
+        r.sse { |sse| Agent.update!(name, r.params, sse) }
         r.delete(true) { [check_csrf!, Agent.destroy!(name)].last }
       end
     end
