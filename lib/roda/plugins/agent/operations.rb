@@ -36,15 +36,15 @@ class Roda::RodaPlugins::Agent
     private
 
     def agent!(name)
-      Routes.registry[name] or raise "no agent registered under #{name.inspect}"
+      LLM::Object.from(Agent.registry[name])
     end
 
     def agent_class!(name)
-      entry_for(name)[:class]
+      agent!(name).class
     end
 
     def scope!(name)
-      entry_for(name)[:scope]
+      agent!(name).scope
     end
   end
 end
