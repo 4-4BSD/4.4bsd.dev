@@ -28,6 +28,13 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Reserve scrollbar space on both edges so content stays
+     visually centred in Chromium (classic scrollbars consume
+     layout width) and Firefox (overlay scrollbars take none). */
+  scrollbar-gutter: stable both-edges;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -45,7 +52,7 @@ button {
 }
 
 main {
-  width: min(860px, calc(100% - 32px));
+  max-width: 726px;
   margin: 0 auto;
   padding: 56px 0 80px;
 }
@@ -326,9 +333,8 @@ header {
 }
 
 .home-showcase {
-  width: min(726px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 40px 0 96px;
+  padding: 40px 0 45px 0;
 }
 
 .home-logo {
