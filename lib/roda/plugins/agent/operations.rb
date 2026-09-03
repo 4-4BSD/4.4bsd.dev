@@ -16,7 +16,7 @@ class Roda::RodaPlugins::Agent
     def update!(query, name)
       klass = agent_class!(name)
       scope = scope!(name)
-      stream = (klass::Stream rescue Raven::Stream).new(sse).tap(&:hello)
+      stream = stream!(name).new(sse).tap(&:hello)
       agent = scope.find!(klass)
       res = agent.talk(query, stream:)
       stream&.done(res:)
@@ -45,6 +45,10 @@ class Roda::RodaPlugins::Agent
 
     def scope!(name)
       agent!(name).scope
+    end
+
+    def stream!(name)
+      agent!(name).stream || Roda::RodaPlugins::Agent::Stream
     end
   end
 end
