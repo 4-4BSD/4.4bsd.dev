@@ -16,7 +16,7 @@ module Raven::Routes
       require_request_specific_tokens: false,
       check_header: true
     plugin :agent,
-            agents: [{class: Beastie, stream: Beastie::Stream, scope: Raven::Scopes::Session}]
+            agents: [{class: Beastie, scope: :session}]
 
     route do |r|
       r.public
