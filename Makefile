@@ -25,7 +25,7 @@ SYSRC ?= sysrc
 DB_PASSWORD_KEYS ?= bsd44_db_password
 
 APP_FILES = Rakefile config.ru falcon.rb Gemfile Gemfile.lock LICENSE README.md .version
-APP_DIRS = .bundle bin app config db libexec public rake
+APP_DIRS = .bundle bin app config db libexec public rake lib
 
 RACK_ENV ?= production
 
