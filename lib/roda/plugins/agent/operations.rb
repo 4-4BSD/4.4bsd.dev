@@ -13,12 +13,12 @@ class Roda::RodaPlugins::Agent
       end
     end
 
-    def update!(query, name)
+    def update!(name, params, sse)
       klass = agent_class!(name)
       scope = scope!(name)
       stream = stream!(name).new(sse).tap(&:hello)
       agent = scope.find!(klass)
-      res = agent.talk(query, stream:)
+      res = agent.talk(params["q"], stream:)
       stream&.goodbye(res:)
     rescue ActiveRecord::RecordNotFound
       stream&.error(message: "agent unavailable")

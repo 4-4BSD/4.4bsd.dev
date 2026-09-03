@@ -2,6 +2,7 @@
 
 class Roda::RodaPlugins
   module Agent
+    require_relative "agent/router"
     require_relative "agent/scope"
     require_relative "agent/stream"
     require_relative "agent/operations"
@@ -16,11 +17,7 @@ class Roda::RodaPlugins
     # @param [Hash] _options
     # @return [void]
     def load_dependencies(app, _options)
-      app.plugin :json
-      app.plugin :sse
-      app.plugin :all_verbs
-      app.plugin :sessions, secret: ENV["SESSION_SECRET"] || "change me" * 24
-      app.plugin :route_csrf, require_request_specific_tokens: false, check_header: true
+      nil
     end
 
     ##
