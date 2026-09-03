@@ -2,20 +2,25 @@
 
 module Raven::Routes
   class Application < Roda
+    include Raven::Agents
+
     plugin :render,
       views: File.join(__dir__, "..", "views"),
       cache: false,
       check_template_mtime: true
     plugin :public,
       root: File.expand_path("../../public", __dir__)
+    plugin :sessions,
+      secret: ENV["SESSION_SECRET"] || "change me" * 24
     plugin :route_csrf,
       require_request_specific_tokens: false,
       check_header: true
-    plugin :sessions,
-      secret: ENV["SESSION_SECRET"] || "change me" * 24
+    plugin :agent,
+            agents: [{class: Beastie, stream: Beastie::Stream, scope: Raven::Scopes::Session}]
 
     route do |r|
       r.public
+      r.agent!
 
       r.on "man" do
         r.on String do |manpage|
@@ -33,10 +38,6 @@ module Raven::Routes
 
       r.root do
         view("index")
-      end
-
-      r.on "api" do
-        r.run Raven::Routes::API
       end
     end
 
