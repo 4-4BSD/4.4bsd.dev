@@ -31,7 +31,7 @@ class Roda::RodaPlugins
         key = agent[:class].name
         registry[key] = agent.slice(:class, :stream).merge!(scope:)
       end
-      app.opts[:agent] = option.slice(:path).merge!(app: Routes)
+      app.opts[:agent] = options.slice(:path).merge!(app: Router)
     end
 
     ##
