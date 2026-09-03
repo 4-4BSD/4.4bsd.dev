@@ -5,6 +5,15 @@ GIT
     fdr (0.1.0)
       rb_sys (~> 0.9.130)
 
+GIT
+  remote: https://github.com/r-uby-dev/roda-llm.git
+  revision: 4b39e777872e1148de684e0658a9a2786c30b0cd
+  specs:
+    roda-llm (0.1.0)
+      llm.rb (~> 15.1)
+      roda (~> 3.85)
+      roda-sse (~> 0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -273,6 +282,7 @@ DEPENDENCIES
   rake
   redcarpet
   roda (~> 3.104)
+  roda-llm!
   roda-sse (~> 0.3)
   rouge
   rspec
@@ -362,6 +372,7 @@ CHECKSUMS
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
   roda (3.105.0) sha256=1273b4f84f606a32fd17114b92b345196d18e8afb07c4b75b873354a54bd6e35
+  roda-llm (0.1.0)
   roda-sse (0.3.0) sha256=9a8fe00764cd5c8913cf0e1ae53da288f7463d692181452cc686b8d8094b8a95
   rouge (5.1.0) sha256=b77c632842ab7f5147940212f0345808cccfbce864fd5b631d7d12a35ac85452
   rspec (3.13.2) sha256=206284a08ad798e61f86d7ca3e376718d52c0bc944626b2349266f239f820587

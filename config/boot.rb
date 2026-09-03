@@ -55,7 +55,7 @@ module Raven
   # then load every app file sorted by path. That ordering puts
   # app/agents/... before app/routes/... so `Beastie` exists before
   # application.rb calls `plugin :agent, agents: [Beastie, ...]`.
-  require File.join(Raven.root, "lib", "roda", "plugins", "agent")
+  require "roda-llm"
   Dir[File.join(appdir, "scopes", "**", "*.rb")].sort.each { require(_1) }
   Dir[File.join(appdir, "**", "*.rb")].sort.each { require(_1) }
 end
