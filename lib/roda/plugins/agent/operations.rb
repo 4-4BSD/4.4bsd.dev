@@ -1,21 +1,23 @@
 # frozen_string_literal: true
 
-class Roda::RodaPlugins::Agent
+module Roda::RodaPlugins::Agent
   module Operations
     def create!(name)
       klass = agent_class!(name)
-      scope = scope!(name)
-      if agent = scope.find(klass)
-        {ok: true, id: agent.id}
-      else
-        agent = scope.create(klass)
-        {ok: true, id: agent.id}
-      end
+      ##
+      # The 'scope' local is resolved to self.
+      # It refers to an instance of Roda.
+      scope = scope!(name).new(scope)
+      agent = scope.find(klass) || scope.create(klass)
+      {ok: true, id: agent.id}
     end
 
     def update!(name, params, sse)
       klass = agent_class!(name)
-      scope = scope!(name)
+      ##
+      # The 'scope' local is resolved to self.
+      # It refers to an instance of Roda.
+      scope = scope!(name).new(scope)
       stream = stream!(name).new(sse).tap(&:hello)
       agent = scope.find!(klass)
       res = agent.talk(params["q"], stream:)
@@ -28,7 +30,10 @@ class Roda::RodaPlugins::Agent
 
     def destroy!(name)
       klass = agent_class!(name)
-      scope = scope!(name)
+      ##
+      # The 'scope' local is resolved to self.
+      # It refers to an instance of Roda.
+      scope = scope!(name).new(scope)
       scope.destroy(klass)
       {ok: true}
     end
@@ -36,7 +41,7 @@ class Roda::RodaPlugins::Agent
     private
 
     def agent!(name)
-      LLM::Object.from(Agent.registry[name])
+      LLM::Object.from(LLM::Roda.registry[name])
     end
 
     def agent_class!(name)
@@ -48,7 +53,7 @@ class Roda::RodaPlugins::Agent
     end
 
     def stream!(name)
-      agent!(name).stream || Roda::RodaPlugins::Agent::Stream
+      agent!(name).stream || LLM::Roda::Stream
     end
   end
 end

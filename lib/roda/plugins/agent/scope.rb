@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Roda::RodaPlugins::Agent
+module Roda::RodaPlugins::Agent
   ##
   # The {Roda::RodaPlugins::Agent::Scope Scope} class defines
   # the interface that a scope must provide to store and
@@ -62,6 +62,14 @@ class Roda::RodaPlugins::Agent
     # @return [void]
     def destroy(klass)
       raise NotImplementedError
+    end
+
+    ##
+    # No-op by default.
+    # Enable with the `csrf_check` plugin.
+    # @return [void]
+    def check_csrf!
+      @app.check_csrf! if @app.respond_to?(:check_csrf!)
     end
 
     private

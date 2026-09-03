@@ -50,9 +50,13 @@ module Raven
   ActiveRecord::Base.establish_connection(conn)
 
   ##
-  # Boot the rest of the application
-  require File.join(appdir, "routes", "application")
-  require File.join(appdir, "lib", "roda", "plugins", "agent")
+  # Boot the rest of the application: load the agent plugin first
+  # (it registers `:agent` and defines the LLM::Roda stream alias),
+  # then load every app file sorted by path. That ordering puts
+  # app/agents/... before app/routes/... so `Beastie` exists before
+  # application.rb calls `plugin :agent, agents: [Beastie, ...]`.
+  require File.join(Raven.root, "lib", "roda", "plugins", "agent")
+  Dir[File.join(appdir, "scopes", "**", "*.rb")].sort.each { require(_1) }
   Dir[File.join(appdir, "**", "*.rb")].sort.each { require(_1) }
 end
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Roda::RodaPlugins::Agent
+module Roda::RodaPlugins::Agent
   ##
   # The {Roda::RodaPlugins::Agent::Scope::Session Session} scope
   # stores one agent per visitor session. The agent's id lives
@@ -52,7 +52,7 @@ class Roda::RodaPlugins::Agent
     # @param [Class(LLM::Agent)] klass
     # @return [String]
     def key!(klass)
-      "agent_id:#{klass.name}"
+      "agent_id:#{klass.agent.name}"
     end
   end
 end

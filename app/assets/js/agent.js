@@ -13,12 +13,12 @@ function Agent() {
   const api = Api()
 
   self.create = async () => {
-    const res = await api.request("POST", "/api/agents")
+    const res = await api.request("POST", "/agents/beastie")
     return res.json()
   }
 
   self.destroy = async () => {
-    const res = await api.request("DELETE", "/api/agent")
+    const res = await api.request("DELETE", "/agents/beastie")
     return res.json()
   }
 
@@ -29,7 +29,7 @@ Agent.Stream = function Stream(handlers = {}) {
   const self = Object.create(null)
 
   self.open = (q) => {
-    self.es = new EventSource("/api/agent?q=" + encodeURIComponent(q))
+    self.es = new EventSource("/agents/beastie?q=" + encodeURIComponent(q))
     for (const [event, handler] of Object.entries(EVENT_HANDLERS)) {
       if (handlers[handler]) {
         self.es.addEventListener(event, (e) => handlers[handler](JSON.parse(e.data)))

@@ -10,8 +10,13 @@ module Raven::Routes
       check_template_mtime: true
     plugin :public,
       root: File.expand_path("../../public", __dir__)
+    plugin :sessions,
+      secret: ENV["SESSION_SECRET"] || "change me" * 24
+    plugin :route_csrf,
+      require_request_specific_tokens: false,
+      check_header: true
     plugin :agent,
-            agents: [{class: Beastie, stream: Beastie::Stream, scope: :session}]
+            agents: [{class: Beastie, stream: Beastie::Stream, scope: Raven::Scopes::Session}]
 
     route do |r|
       r.public
