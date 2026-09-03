@@ -13,7 +13,7 @@ module Raven::Scopes
     # @param [Class(LLM::Agent)] klass
     # @return [LLM::Agent]
     def create(klass)
-      klass.create!(owner: request.ip).tap { session[key!(klass)] = _1.id }
+      klass.create!(owner: request.ip).tap { session[key!(klass)] = it.id }
     end
   end
 end
