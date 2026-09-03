@@ -52,6 +52,7 @@ module Raven
   ##
   # Boot the rest of the application
   require File.join(appdir, "routes", "application")
+  require File.join(appdir, "lib", "roda", "plugins", "agent")
   Dir[File.join(appdir, "**", "*.rb")].sort.each { require(_1) }
 end
 
