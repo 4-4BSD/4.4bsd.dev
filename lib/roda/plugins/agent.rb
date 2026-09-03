@@ -31,6 +31,7 @@ module Roda::RodaPlugins
     # @param [Hash] options
     # @return [void]
     def configure(_app, options)
+      options = DEFAULTS.merge(options)
       @path = options[:path]
       options[:agents].each do |agent|
         scope = SCOPES[agent[:scope]] || agent[:scope]
@@ -64,9 +65,9 @@ module Roda::RodaPlugins
         path = LLM::Roda.path
         on(path) do
           on String do |name|
-            post(true)   { [scope!(name).check_csrf!, create!(name)].last }
+            post(true)   { [agent_scope!(name).new(self).check_csrf!, create!(name)].last }
             sse          { |sse| update!(name, params, sse) }
-            delete(true) { [scope!(name).check_csrf!, destroy!(name)].last }
+            delete(true) { [agent_scope!(name).new(self).check_csrf!, destroy!(name)].last }
           end
         end
       end
