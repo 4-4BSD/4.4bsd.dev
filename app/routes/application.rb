@@ -93,6 +93,22 @@ module Raven::Routes
          aria-hidden="true">
          </object>)
     end
+
+    ##
+    # Inlines a JavaScript file as a <script> in the page, so
+    # it loads without an extra network round-trip.
+    # @param [String] name
+    #  The JS file name within public/assets/js
+    # @return [String]
+    #  A script tag with the file contents inlined
+    def js!(name)
+      root = File.expand_path("../../public/assets/js/", __dir__)
+      path = File.expand_path(File.join(root, name))
+      unless path.start_with?(root + File::SEPARATOR) and File.file?(path)
+        raise ArgumentError, "js file not found: #{name}"
+      end
+      %(<script>#{File.read(path)}</script>)
+    end
     include Base64
   end
 end

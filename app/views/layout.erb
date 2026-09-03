@@ -32,12 +32,10 @@
   <body class="home-body">
     <%= yield %>
     <script defer
-            src="/assets/js/main.js?v=<%= Raven.version %>">
-    </script>
-    <script defer
             type='module'
             src='https://static.cloudflareinsights.com/beacon.min.js'
             data-cf-beacon='{"token": "aec826b9c7334bdc8f00a83ccec4034c"}'>
     </script>
+    <%= js!("main.js") %>
   </body>
 </html>
