@@ -13,7 +13,7 @@ class Roda::RodaPlugins
     SCOPES   = {session: SessionScope, global: GlobalScope}
 
     ##
-    # @param [Roda] app
+    # @param [Roda] _app
     # @param [Hash] _options
     # @return [void]
     def load_dependencies(_app, _options)
