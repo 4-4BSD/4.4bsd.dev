@@ -16,7 +16,7 @@ class Roda::RodaPlugins
     # @param [Roda] app
     # @param [Hash] _options
     # @return [void]
-    def load_dependencies(app, _options)
+    def load_dependencies(_app, _options)
       nil
     end
 
